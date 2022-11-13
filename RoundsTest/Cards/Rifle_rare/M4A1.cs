@@ -94,7 +94,7 @@ namespace RoundsTest.Cards
 
                 new CardInfoStat()
                 {
-                    positive = false,
+                    positive = true,
                     stat = "Reload time",
                     amount = "2s",
                     simepleAmount = CardInfoStat.SimpleAmount.notAssigned
