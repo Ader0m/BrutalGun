@@ -40,7 +40,9 @@ namespace RoundsTest
         {
             Instance = this;
             CustomCard.BuildCard<AmmoXL>();
+            CustomCard.BuildCard<AK74>();
             CustomCard.BuildCard<M4A1>();
+
         }
     }
 }

@@ -9,7 +9,7 @@ using UnityEngine;
 
 namespace RoundsTest.Cards
 {
-    public class M4A1 : CustomCard
+    public class AK74 : CustomCard
     {
         public override void SetupCard(CardInfo cardInfo, Gun gun, ApplyCardStats cardStats, CharacterStatModifiers statModifiers, Block block)
         {
@@ -19,10 +19,10 @@ namespace RoundsTest.Cards
         public override void OnAddCard(Player player, Gun gun, GunAmmo gunAmmo, CharacterData data, HealthHandler health, Gravity gravity, Block block, CharacterStatModifiers characterStats)
         {
             //show stats
-            gun.damage = 1.28f;
-            gun.attackSpeed = 0.15f;
-            gunAmmo.maxAmmo = 17;
-            gunAmmo.reloadTimeAdd = 1f;
+            gun.damage = 1.4f;
+            gun.attackSpeed = 0.2f;
+            gunAmmo.maxAmmo = 15;
+            gunAmmo.reloadTimeAdd = 1.1f;
 
             // hide stats
             gun.dontAllowAutoFire = false;
@@ -36,7 +36,7 @@ namespace RoundsTest.Cards
             gun.damage = 1f;
             gun.attackSpeed = 1f;
             gunAmmo.maxAmmo = 3;
-            gunAmmo.reloadTimeAdd = -1f;
+            gunAmmo.reloadTimeAdd = -1.1f;
 
             // hide stats
             gun.dontAllowAutoFire = true;
@@ -46,12 +46,12 @@ namespace RoundsTest.Cards
 
         protected override string GetTitle()
         {
-            return "M4A1";
+            return "AK-74";
         }
 
         protected override string GetDescription()
         {
-            return "American assault rifle";
+            return "Soviet assault rifle";
         }
 
         protected override GameObject GetCardArt()
@@ -72,7 +72,7 @@ namespace RoundsTest.Cards
                 {
                     positive = true,
                     stat = "DMG",
-                    amount = "70",
+                    amount = "77",
                     simepleAmount = CardInfoStat.SimpleAmount.notAssigned
                 },
 
@@ -80,7 +80,7 @@ namespace RoundsTest.Cards
                 {
                     positive = true,
                     stat = "ATKSPD",
-                    amount = "0.15",
+                    amount = "0.2s",
                     simepleAmount = CardInfoStat.SimpleAmount.notAssigned
                 },
 
@@ -96,7 +96,7 @@ namespace RoundsTest.Cards
                 {
                     positive = false,
                     stat = "Reload time",
-                    amount = "2s",
+                    amount = "2.1s",
                     simepleAmount = CardInfoStat.SimpleAmount.notAssigned
                 }
             };
