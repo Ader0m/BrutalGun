@@ -71,26 +71,34 @@ namespace RoundsTest.Cards
                 new CardInfoStat()
                 {
                     positive = true,
-                    stat = "Reload Time",
-                    amount = "0.9s",
+                    stat = "DMG",
+                    amount = "33",
                     simepleAmount = CardInfoStat.SimpleAmount.notAssigned
                 },
 
                 new CardInfoStat()
                 {
                     positive = true,
-                    stat = "DMG",
-                    amount = "33",
+                    stat = "ATKSPD",
+                    amount = "0.15s",
                     simepleAmount = CardInfoStat.SimpleAmount.notAssigned
                 },
-                
+
                 new CardInfoStat()
                 {
                     positive = true,
-                    stat = "Effect",
-                    amount = "No",
+                    stat = "AMMO",
+                    amount = "10",
                     simepleAmount = CardInfoStat.SimpleAmount.notAssigned
-                }
+                },
+
+                new CardInfoStat()
+                {
+                    positive = true,
+                    stat = "Reload Time",
+                    amount = "0.9s",
+                    simepleAmount = CardInfoStat.SimpleAmount.notAssigned
+                },                                
             };
         }
 
