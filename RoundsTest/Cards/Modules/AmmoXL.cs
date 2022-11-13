@@ -14,16 +14,17 @@ namespace RoundsTest.Cards
         public override void SetupCard(CardInfo cardInfo, Gun gun, ApplyCardStats cardStats, CharacterStatModifiers statModifiers, Block block)
         {
             gun.reloadTimeAdd = 2;
+            gun.ammo = 10;
         }
 
         public override void OnAddCard(Player player, Gun gun, GunAmmo gunAmmo, CharacterData data, HealthHandler health, Gravity gravity, Block block, CharacterStatModifiers characterStats)
         {
-            gunAmmo.maxAmmo += 10;
+            
         }
 
         public override void OnRemoveCard(Player player, Gun gun, GunAmmo gunAmmo, CharacterData data, HealthHandler health, Gravity gravity, Block block, CharacterStatModifiers characterStats)
         {
-            gunAmmo.maxAmmo -= 10;
+            
         }
 
         protected override string GetTitle()
@@ -43,7 +44,7 @@ namespace RoundsTest.Cards
 
         protected override CardInfo.Rarity GetRarity()
         {
-            return CardInfo.Rarity.Common;
+            return CardInfo.Rarity.Uncommon;
         }
 
         protected override CardInfoStat[] GetStats()
@@ -75,7 +76,7 @@ namespace RoundsTest.Cards
 
         public override string GetModName()
         {
-            return "RT";
+            return RoundsTest.ModInitials;
         }
     }
 }
