@@ -13,7 +13,7 @@ namespace RoundsTest.Cards
     {
         public override void SetupCard(CardInfo cardInfo, Gun gun, ApplyCardStats cardStats, CharacterStatModifiers statModifiers, Block block)
         {
-            //Edits values on card itself, which are then applied to the player in `ApplyCardStats`
+            gun.reloadTimeAdd = 2;
         }
 
         public override void OnAddCard(Player player, Gun gun, GunAmmo gunAmmo, CharacterData data, HealthHandler health, Gravity gravity, Block block, CharacterStatModifiers characterStats)
@@ -33,7 +33,7 @@ namespace RoundsTest.Cards
 
         protected override string GetDescription()
         {
-            return "Buff maxAmmo";
+            return "Make you magazine big and fat";
         }
 
         protected override GameObject GetCardArt()
@@ -53,8 +53,16 @@ namespace RoundsTest.Cards
                 new CardInfoStat()
                 {
                     positive = true,
-                    stat = "Ammo",
+                    stat = "Bullets",
                     amount = "+10",
+                    simepleAmount = CardInfoStat.SimpleAmount.notAssigned
+                },
+
+                new CardInfoStat()
+                {
+                    positive = false,
+                    stat = "Reload Time",
+                    amount = "+2s",
                     simepleAmount = CardInfoStat.SimpleAmount.notAssigned
                 }
             };

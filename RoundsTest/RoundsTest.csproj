@@ -6,6 +6,10 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <None Remove=".gitignore" />
+  </ItemGroup>
+
+  <ItemGroup>
     <Reference Include="0Harmony">
       <HintPath>..\..\..\..\Downloads\BepInEx_x64_5.4.21.0\BepInEx\core\0Harmony.dll</HintPath>
     </Reference>
