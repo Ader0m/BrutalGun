@@ -1,4 +1,5 @@
-﻿using System;
+﻿using CardChoiceSpawnUniqueCardPatch.CustomCategories;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -13,6 +14,8 @@ namespace RoundsTest.Cards
     {
         public override void SetupCard(CardInfo cardInfo, Gun gun, ApplyCardStats cardStats, CharacterStatModifiers statModifiers, Block block)
         {
+            cardInfo.categories = new CardCategory[] { CustomCardCategories.instance.CardCategory("Module") };
+
             gun.reloadTimeAdd = 2;
             gun.ammo = 10;
         }
