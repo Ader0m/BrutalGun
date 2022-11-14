@@ -68,7 +68,7 @@ namespace RoundsTest.Cards
 
         public override string GetModName()
         {
-            return RoundsTest.ModInitials;
+            return RoundsTest.MOD_INITIALS;
         }
     }
 }
