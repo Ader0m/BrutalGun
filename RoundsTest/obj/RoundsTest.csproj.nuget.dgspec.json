@@ -1,24 +1,20 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\Vlad\\source\\repos\\RoundsTest\\RoundsTest\\RoundsTest.csproj": {}
+    "G:\\Созданные моды\\Rounds\\BrutalGun VisualStudio\\RoundsTest\\RoundsTest.csproj": {}
   },
   "projects": {
-    "C:\\Users\\Vlad\\source\\repos\\RoundsTest\\RoundsTest\\RoundsTest.csproj": {
+    "G:\\Созданные моды\\Rounds\\BrutalGun VisualStudio\\RoundsTest\\RoundsTest.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\Vlad\\source\\repos\\RoundsTest\\RoundsTest\\RoundsTest.csproj",
+        "projectUniqueName": "G:\\Созданные моды\\Rounds\\BrutalGun VisualStudio\\RoundsTest\\RoundsTest.csproj",
         "projectName": "RoundsTest",
-        "projectPath": "C:\\Users\\Vlad\\source\\repos\\RoundsTest\\RoundsTest\\RoundsTest.csproj",
-        "packagesPath": "C:\\Users\\Vlad\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\Vlad\\source\\repos\\RoundsTest\\RoundsTest\\obj\\",
+        "projectPath": "G:\\Созданные моды\\Rounds\\BrutalGun VisualStudio\\RoundsTest\\RoundsTest.csproj",
+        "packagesPath": "C:\\Users\\Влад\\.nuget\\packages\\",
+        "outputPath": "G:\\Созданные моды\\Rounds\\BrutalGun VisualStudio\\RoundsTest\\obj\\",
         "projectStyle": "PackageReference",
-        "fallbackFolders": [
-          "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
-        ],
         "configFilePaths": [
-          "C:\\Users\\Vlad\\AppData\\Roaming\\NuGet\\NuGet.Config",
-          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
+          "C:\\Users\\Влад\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [
@@ -58,7 +54,7 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\6.0.201\\RuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\6.0.300\\RuntimeIdentifierGraph.json"
         }
       }
     }

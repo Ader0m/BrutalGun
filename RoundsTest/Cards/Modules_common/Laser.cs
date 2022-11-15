@@ -11,13 +11,13 @@ using BrutalGun;
 
 namespace BrutalGun.Cards
 {
-    public class Template : CustomCard
+    public class Laser : CustomCard
     {
         public override void SetupCard(CardInfo cardInfo, Gun gun, ApplyCardStats cardStats, CharacterStatModifiers statModifiers, Block block)
         {
             cardInfo.categories = new CardCategory[] { MyCategories.Module };
 
-            //Edits values on card itself, which are then applied to the player in `ApplyCardStats`
+            gun.multiplySpread = 0.9f;
         }
 
         public override void OnAddCard(Player player, Gun gun, GunAmmo gunAmmo, CharacterData data, HealthHandler health, Gravity gravity, Block block, CharacterStatModifiers characterStats)
@@ -32,12 +32,12 @@ namespace BrutalGun.Cards
 
         protected override string GetTitle()
         {
-            return "CardName";
+            return "Laser";
         }
 
         protected override string GetDescription()
         {
-            return "CardDescription";
+            return "Tactical laser. Some help for handless soldier";
         }
 
         protected override GameObject GetCardArt()
@@ -57,8 +57,8 @@ namespace BrutalGun.Cards
                 new CardInfoStat()
                 {
                     positive = true,
-                    stat = "Effect",
-                    amount = "No",
+                    stat = "Accuracy",
+                    amount = "+10%",
                     simepleAmount = CardInfoStat.SimpleAmount.notAssigned
                 }
             };

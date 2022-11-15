@@ -11,13 +11,13 @@ using BrutalGun;
 
 namespace BrutalGun.Cards
 {
-    public class Template : CustomCard
+    public class QuickDrop : CustomCard
     {
         public override void SetupCard(CardInfo cardInfo, Gun gun, ApplyCardStats cardStats, CharacterStatModifiers statModifiers, Block block)
         {
             cardInfo.categories = new CardCategory[] { MyCategories.Module };
 
-            //Edits values on card itself, which are then applied to the player in `ApplyCardStats`
+            gun.reloadTime = 0.85f;
         }
 
         public override void OnAddCard(Player player, Gun gun, GunAmmo gunAmmo, CharacterData data, HealthHandler health, Gravity gravity, Block block, CharacterStatModifiers characterStats)
@@ -32,12 +32,12 @@ namespace BrutalGun.Cards
 
         protected override string GetTitle()
         {
-            return "CardName";
+            return "Quick Drop";
         }
 
         protected override string GetDescription()
         {
-            return "CardDescription";
+            return "Why you save empty mag? Drop they!";
         }
 
         protected override GameObject GetCardArt()
@@ -57,8 +57,8 @@ namespace BrutalGun.Cards
                 new CardInfoStat()
                 {
                     positive = true,
-                    stat = "Effect",
-                    amount = "No",
+                    stat = "Reload time",
+                    amount = "-15%",
                     simepleAmount = CardInfoStat.SimpleAmount.notAssigned
                 }
             };

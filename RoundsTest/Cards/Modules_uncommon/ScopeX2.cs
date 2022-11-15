@@ -7,37 +7,38 @@ using System.Threading.Tasks;
 using UnboundLib;
 using UnboundLib.Cards;
 using UnityEngine;
+using BrutalGun;
 
-namespace RoundsTest.Cards
+namespace BrutalGun.Cards
 {
-    public class AmmoXL : CustomCard
+    public class ScopeX2 : CustomCard
     {
         public override void SetupCard(CardInfo cardInfo, Gun gun, ApplyCardStats cardStats, CharacterStatModifiers statModifiers, Block block)
         {
-            cardInfo.categories = new CardCategory[] { CustomCardCategories.instance.CardCategory("Module") };
+            cardInfo.categories = new CardCategory[] { MyCategories.Module };
 
-            gun.reloadTimeAdd = 2;
-            gun.ammo = 10;
+            gun.multiplySpread = 0.8f;
+            statModifiers.movementSpeed = 0.9f;
         }
 
         public override void OnAddCard(Player player, Gun gun, GunAmmo gunAmmo, CharacterData data, HealthHandler health, Gravity gravity, Block block, CharacterStatModifiers characterStats)
         {
-            
+            //Edits values on player when card is selected
         }
 
         public override void OnRemoveCard(Player player, Gun gun, GunAmmo gunAmmo, CharacterData data, HealthHandler health, Gravity gravity, Block block, CharacterStatModifiers characterStats)
         {
-            
+            //Run when the card is removed from the player
         }
 
         protected override string GetTitle()
         {
-            return "AmmoXL";
+            return "Scope X2";
         }
 
         protected override string GetDescription()
         {
-            return "Make you magazine big and fat";
+            return "Be ready to shoot him and go quietly";
         }
 
         protected override GameObject GetCardArt()
@@ -57,16 +58,16 @@ namespace RoundsTest.Cards
                 new CardInfoStat()
                 {
                     positive = true,
-                    stat = "Bullets",
-                    amount = "+10",
+                    stat = "Accuracy",
+                    amount = "+20%",
                     simepleAmount = CardInfoStat.SimpleAmount.notAssigned
                 },
 
                 new CardInfoStat()
                 {
                     positive = false,
-                    stat = "Reload Time",
-                    amount = "+2s",
+                    stat = "Speed",
+                    amount = "-10%",
                     simepleAmount = CardInfoStat.SimpleAmount.notAssigned
                 }
             };
@@ -79,9 +80,8 @@ namespace RoundsTest.Cards
 
         public override string GetModName()
         {
-            return RoundsTest.MOD_INITIALS;
+            return BrutalGun.BrutalGunMain.MOD_INITIALS;
         }
     }
 }
-
 

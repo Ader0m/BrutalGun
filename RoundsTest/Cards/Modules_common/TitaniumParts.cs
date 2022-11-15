@@ -11,18 +11,18 @@ using BrutalGun;
 
 namespace BrutalGun.Cards
 {
-    public class Template : CustomCard
+    public class TitaniumParts : CustomCard
     {
         public override void SetupCard(CardInfo cardInfo, Gun gun, ApplyCardStats cardStats, CharacterStatModifiers statModifiers, Block block)
         {
             cardInfo.categories = new CardCategory[] { MyCategories.Module };
 
-            //Edits values on card itself, which are then applied to the player in `ApplyCardStats`
+            statModifiers.movementSpeed = 1.2f;           
         }
 
         public override void OnAddCard(Player player, Gun gun, GunAmmo gunAmmo, CharacterData data, HealthHandler health, Gravity gravity, Block block, CharacterStatModifiers characterStats)
         {
-            //Edits values on player when card is selected
+
         }
 
         public override void OnRemoveCard(Player player, Gun gun, GunAmmo gunAmmo, CharacterData data, HealthHandler health, Gravity gravity, Block block, CharacterStatModifiers characterStats)
@@ -32,12 +32,12 @@ namespace BrutalGun.Cards
 
         protected override string GetTitle()
         {
-            return "CardName";
+            return "Titanium Parts";
         }
 
         protected override string GetDescription()
         {
-            return "CardDescription";
+            return "Hey, you! You got an inheritance from a secret uncle. We decided you needed it more.";
         }
 
         protected override GameObject GetCardArt()
@@ -57,8 +57,8 @@ namespace BrutalGun.Cards
                 new CardInfoStat()
                 {
                     positive = true,
-                    stat = "Effect",
-                    amount = "No",
+                    stat = "Speed",
+                    amount = "+20%",
                     simepleAmount = CardInfoStat.SimpleAmount.notAssigned
                 }
             };

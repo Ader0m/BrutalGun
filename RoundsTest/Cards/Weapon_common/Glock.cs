@@ -1,4 +1,5 @@
-﻿using CardChoiceSpawnUniqueCardPatch.CustomCategories;
+﻿using BrutalGun;
+using CardChoiceSpawnUniqueCardPatch.CustomCategories;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -8,27 +9,28 @@ using UnboundLib;
 using UnboundLib.Cards;
 using UnityEngine;
 
-namespace RoundsTest.Cards
+namespace BrutalGun.Cards
 {
-    public class AK74 : CustomCard
+    public class Glock : CustomCard
     {
         public override void SetupCard(CardInfo cardInfo, Gun gun, ApplyCardStats cardStats, CharacterStatModifiers statModifiers, Block block)
         {
-            cardInfo.categories = new CardCategory[] { CustomCardCategories.instance.CardCategory("Weapon") };
+            cardInfo.categories = new CardCategory[] { MyCategories.Weapon };
         }
 
         public override void OnAddCard(Player player, Gun gun, GunAmmo gunAmmo, CharacterData data, HealthHandler health, Gravity gravity, Block block, CharacterStatModifiers characterStats)
         {
             //show stats
-            gun.damage = 1.4f;
-            gun.attackSpeed = 0.2f;
-            gunAmmo.maxAmmo = 15;
-            gunAmmo.reloadTimeAdd = 1.1f;
+            gun.damage = 0.31f;
+            gun.attackSpeed = 0.1f;
+            gunAmmo.maxAmmo = 10;
+            gunAmmo.reloadTimeAdd = -0.1f;
 
             // hide stats
             gun.dontAllowAutoFire = false;
-            gun.projectileSpeed = 4f; // test
-            gun.gravity = 0.1f;
+            gun.projectileSpeed = 2f;
+            gun.gravity = 0.5f;
+            gun.spread = 0.12f;
         }
 
         public override void OnRemoveCard(Player player, Gun gun, GunAmmo gunAmmo, CharacterData data, HealthHandler health, Gravity gravity, Block block, CharacterStatModifiers characterStats)
@@ -37,22 +39,23 @@ namespace RoundsTest.Cards
             gun.damage = 1f;
             gun.attackSpeed = 1f;
             gunAmmo.maxAmmo = 3;
-            gunAmmo.reloadTimeAdd = -1.1f;
+            gunAmmo.reloadTimeAdd = -1f;
 
             // hide stats
             gun.dontAllowAutoFire = true;
-            gun.projectileSpeed = 1f; // test
+            gun.projectileSpeed = 1f;
             gun.gravity = 1f;
+            gun.spread = 0f;
         }
 
         protected override string GetTitle()
         {
-            return "AK-74";
+            return "Glock";
         }
 
         protected override string GetDescription()
         {
-            return "Soviet assault rifle";
+            return "Auto Pistol for powerwul terrorist";
         }
 
         protected override GameObject GetCardArt()
@@ -62,7 +65,7 @@ namespace RoundsTest.Cards
 
         protected override CardInfo.Rarity GetRarity()
         {
-            return CardInfo.Rarity.Rare;
+            return CardInfo.Rarity.Common;
         }
 
         protected override CardInfoStat[] GetStats()
@@ -73,7 +76,7 @@ namespace RoundsTest.Cards
                 {
                     positive = true,
                     stat = "DMG",
-                    amount = "77",
+                    amount = "17",
                     simepleAmount = CardInfoStat.SimpleAmount.notAssigned
                 },
 
@@ -81,36 +84,36 @@ namespace RoundsTest.Cards
                 {
                     positive = true,
                     stat = "ATKSPD",
-                    amount = "0.2s",
+                    amount = "10",
                     simepleAmount = CardInfoStat.SimpleAmount.notAssigned
                 },
 
                 new CardInfoStat()
                 {
                     positive = true,
-                    stat = "Ammo",
-                    amount = "30",
+                    stat = "AMMO",
+                    amount = "10",
                     simepleAmount = CardInfoStat.SimpleAmount.notAssigned
                 },
 
                 new CardInfoStat()
                 {
                     positive = true,
-                    stat = "Reload time",
-                    amount = "2.1s",
+                    stat = "Reload Time",
+                    amount = "0.9s",
                     simepleAmount = CardInfoStat.SimpleAmount.notAssigned
-                }
+                },                                
             };
         }
 
         protected override CardThemeColor.CardThemeColorType GetTheme()
         {
-            return CardThemeColor.CardThemeColorType.ColdBlue;
+            return CardThemeColor.CardThemeColorType.DestructiveRed;
         }
 
         public override string GetModName()
         {
-            return RoundsTest.MOD_INITIALS;
+            return BrutalGun.BrutalGunMain.MOD_INITIALS;
         }
     }
 }

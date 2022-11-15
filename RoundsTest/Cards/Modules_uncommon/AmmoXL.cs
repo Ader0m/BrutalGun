@@ -1,4 +1,5 @@
-﻿using CardChoiceSpawnUniqueCardPatch.CustomCategories;
+﻿using BrutalGun;
+using CardChoiceSpawnUniqueCardPatch.CustomCategories;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -8,51 +9,36 @@ using UnboundLib;
 using UnboundLib.Cards;
 using UnityEngine;
 
-namespace RoundsTest.Cards
+namespace BrutalGun.Cards
 {
-    public class Glock : CustomCard
+    public class AmmoXL : CustomCard
     {
         public override void SetupCard(CardInfo cardInfo, Gun gun, ApplyCardStats cardStats, CharacterStatModifiers statModifiers, Block block)
         {
-            cardInfo.categories = new CardCategory[] { CustomCardCategories.instance.CardCategory("Weapon") };
+            cardInfo.categories = new CardCategory[] { MyCategories.Module };
+
+            gun.reloadTimeAdd = 2;
+            gun.ammo = 10;
         }
 
         public override void OnAddCard(Player player, Gun gun, GunAmmo gunAmmo, CharacterData data, HealthHandler health, Gravity gravity, Block block, CharacterStatModifiers characterStats)
         {
-            //show stats
-            gun.damage = 0.3f;
-            gun.attackSpeed = 0.15f;
-            gunAmmo.maxAmmo = 10;
-            gunAmmo.reloadTimeAdd = -0.1f;
 
-            // hide stats
-            gun.dontAllowAutoFire = false;
-            gun.projectileSpeed = 2f; // test
-            gun.gravity = 0.3f;
         }
 
         public override void OnRemoveCard(Player player, Gun gun, GunAmmo gunAmmo, CharacterData data, HealthHandler health, Gravity gravity, Block block, CharacterStatModifiers characterStats)
         {
-            //show stats
-            gun.damage = 1f;
-            gun.attackSpeed = 1f;
-            gunAmmo.maxAmmo = 3;
-            gunAmmo.reloadTimeAdd = -1f;
 
-            // hide stats
-            gun.dontAllowAutoFire = true;
-            gun.projectileSpeed = 1f; // test
-            gun.gravity = 1f;
         }
 
         protected override string GetTitle()
         {
-            return "Glock";
+            return "AmmoXL";
         }
 
         protected override string GetDescription()
         {
-            return "Auto Pistol";
+            return "Make you magazine big and fat";
         }
 
         protected override GameObject GetCardArt()
@@ -62,7 +48,7 @@ namespace RoundsTest.Cards
 
         protected override CardInfo.Rarity GetRarity()
         {
-            return CardInfo.Rarity.Common;
+            return CardInfo.Rarity.Uncommon;
         }
 
         protected override CardInfoStat[] GetStats()
@@ -72,34 +58,18 @@ namespace RoundsTest.Cards
                 new CardInfoStat()
                 {
                     positive = true,
-                    stat = "DMG",
-                    amount = "33",
+                    stat = "Bullets",
+                    amount = "+10",
                     simepleAmount = CardInfoStat.SimpleAmount.notAssigned
                 },
 
                 new CardInfoStat()
                 {
-                    positive = true,
-                    stat = "ATKSPD",
-                    amount = "0.15s",
-                    simepleAmount = CardInfoStat.SimpleAmount.notAssigned
-                },
-
-                new CardInfoStat()
-                {
-                    positive = true,
-                    stat = "AMMO",
-                    amount = "10",
-                    simepleAmount = CardInfoStat.SimpleAmount.notAssigned
-                },
-
-                new CardInfoStat()
-                {
-                    positive = true,
+                    positive = false,
                     stat = "Reload Time",
-                    amount = "0.9s",
+                    amount = "+2s",
                     simepleAmount = CardInfoStat.SimpleAmount.notAssigned
-                },                                
+                }
             };
         }
 
@@ -110,8 +80,9 @@ namespace RoundsTest.Cards
 
         public override string GetModName()
         {
-            return RoundsTest.MOD_INITIALS;
+            return BrutalGunMain.MOD_INITIALS;
         }
     }
 }
+
 

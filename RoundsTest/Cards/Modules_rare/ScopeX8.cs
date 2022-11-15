@@ -11,33 +11,34 @@ using BrutalGun;
 
 namespace BrutalGun.Cards
 {
-    public class Template : CustomCard
+    public class ScopeX8 : CustomCard
     {
         public override void SetupCard(CardInfo cardInfo, Gun gun, ApplyCardStats cardStats, CharacterStatModifiers statModifiers, Block block)
         {
             cardInfo.categories = new CardCategory[] { MyCategories.Module };
 
-            //Edits values on card itself, which are then applied to the player in `ApplyCardStats`
+            gun.attackSpeedMultiplier = 1.2f;
+            gun.multiplySpread = 0.6f;
         }
 
         public override void OnAddCard(Player player, Gun gun, GunAmmo gunAmmo, CharacterData data, HealthHandler health, Gravity gravity, Block block, CharacterStatModifiers characterStats)
         {
-            //Edits values on player when card is selected
+            characterStats.movementSpeed *= 0.8f;
         }
 
         public override void OnRemoveCard(Player player, Gun gun, GunAmmo gunAmmo, CharacterData data, HealthHandler health, Gravity gravity, Block block, CharacterStatModifiers characterStats)
         {
-            //Run when the card is removed from the player
+            characterStats.movementSpeed *= 1.25f;
         }
 
         protected override string GetTitle()
         {
-            return "CardName";
+            return "Scope X8";
         }
 
         protected override string GetDescription()
         {
-            return "CardDescription";
+            return "Check the Wind. Iron. The natal chart. Well done, you can shoot.";
         }
 
         protected override GameObject GetCardArt()
@@ -47,7 +48,7 @@ namespace BrutalGun.Cards
 
         protected override CardInfo.Rarity GetRarity()
         {
-            return CardInfo.Rarity.Common;
+            return CardInfo.Rarity.Rare;
         }
 
         protected override CardInfoStat[] GetStats()
@@ -57,10 +58,26 @@ namespace BrutalGun.Cards
                 new CardInfoStat()
                 {
                     positive = true,
-                    stat = "Effect",
-                    amount = "No",
+                    stat = "Accuracy",
+                    amount = "+40%",
                     simepleAmount = CardInfoStat.SimpleAmount.notAssigned
-                }
+                },
+
+                new CardInfoStat()
+                {
+                    positive = false,
+                    stat = "ATKSPD",
+                    amount = "-20%",
+                    simepleAmount = CardInfoStat.SimpleAmount.notAssigned
+                },
+
+                new CardInfoStat()
+                {
+                    positive = false,
+                    stat = "Speed",
+                    amount = "-20%",
+                    simepleAmount = CardInfoStat.SimpleAmount.notAssigned
+                }               
             };
         }
 
