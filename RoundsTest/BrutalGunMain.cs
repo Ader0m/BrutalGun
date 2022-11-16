@@ -69,6 +69,7 @@ namespace BrutalGun
         private void BuildCards()
         {
             //Modules_common
+            CustomCard.BuildCard<IFAK>();
             CustomCard.BuildCard<Laser>();
             CustomCard.BuildCard<QuickDrop>();
             CustomCard.BuildCard<TitaniumParts>();

@@ -11,28 +11,28 @@
 
   <ItemGroup>
     <Reference Include="0Harmony">
-      <HintPath>..\..\Библиотеки и проги\BepInEx_x64_5.4.21.0\BepInEx\core\0Harmony.dll</HintPath>
+      <HintPath>..\..\..\..\Downloads\BepInEx_x64_5.4.21.0\BepInEx\core\0Harmony.dll</HintPath>
     </Reference>
     <Reference Include="Assembly-CSharp">
-      <HintPath>F:\SteamLibrary\steamapps\common\ROUNDS\Rounds_Data\Managed\Assembly-CSharp.dll</HintPath>
+      <HintPath>..\..\..\..\..\..\Program Files (x86)\Steam\steamapps\common\ROUNDS\Rounds_Data\Managed\Assembly-CSharp.dll</HintPath>
     </Reference>
     <Reference Include="BepInEx">
-      <HintPath>..\..\Библиотеки и проги\BepInEx_x64_5.4.21.0\BepInEx\core\BepInEx.dll</HintPath>
+      <HintPath>..\..\..\..\Downloads\BepInEx_x64_5.4.21.0\BepInEx\core\BepInEx.dll</HintPath>
     </Reference>
     <Reference Include="CardChoiceSpawnUniqueCardPatch">
-      <HintPath>C:\Users\Влад\AppData\Roaming\Thunderstore Mod Manager\DataFolder\ROUNDS\profiles\Modding\BepInEx\plugins\Pykess-CardChoiceSpawnUniqueCardPatch\CardChoiceSpawnUniqueCardPatch.dll</HintPath>
+      <HintPath>..\..\..\..\AppData\Roaming\Thunderstore Mod Manager\DataFolder\ROUNDS\profiles\Modding\BepInEx\plugins\Pykess-CardChoiceSpawnUniqueCardPatch\CardChoiceSpawnUniqueCardPatch.dll</HintPath>
     </Reference>
     <Reference Include="ModdingUtils">
-      <HintPath>C:\Users\Влад\AppData\Roaming\Thunderstore Mod Manager\DataFolder\ROUNDS\profiles\Modding\BepInEx\plugins\Pykess-ModdingUtils\ModdingUtils.dll</HintPath>
+      <HintPath>..\..\..\..\AppData\Roaming\Thunderstore Mod Manager\DataFolder\ROUNDS\profiles\Modding\BepInEx\plugins\Pykess-ModdingUtils\ModdingUtils.dll</HintPath>
     </Reference>
     <Reference Include="UnboundLib">
-      <HintPath>C:\Users\Влад\AppData\Roaming\Thunderstore Mod Manager\DataFolder\ROUNDS\profiles\Modding\BepInEx\plugins\willis81808-UnboundLib\UnboundLib.dll</HintPath>
+      <HintPath>..\..\..\..\AppData\Roaming\Thunderstore Mod Manager\DataFolder\ROUNDS\profiles\Modding\BepInEx\plugins\willis81808-UnboundLib\UnboundLib.dll</HintPath>
     </Reference>
     <Reference Include="UnityEngine">
-      <HintPath>F:\SteamLibrary\steamapps\common\ROUNDS\Rounds_Data\Managed\UnityEngine.dll</HintPath>
+      <HintPath>..\..\..\..\..\..\Program Files (x86)\Steam\steamapps\common\ROUNDS\Rounds_Data\Managed\UnityEngine.dll</HintPath>
     </Reference>
     <Reference Include="UnityEngine.CoreModule">
-      <HintPath>F:\SteamLibrary\steamapps\common\ROUNDS\Rounds_Data\Managed\UnityEngine.CoreModule.dll</HintPath>
+      <HintPath>..\..\..\..\..\..\Program Files (x86)\Steam\steamapps\common\ROUNDS\Rounds_Data\Managed\UnityEngine.CoreModule.dll</HintPath>
     </Reference>
   </ItemGroup>
 
