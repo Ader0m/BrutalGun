@@ -11,35 +11,38 @@ using BrutalGun;
 
 namespace BrutalGun.Cards
 {
-    public class ScopeX8 : CustomCard
+    public class ArmoredSuit : CustomCard
     {
         public override void SetupCard(CardInfo cardInfo, Gun gun, ApplyCardStats cardStats, CharacterStatModifiers statModifiers, Block block)
         {
             cardInfo.categories = new CardCategory[] { MyCategories.Module };
 
-            gun.attackSpeedMultiplier = 1.2f;
-            gun.multiplySpread = 0.6f;
+            statModifiers.health = 1.6f;
             statModifiers.movementSpeed = 0.8f;
+            gun.ammo = 5;
+            gun.multiplySpread = 0.95f;
+
+            //Edits values on card itself, which are then applied to the player in `ApplyCardStats`
         }
 
         public override void OnAddCard(Player player, Gun gun, GunAmmo gunAmmo, CharacterData data, HealthHandler health, Gravity gravity, Block block, CharacterStatModifiers characterStats)
         {
-
+            
         }
 
         public override void OnRemoveCard(Player player, Gun gun, GunAmmo gunAmmo, CharacterData data, HealthHandler health, Gravity gravity, Block block, CharacterStatModifiers characterStats)
         {
-
+            //Run when the card is removed from the player
         }
 
         protected override string GetTitle()
         {
-            return "Scope X8";
+            return "ArmoredSuit";
         }
 
         protected override string GetDescription()
         {
-            return "Check the Wind. Iron. The natal chart. Well done, you can shoot.";
+            return "Heavy armor for a real chicken";
         }
 
         protected override GameObject GetCardArt()
@@ -59,16 +62,16 @@ namespace BrutalGun.Cards
                 new CardInfoStat()
                 {
                     positive = true,
-                    stat = "Accuracy",
-                    amount = "+40%",
+                    stat = "Healf",
+                    amount = "+60%",
                     simepleAmount = CardInfoStat.SimpleAmount.notAssigned
                 },
 
                 new CardInfoStat()
                 {
-                    positive = false,
-                    stat = "ATKSPD",
-                    amount = "-20%",
+                    positive = true,
+                    stat = "Ammo",
+                    amount = "+5",
                     simepleAmount = CardInfoStat.SimpleAmount.notAssigned
                 },
 
@@ -78,7 +81,15 @@ namespace BrutalGun.Cards
                     stat = "Speed",
                     amount = "-20%",
                     simepleAmount = CardInfoStat.SimpleAmount.notAssigned
-                }               
+                },
+
+                new CardInfoStat()
+                {
+                    positive = false,
+                    stat = "Accuracy",
+                    amount = "-5%",
+                    simepleAmount = CardInfoStat.SimpleAmount.notAssigned
+                }
             };
         }
 

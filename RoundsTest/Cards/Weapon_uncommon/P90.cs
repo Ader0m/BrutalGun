@@ -11,35 +11,50 @@ using BrutalGun;
 
 namespace BrutalGun.Cards
 {
-    public class ScopeX8 : CustomCard
+    public class P90 : CustomCard
     {
         public override void SetupCard(CardInfo cardInfo, Gun gun, ApplyCardStats cardStats, CharacterStatModifiers statModifiers, Block block)
         {
-            cardInfo.categories = new CardCategory[] { MyCategories.Module };
-
-            gun.attackSpeedMultiplier = 1.2f;
-            gun.multiplySpread = 0.6f;
-            statModifiers.movementSpeed = 0.8f;
+            cardInfo.categories = new CardCategory[] { MyCategories.Weapon };
         }
 
         public override void OnAddCard(Player player, Gun gun, GunAmmo gunAmmo, CharacterData data, HealthHandler health, Gravity gravity, Block block, CharacterStatModifiers characterStats)
         {
+            //show stats
+            gun.damage = 0.25f;
+            gun.attackSpeed = 0.08f;
+            gunAmmo.maxAmmo = 15;
+            gunAmmo.reloadTimeAdd = 0.2f;
 
+            // hide stats
+            gun.dontAllowAutoFire = false;
+            gun.projectileSpeed = 2.2f;
+            gun.gravity = 0.5f;
+            gun.spread = 0.14f;
         }
 
         public override void OnRemoveCard(Player player, Gun gun, GunAmmo gunAmmo, CharacterData data, HealthHandler health, Gravity gravity, Block block, CharacterStatModifiers characterStats)
         {
+            //show stats
+            gun.damage = 1f;
+            gun.attackSpeed = 1f;
+            gunAmmo.maxAmmo = 3;
+            gunAmmo.reloadTimeAdd = -1f;
 
+            // hide stats
+            gun.dontAllowAutoFire = true;
+            gun.projectileSpeed = 1f;
+            gun.gravity = 1f;
         }
 
         protected override string GetTitle()
         {
-            return "Scope X8";
+            return "P90";
         }
 
         protected override string GetDescription()
         {
-            return "Check the Wind. Iron. The natal chart. Well done, you can shoot.";
+            return "SMG for close range";
         }
 
         protected override GameObject GetCardArt()
@@ -49,7 +64,7 @@ namespace BrutalGun.Cards
 
         protected override CardInfo.Rarity GetRarity()
         {
-            return CardInfo.Rarity.Rare;
+            return CardInfo.Rarity.Uncommon;
         }
 
         protected override CardInfoStat[] GetStats()
@@ -59,32 +74,40 @@ namespace BrutalGun.Cards
                 new CardInfoStat()
                 {
                     positive = true,
-                    stat = "Accuracy",
-                    amount = "+40%",
+                    stat = "DMG",
+                    amount = "14",
                     simepleAmount = CardInfoStat.SimpleAmount.notAssigned
                 },
 
                 new CardInfoStat()
                 {
-                    positive = false,
+                    positive = true,
                     stat = "ATKSPD",
-                    amount = "-20%",
+                    amount = "12.5",
                     simepleAmount = CardInfoStat.SimpleAmount.notAssigned
                 },
 
                 new CardInfoStat()
                 {
-                    positive = false,
-                    stat = "Speed",
-                    amount = "-20%",
+                    positive = true,
+                    stat = "AMMO",
+                    amount = "15",
                     simepleAmount = CardInfoStat.SimpleAmount.notAssigned
-                }               
+                },
+
+                new CardInfoStat()
+                {
+                    positive = true,
+                    stat = "Reload Time",
+                    amount = "1.2s",
+                    simepleAmount = CardInfoStat.SimpleAmount.notAssigned
+                },
             };
         }
 
         protected override CardThemeColor.CardThemeColorType GetTheme()
         {
-            return CardThemeColor.CardThemeColorType.ColdBlue;
+            return CardThemeColor.CardThemeColorType.DestructiveRed;
         }
 
         public override string GetModName()

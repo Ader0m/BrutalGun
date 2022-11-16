@@ -77,9 +77,12 @@ namespace BrutalGun
             CustomCard.BuildCard<ScopeX2>();
             //Modules_rare
             CustomCard.BuildCard<ScopeX8>();
-            //Pistol_common
+            CustomCard.BuildCard<ArmoredSuit>();
+            //Weapon_common
             CustomCard.BuildCard<Glock>();
-            //Rifle_rare
+            //Weapon_uncommon
+            CustomCard.BuildCard<P90>();
+            //Weapon_rare
             CustomCard.BuildCard<AK74>();
             CustomCard.BuildCard<M4A1>();
         }
