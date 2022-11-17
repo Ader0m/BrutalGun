@@ -84,8 +84,11 @@ namespace BrutalGun
             CustomCard.BuildCard<ArmoredSuit>();
             CustomCard.BuildCard<ExpBullet>();
             //Weapon_common
+            CustomCard.BuildCard<FiveSeven>();
             CustomCard.BuildCard<Glock>();
+            CustomCard.BuildCard<SawnOff>();
             //Weapon_uncommon
+            CustomCard.BuildCard<Mosin>();
             CustomCard.BuildCard<P90>();
             //Weapon_rare
             CustomCard.BuildCard<AK74>();
