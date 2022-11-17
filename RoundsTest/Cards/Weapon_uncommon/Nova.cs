@@ -23,7 +23,7 @@ namespace BrutalGun.Cards
         public override void OnAddCard(Player player, Gun gun, GunAmmo gunAmmo, CharacterData data, HealthHandler health, Gravity gravity, Block block, CharacterStatModifiers characterStats)
         {
             //show stats
-            gun.damage = 0.3f;
+            gun.damage = 0.31f;
             gun.attackSpeed = 0.8f;
             gunAmmo.maxAmmo = 15;
             gunAmmo.reloadTimeAdd = 0.5f;
@@ -64,7 +64,7 @@ namespace BrutalGun.Cards
 
         protected override string GetDescription()
         {
-            return "CardDescription";
+            return "Powerful and relatively accurate shotgun";
         }
 
         protected override GameObject GetCardArt()
@@ -74,7 +74,7 @@ namespace BrutalGun.Cards
 
         protected override CardInfo.Rarity GetRarity()
         {
-            return CardInfo.Rarity.Common;
+            return CardInfo.Rarity.Uncommon;
         }
 
         protected override CardInfoStat[] GetStats()
@@ -84,8 +84,32 @@ namespace BrutalGun.Cards
                 new CardInfoStat()
                 {
                     positive = true,
-                    stat = "Effect",
-                    amount = "No",
+                    stat = "DMG",
+                    amount = "17",
+                    simepleAmount = CardInfoStat.SimpleAmount.notAssigned
+                },
+
+                new CardInfoStat()
+                {
+                    positive = true,
+                    stat = "ATKSPD",
+                    amount = "1,25",
+                    simepleAmount = CardInfoStat.SimpleAmount.notAssigned
+                },
+
+                new CardInfoStat()
+                {
+                    positive = true,
+                    stat = "AMMO",
+                    amount = "3",
+                    simepleAmount = CardInfoStat.SimpleAmount.notAssigned
+                },
+
+                new CardInfoStat()
+                {
+                    positive = true,
+                    stat = "Reload Time",
+                    amount = "1,5s",
                     simepleAmount = CardInfoStat.SimpleAmount.notAssigned
                 }
             };
