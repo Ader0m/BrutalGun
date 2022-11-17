@@ -30,7 +30,7 @@ namespace BrutalGun.Cards
             gun.dontAllowAutoFire = true;
             gun.projectileSpeed = 4f;
             gun.gravity = 0.2f;
-            gun.spread = 0.07f;
+            gun.spread = 0.05f;
         }
 
         public override void OnRemoveCard(Player player, Gun gun, GunAmmo gunAmmo, CharacterData data, HealthHandler health, Gravity gravity, Block block, CharacterStatModifiers characterStats)
