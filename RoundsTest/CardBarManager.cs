@@ -12,7 +12,7 @@ namespace BrutalGun
     public class CardBarManager : MonoBehaviour
     {
         public Dictionary<Player, int> CardBarLengthDict;
-        private Player[] nonAIPlayers;
+        public Player[] nonAIPlayers;
 
         public CardBarManager()
         {

@@ -9,6 +9,7 @@ using UnityEngine;
 using UnboundLib.GameModes;
 using System.Collections.Generic;
 using System.Collections;
+using System.Linq;
 
 namespace BrutalGun
 {
@@ -38,7 +39,9 @@ namespace BrutalGun
 
         #endregion
 
-        public CardBarManager cardBarManager;
+        public Player[] NonAIPlayers;
+        private CardBarManager cardBarManager;
+        private PlayerSettings playerSettings;
 
         void Awake()
         {
@@ -53,12 +56,21 @@ namespace BrutalGun
             BuildCards();
             CreateManagers();
             
-            GameModeManager.AddHook(GameModeHooks.HookPickEnd, PickEnd);         
+            GameModeManager.AddHook(GameModeHooks.HookPickEnd, PickEnd);
+            //GameModeManager.AddHook(GameModeHooks.HookBattleStart, BattleStart);
         }       
 
         private void CreateManagers()
         {
             cardBarManager = new CardBarManager();
+            playerSettings = new PlayerSettings();
+        }
+
+        IEnumerator BattleStart(IGameModeHandler arg)
+        {
+            
+
+            yield return playerSettings.SetStartStats();
         }
 
         IEnumerator PickEnd(IGameModeHandler arg)
