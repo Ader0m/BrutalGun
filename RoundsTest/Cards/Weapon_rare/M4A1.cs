@@ -21,7 +21,7 @@ namespace BrutalGun.Cards
         public override void OnAddCard(Player player, Gun gun, GunAmmo gunAmmo, CharacterData data, HealthHandler health, Gravity gravity, Block block, CharacterStatModifiers characterStats)
         {
             //show stats
-            gun.damage = 1f;
+            gun.damage = 0.8f;
             gun.attackSpeed = 0.15f;
             gunAmmo.maxAmmo = 15;
             gunAmmo.reloadTimeAdd = 1f;
@@ -75,7 +75,7 @@ namespace BrutalGun.Cards
                 {
                     positive = true,
                     stat = "DMG",
-                    amount = "55",
+                    amount = "44",
                     simepleAmount = CardInfoStat.SimpleAmount.notAssigned
                 },
 

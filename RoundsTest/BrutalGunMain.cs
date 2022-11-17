@@ -72,6 +72,7 @@ namespace BrutalGun
             CustomCard.BuildCard<IFAK>();
             CustomCard.BuildCard<Laser>();
             CustomCard.BuildCard<QuickDrop>();
+            CustomCard.BuildCard<StrangePill>();
             CustomCard.BuildCard<TitaniumParts>();
             //Modules_uncommon
             CustomCard.BuildCard<AmmoXL>();
@@ -85,6 +86,7 @@ namespace BrutalGun
             CustomCard.BuildCard<ExpBullet>();
             //Weapon_common
             CustomCard.BuildCard<Glock>();
+            CustomCard.BuildCard<Nova>();
             //Weapon_uncommon
             CustomCard.BuildCard<P90>();
             //Weapon_rare

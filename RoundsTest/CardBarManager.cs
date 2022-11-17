@@ -25,7 +25,7 @@ namespace BrutalGun
 
             foreach (Player player in nonAIPlayers)
             {
-
+                // try het value
                 if (CardBarLengthDict.ContainsKey(player))
                 {
                     FindExtraWeapon(player);
