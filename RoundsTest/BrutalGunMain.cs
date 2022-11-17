@@ -90,6 +90,7 @@ namespace BrutalGun
             CustomCard.BuildCard<SawnOff>();
             //Weapon_uncommon
             CustomCard.BuildCard<Mosin>();
+            CustomCard.BuildCard<Nova>();
             CustomCard.BuildCard<P90>();
             //Weapon_rare
             CustomCard.BuildCard<AK74>();
