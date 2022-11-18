@@ -70,7 +70,7 @@ BenchmarkDotNet.Artifacts/
 project.lock.json
 project.fragment.lock.json
 artifacts/
-.csproj
+*.csproj
 
 # ASP.NET Scaffolding
 ScaffoldingReadMe.txt
