@@ -90,6 +90,7 @@ namespace BrutalGun
             CustomCard.BuildCard<AmmoXL>();
             CustomCard.BuildCard<LightArmor>();
             CustomCard.BuildCard<LightBolt>();
+            CustomCard.BuildCard<LongBarrel>();
             CustomCard.BuildCard<ScopeX2>();
             CustomCard.BuildCard<SecondArmorPlate>();
             CustomCard.BuildCard<SpiritConnection>();
