@@ -17,8 +17,8 @@ namespace BrutalGun.Cards
         {
             cardInfo.categories = new CardCategory[] { MyCategories.Module };
 
-            gun.attackSpeed = 1.05f;
-            statModifiers.movementSpeed = 1.05f;
+            gun.attackSpeed = 1.07f;
+            statModifiers.movementSpeed = 1.07f;
         }
 
         public override void OnAddCard(Player player, Gun gun, GunAmmo gunAmmo, CharacterData data, HealthHandler health, Gravity gravity, Block block, CharacterStatModifiers characterStats)
@@ -59,7 +59,7 @@ namespace BrutalGun.Cards
                 {
                     positive = true,
                     stat = "ATKSPD",
-                    amount = "+5%",
+                    amount = "+7%",
                     simepleAmount = CardInfoStat.SimpleAmount.notAssigned
                 },
 
@@ -67,7 +67,7 @@ namespace BrutalGun.Cards
                 {
                     positive = true,
                     stat = "Speed",
-                    amount = "+5%",
+                    amount = "+7%",
                     simepleAmount = CardInfoStat.SimpleAmount.notAssigned
                 }
             };
