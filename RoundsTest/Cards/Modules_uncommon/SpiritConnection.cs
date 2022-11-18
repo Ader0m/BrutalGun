@@ -38,7 +38,7 @@ namespace BrutalGun.Cards
 
         protected override string GetDescription()
         {
-            return "CardDescription";
+            return "You feel the life of your enemy filling you. You want more and more";
         }
 
         protected override GameObject GetCardArt()
