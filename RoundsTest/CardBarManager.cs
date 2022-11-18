@@ -12,7 +12,7 @@ namespace BrutalGun
     public class CardBarManager : MonoBehaviour
     {
         public Dictionary<Player, int> CardBarLengthDict;
-        private Player[] nonAIPlayers;
+        public Player[] nonAIPlayers;
 
         public CardBarManager()
         {
@@ -25,7 +25,7 @@ namespace BrutalGun
 
             foreach (Player player in nonAIPlayers)
             {
-
+                // try het value
                 if (CardBarLengthDict.ContainsKey(player))
                 {
                     FindExtraWeapon(player);

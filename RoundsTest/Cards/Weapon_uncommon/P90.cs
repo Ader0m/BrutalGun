@@ -101,7 +101,7 @@ namespace BrutalGun.Cards
                     stat = "Reload Time",
                     amount = "1.2s",
                     simepleAmount = CardInfoStat.SimpleAmount.notAssigned
-                },
+                }
             };
         }
 
