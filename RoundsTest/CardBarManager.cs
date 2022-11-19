@@ -21,9 +21,10 @@ namespace BrutalGun
 
         public IEnumerator CheckCardBar()
         {
-            nonAIPlayers = PlayerManager.instance.players.Where((person) => !ModdingUtils.AIMinion.Extensions.CharacterDataExtension.GetAdditionalData(person.data).isAIMinion).ToArray();
+            UnityEngine.Debug.Log("fff2");
+            
 
-            foreach (Player player in nonAIPlayers)
+            foreach (Player player in BrutalGunMain.Instance.PLAYERS)
             {
                 // try het value
                 if (CardBarLengthDict.ContainsKey(player))

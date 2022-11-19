@@ -30,7 +30,7 @@ namespace BrutalGun
 
         #endregion
 
-        #region Const
+        #region Default Const
 
         private const string _MOD_ID = "com.aderom.rounds.RoundsTest";
         private const string _MOD_NAME = "BrutalGun";
@@ -39,9 +39,10 @@ namespace BrutalGun
 
         #endregion
 
-        public Player[] NonAIPlayers;
+        public Player[] PLAYERS;
         private CardBarManager cardBarManager;
         private PlayerSettings playerSettings;
+        private bool firstPick;
 
         void Awake()
         {
@@ -55,9 +56,11 @@ namespace BrutalGun
             Instance = this;
             BuildCards();
             CreateManagers();
-            
+            firstPick = true;
+
+
             GameModeManager.AddHook(GameModeHooks.HookPickEnd, PickEnd);
-            //GameModeManager.AddHook(GameModeHooks.HookBattleStart, BattleStart);
+            GameModeManager.AddHook(GameModeHooks.HookPickStart, FirstPickStart);
         }       
 
         private void CreateManagers()
@@ -66,11 +69,17 @@ namespace BrutalGun
             playerSettings = new PlayerSettings();
         }
 
-        IEnumerator BattleStart(IGameModeHandler arg)
+        IEnumerator FirstPickStart(IGameModeHandler arg)
         {
-            
+            if (firstPick)
+            {
+                firstPick = false;
+                PLAYERS = PlayerManager.instance.players.Where((person) => !ModdingUtils.AIMinion.Extensions.CharacterDataExtension.GetAdditionalData(person.data).isAIMinion).ToArray();
+                UnityEngine.Debug.Log("fff1" + PLAYERS.Length);
+                playerSettings.SetStartStats();
+            }         
 
-            yield return playerSettings.SetStartStats();
+            yield break; 
         }
 
         IEnumerator PickEnd(IGameModeHandler arg)
