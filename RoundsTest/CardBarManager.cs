@@ -20,14 +20,10 @@ namespace BrutalGun
         }
 
         public IEnumerator CheckCardBar()
-        {
-            UnityEngine.Debug.Log("fff2");
-            
-
+        {         
             foreach (Player player in BrutalGunMain.Instance.PLAYERS)
-            {
-                // try het value
-                if (CardBarLengthDict.ContainsKey(player))
+            {        
+                if (CardBarLengthDict.ContainsKey(player) && CardBarLengthDict[player] > player.data.currentCards.Count)
                 {
                     FindExtraWeapon(player);
                 }
@@ -52,6 +48,7 @@ namespace BrutalGun
             {
                 if (player.data.currentCards[i].categories.Contains(MyCategories.Weapon))
                 {
+
                     countWeaponCardsIndex.Add(i);
                     currentWearon = player.data.currentCards[i];
                 }

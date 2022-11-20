@@ -26,7 +26,7 @@ namespace BrutalGun.Cards
             gun.damage = 0.31f;
             gun.attackSpeed = 0.8f;
             gunAmmo.maxAmmo = 15;
-            gunAmmo.reloadTimeAdd = 0.5f;
+            gunAmmo.reloadTimeAdd = 0.8f;
 
             // hide stats
             gun.dontAllowAutoFire = true;
@@ -37,6 +37,7 @@ namespace BrutalGun.Cards
             //shotgun
             gun.bursts = 1;
             gun.numberOfProjectiles = 5;
+            gun.destroyBulletAfter = 0.35f;
         }
 
         public override void OnRemoveCard(Player player, Gun gun, GunAmmo gunAmmo, CharacterData data, HealthHandler health, Gravity gravity, Block block, CharacterStatModifiers characterStats)
@@ -55,6 +56,7 @@ namespace BrutalGun.Cards
             //shotgun
             gun.bursts = 0;
             gun.numberOfProjectiles = 1;
+            gun.destroyBulletAfter = 0f;
         }
 
         protected override string GetTitle()
@@ -109,7 +111,7 @@ namespace BrutalGun.Cards
                 {
                     positive = true,
                     stat = "Reload Time",
-                    amount = "1,5s",
+                    amount = "1,8s",
                     simepleAmount = CardInfoStat.SimpleAmount.notAssigned
                 }
             };

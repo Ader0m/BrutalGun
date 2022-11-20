@@ -39,7 +39,7 @@ namespace BrutalGun.Cards
 
         protected override string GetDescription()
         {
-            return "Check the Wind. Iron. The natal chart. Well done, you can shoot.";
+            return "Check the Wind. Iron. The natal chart. Well done, you can shoot";
         }
 
         protected override GameObject GetCardArt()

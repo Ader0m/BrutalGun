@@ -37,7 +37,7 @@ namespace BrutalGun.Cards
 
         protected override string GetTitle()
         {
-            return "ArmoredSuit";
+            return "Armored Suit";
         }
 
         protected override string GetDescription()

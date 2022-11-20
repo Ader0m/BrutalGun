@@ -60,7 +60,7 @@ namespace BrutalGun
 
 
             GameModeManager.AddHook(GameModeHooks.HookPickEnd, PickEnd);
-            GameModeManager.AddHook(GameModeHooks.HookPickStart, FirstPickStart);
+            //GameModeManager.AddHook(GameModeHooks.HookPickStart, FirstPickStart);
         }       
 
         private void CreateManagers()
@@ -75,7 +75,6 @@ namespace BrutalGun
             {
                 firstPick = false;
                 PLAYERS = PlayerManager.instance.players.Where((person) => !ModdingUtils.AIMinion.Extensions.CharacterDataExtension.GetAdditionalData(person.data).isAIMinion).ToArray();
-                UnityEngine.Debug.Log("fff1" + PLAYERS.Length);
                 playerSettings.SetStartStats();
             }         
 
@@ -83,7 +82,8 @@ namespace BrutalGun
         }
 
         IEnumerator PickEnd(IGameModeHandler arg)
-        {           
+        {
+            PLAYERS = PlayerManager.instance.players.Where((person) => !ModdingUtils.AIMinion.Extensions.CharacterDataExtension.GetAdditionalData(person.data).isAIMinion).ToArray();
             yield return cardBarManager.CheckCardBar();
         }
 
@@ -106,7 +106,7 @@ namespace BrutalGun
             //Modules_rare
             CustomCard.BuildCard<ScopeX8>();
             CustomCard.BuildCard<ArmoredSuit>();
-            CustomCard.BuildCard<ExpBullet>();
+            CustomCard.BuildCard<APBullet>();
             //Weapon_common
             CustomCard.BuildCard<FiveSeven>();
             CustomCard.BuildCard<Glock>();

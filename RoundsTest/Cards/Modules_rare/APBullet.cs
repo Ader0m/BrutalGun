@@ -11,7 +11,7 @@ using BrutalGun;
 
 namespace BrutalGun.Cards
 {
-    public class ExpBullet : CustomCard
+    public class APBullet : CustomCard
     {
         public override void SetupCard(CardInfo cardInfo, Gun gun, ApplyCardStats cardStats, CharacterStatModifiers statModifiers, Block block)
         {
@@ -33,7 +33,7 @@ namespace BrutalGun.Cards
 
         protected override string GetTitle()
         {
-            return "Explosive bullet";
+            return "Armor-piercing bullet";
         }
 
         protected override string GetDescription()
