@@ -37,7 +37,7 @@ namespace BrutalGun.Cards
             //shotgun
             gun.bursts = 1;
             gun.numberOfProjectiles = 5;
-            gun.destroyBulletAfter = 0.35f;
+            gun.destroyBulletAfter = 0.21f;
         }
 
         public override void OnRemoveCard(Player player, Gun gun, GunAmmo gunAmmo, CharacterData data, HealthHandler health, Gravity gravity, Block block, CharacterStatModifiers characterStats)
