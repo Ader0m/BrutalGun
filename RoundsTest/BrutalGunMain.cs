@@ -60,7 +60,8 @@ namespace BrutalGun
 
 
             GameModeManager.AddHook(GameModeHooks.HookPickEnd, PickEnd);
-            //GameModeManager.AddHook(GameModeHooks.HookPickStart, FirstPickStart);
+           // GameModeManager.AddHook(GameModeHooks.HookPickStart, FirstPickStart);
+            GameModeManager.AddHook(GameModeHooks.HookGameEnd, GameEnd);
         }       
 
         private void CreateManagers()
@@ -84,13 +85,23 @@ namespace BrutalGun
         IEnumerator PickEnd(IGameModeHandler arg)
         {
             PLAYERS = PlayerManager.instance.players.Where((person) => !ModdingUtils.AIMinion.Extensions.CharacterDataExtension.GetAdditionalData(person.data).isAIMinion).ToArray();
+            UnityEngine.Debug.Log(PLAYERS.Length);
+
             yield return cardBarManager.CheckCardBar();
+        }
+
+        IEnumerator GameEnd(IGameModeHandler arg)
+        {
+            cardBarManager.Restore();
+            firstPick = true;
+
+            yield break;
         }
 
         private void BuildCards()
         {
             //Modules_common
-            CustomCard.BuildCard<BatteriesEnergizer>();
+            //CustomCard.BuildCard<BatteriesEnergizer>();
             CustomCard.BuildCard<IFAK>();
             CustomCard.BuildCard<Laser>();
             CustomCard.BuildCard<QuickDrop>();
