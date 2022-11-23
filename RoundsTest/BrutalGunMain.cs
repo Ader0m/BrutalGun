@@ -65,7 +65,7 @@ namespace BrutalGun
             GameModeManager.AddHook(GameModeHooks.HookPickEnd, PickEnd);
             GameModeManager.AddHook(GameModeHooks.HookPickStart, FirstPickStart);
             GameModeManager.AddHook(GameModeHooks.HookGameEnd, GameEnd);
-                   
+            //GameModeManager.AddHook(GameModeHooks.HookInitStart, GameEnd);
         }       
 
         private void CreateManagers()
