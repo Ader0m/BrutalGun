@@ -85,7 +85,7 @@ namespace BrutalGun.Cards
                 {
                     positive = false,
                     stat = "Gravity",
-                    amount = "+20%",
+                    amount = "+50%",
                     simepleAmount = CardInfoStat.SimpleAmount.notAssigned
                 }
             };
