@@ -17,7 +17,7 @@ namespace BrutalGun.Cards
         {
             cardInfo.categories = new CardCategory[] { MyCategories.Module };
 
-            gun.bulletDamageMultiplier = 1.15f;
+            gun.bulletDamageMultiplier = 1.20f;
             gun.multiplySpread = 1.2f;
         }
 
@@ -59,7 +59,7 @@ namespace BrutalGun.Cards
                 {
                     positive = true,
                     stat = "DMG",
-                    amount = "+15%",
+                    amount = "+20%",
                     simepleAmount = CardInfoStat.SimpleAmount.notAssigned
                 },
 
