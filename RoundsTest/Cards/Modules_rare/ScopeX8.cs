@@ -18,7 +18,7 @@ namespace BrutalGun.Cards
             cardInfo.categories = new CardCategory[] { MyCategories.Module };
 
             gun.attackSpeedMultiplier = 1.2f;
-            gun.multiplySpread = 0.6f;
+            gun.multiplySpread = 0.5f;
             statModifiers.movementSpeed = 0.8f;
         }
 
@@ -60,7 +60,7 @@ namespace BrutalGun.Cards
                 {
                     positive = true,
                     stat = "Accuracy",
-                    amount = "+40%",
+                    amount = "+50%",
                     simepleAmount = CardInfoStat.SimpleAmount.notAssigned
                 },
 
