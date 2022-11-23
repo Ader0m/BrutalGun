@@ -19,7 +19,7 @@ namespace BrutalGun.Cards
 
             gun.bulletDamageMultiplier = 1.15f;
             gun.projectileSpeed = 0.85f;
-            gun.gravity = 1.2f;
+            gun.gravity = 1.5f;
             gun.projectileSize = 1.25f;
         }
 
@@ -69,7 +69,7 @@ namespace BrutalGun.Cards
                 {
                     positive = true,
                     stat = "Bullet Size",
-                    amount = "+25%",
+                    amount = "+50%",
                     simepleAmount = CardInfoStat.SimpleAmount.notAssigned
                 },
 

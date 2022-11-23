@@ -117,6 +117,7 @@ namespace BrutalGun
             CustomCard.BuildCard<TitaniumParts>();
             //Modules_uncommon
             CustomCard.BuildCard<AmmoXL>();
+            CustomCard.BuildCard<BigBullet>();
             CustomCard.BuildCard<LightArmor>();
             CustomCard.BuildCard<LightBolt>();
             CustomCard.BuildCard<LongBarrel>();
