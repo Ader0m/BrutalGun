@@ -40,7 +40,8 @@ namespace BrutalGun
 
         #endregion
 
-        public Player[] PLAYERS;
+        public Player[] PlayersMass;
+        private List<CardInfo> startCardList;
         private CardBarManager cardBarManager;
         private PlayerSettings playerSettings;
         private bool firstPick;
@@ -56,12 +57,13 @@ namespace BrutalGun
         {
             Instance = this;
             firstPick = true;
+            startCardList = new List<CardInfo>();
             BuildCards();
             CreateManagers();
             
             
             GameModeManager.AddHook(GameModeHooks.HookPickEnd, PickEnd);
-            //GameModeManager.AddHook(GameModeHooks.HookPickStart, FirstPickStart);
+            GameModeManager.AddHook(GameModeHooks.HookPickStart, FirstPickStart);
             GameModeManager.AddHook(GameModeHooks.HookGameEnd, GameEnd);
                    
         }       
@@ -77,8 +79,8 @@ namespace BrutalGun
             if (firstPick)
             {
                 firstPick = false;
-                PLAYERS = PlayerManager.instance.players.Where((person) => !ModdingUtils.AIMinion.Extensions.CharacterDataExtension.GetAdditionalData(person.data).isAIMinion).ToArray();
-                playerSettings.SetStartStats();
+                PlayersMass = PlayerManager.instance.players.Where((person) => !ModdingUtils.AIMinion.Extensions.CharacterDataExtension.GetAdditionalData(person.data).isAIMinion).ToArray();
+                playerSettings.SetStartStats(startCardList);
             }         
 
             yield break; 
@@ -88,7 +90,7 @@ namespace BrutalGun
         {
             if (PhotonNetwork.IsMasterClient || PhotonNetwork.OfflineMode)
             {
-                PLAYERS = PlayerManager.instance.players.Where((person) => !ModdingUtils.AIMinion.Extensions.CharacterDataExtension.GetAdditionalData(person.data).isAIMinion).ToArray();
+                //PLAYERS = PlayerManager.instance.players.Where((person) => !ModdingUtils.AIMinion.Extensions.CharacterDataExtension.GetAdditionalData(person.data).isAIMinion).ToArray();
 
                 yield return cardBarManager.CheckCardBar();
             }
@@ -141,6 +143,13 @@ namespace BrutalGun
             CustomCard.BuildCard<AK74>();
             CustomCard.BuildCard<M4A1>();
             CustomCard.BuildCard<Winchester>();
+
+            //StartCards
+            CustomCard.BuildCard<Macarov>(cardInfo => 
+            {
+                startCardList.Add(cardInfo);
+                ModdingUtils.Utils.Cards.instance.AddHiddenCard(cardInfo);
+            });
         }
     }
 }

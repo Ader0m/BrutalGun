@@ -1,4 +1,5 @@
-﻿using System;
+﻿using BrutalGun.Cards;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Reflection;
@@ -9,19 +10,11 @@ namespace BrutalGun
 {
     public class PlayerSettings
     {
-        public void SetStartStats()
+        public void SetStartStats(List<CardInfo> startCardList)
         {
-            foreach (Player player in BrutalGunMain.Instance.PLAYERS)
+            foreach (Player player in BrutalGunMain.Instance.PlayersMass)
             {
-                Gun gun = player.data.weaponHandler.gun;
-
-                FieldInfo fieldInfo = typeof(Gun).GetField("gunAmmo", BindingFlags.Instance | BindingFlags.NonPublic);
-                GunAmmo gunAmmo = (GunAmmo)fieldInfo.GetValue(gun);
-
-                gunAmmo.maxAmmo = 5;
-                gun.projectileSpeed = 1.4f;
-                gun.multiplySpread = 0.09f;
-                gun.damage = 0.8f;
+                ModdingUtils.Utils.Cards.instance.AddCardsToPlayer(player, startCardList.ToArray(), false, null, null, null);
             }
         }
     }

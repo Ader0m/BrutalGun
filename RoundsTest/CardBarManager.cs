@@ -24,7 +24,7 @@ namespace BrutalGun
 
         public IEnumerator CheckCardBar()
         {
-            foreach (Player player in BrutalGunMain.Instance.PLAYERS)
+            foreach (Player player in BrutalGunMain.Instance.PlayersMass)
             {             
                 if (CardBarLengthDict.ContainsKey(player.playerID))
                 {
