@@ -28,9 +28,9 @@ namespace BrutalGun.Cards
 
             // hide stats
             gun.dontAllowAutoFire = true;
-            gun.projectileSpeed = 4f;
+            gun.projectileSpeed = 3.5f;
             gun.gravity = 0.2f;
-            gun.spread = 0.05f;
+            gun.spread = 0.07f;
         }
 
         public override void OnRemoveCard(Player player, Gun gun, GunAmmo gunAmmo, CharacterData data, HealthHandler health, Gravity gravity, Block block, CharacterStatModifiers characterStats)
