@@ -24,14 +24,14 @@ namespace BrutalGun.Cards
         {         
             // show stats
             gun.damage = 0.7f;
-            gun.attackSpeed = 0.1f;
+            gun.attackSpeed = 0.3f;
             gunAmmo.maxAmmo = 5;
             gunAmmo.reloadTimeAdd = -0.1f;
 
             // hide stats
             gun.dontAllowAutoFire = true;
             gun.projectileSpeed = 1.4f;
-            gun.gravity = 0.7f;
+            gun.gravity = 1f;
             gun.spread = 0.09f;
         }
 
