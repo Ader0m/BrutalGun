@@ -11,14 +11,13 @@ using BrutalGun;
 
 namespace BrutalGun.Cards
 {
-    public class ExpBullet : CustomCard
+    public class BatteriesEnergizer : CustomCard
     {
         public override void SetupCard(CardInfo cardInfo, Gun gun, ApplyCardStats cardStats, CharacterStatModifiers statModifiers, Block block)
         {
             cardInfo.categories = new CardCategory[] { MyCategories.Module };
 
-            gun.bulletDamageMultiplier = 1.15f;
-            gun.multiplySpread = 1.2f;
+            block.cdMultiplier = 0.85f;
         }
 
         public override void OnAddCard(Player player, Gun gun, GunAmmo gunAmmo, CharacterData data, HealthHandler health, Gravity gravity, Block block, CharacterStatModifiers characterStats)
@@ -33,12 +32,12 @@ namespace BrutalGun.Cards
 
         protected override string GetTitle()
         {
-            return "Explosive bullet";
+            return "Batteries energizer";
         }
 
         protected override string GetDescription()
         {
-            return "Shakes the bodies of enemies as well as your hands";
+            return "More powerful batteries for your shi(t)eld";
         }
 
         protected override GameObject GetCardArt()
@@ -48,7 +47,7 @@ namespace BrutalGun.Cards
 
         protected override CardInfo.Rarity GetRarity()
         {
-            return CardInfo.Rarity.Rare;
+            return CardInfo.Rarity.Common;
         }
 
         protected override CardInfoStat[] GetStats()
@@ -58,16 +57,8 @@ namespace BrutalGun.Cards
                 new CardInfoStat()
                 {
                     positive = true,
-                    stat = "DMG",
-                    amount = "+15%",
-                    simepleAmount = CardInfoStat.SimpleAmount.notAssigned
-                },
-
-                new CardInfoStat()
-                {
-                    positive = false,
-                    stat = "Accuracy",
-                    amount = "-20%",
+                    stat = "Block cooldown",
+                    amount = "-15%",
                     simepleAmount = CardInfoStat.SimpleAmount.notAssigned
                 }
             };

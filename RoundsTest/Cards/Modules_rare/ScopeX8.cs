@@ -18,7 +18,7 @@ namespace BrutalGun.Cards
             cardInfo.categories = new CardCategory[] { MyCategories.Module };
 
             gun.attackSpeedMultiplier = 1.2f;
-            gun.multiplySpread = 0.6f;
+            gun.multiplySpread = 0.5f;
             statModifiers.movementSpeed = 0.8f;
         }
 
@@ -39,7 +39,7 @@ namespace BrutalGun.Cards
 
         protected override string GetDescription()
         {
-            return "Check the Wind. Iron. The natal chart. Well done, you can shoot.";
+            return "Check the Wind. Iron. The natal chart. Well done, you can shoot";
         }
 
         protected override GameObject GetCardArt()
@@ -60,7 +60,7 @@ namespace BrutalGun.Cards
                 {
                     positive = true,
                     stat = "Accuracy",
-                    amount = "+40%",
+                    amount = "+50%",
                     simepleAmount = CardInfoStat.SimpleAmount.notAssigned
                 },
 

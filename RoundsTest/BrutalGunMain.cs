@@ -10,6 +10,7 @@ using UnboundLib.GameModes;
 using System.Collections.Generic;
 using System.Collections;
 using System.Linq;
+using Photon.Pun;
 
 namespace BrutalGun
 {
@@ -30,7 +31,7 @@ namespace BrutalGun
 
         #endregion
 
-        #region Const
+        #region Default Const
 
         private const string _MOD_ID = "com.aderom.rounds.RoundsTest";
         private const string _MOD_NAME = "BrutalGun";
@@ -39,9 +40,10 @@ namespace BrutalGun
 
         #endregion
 
-        public Player[] NonAIPlayers;
+        public Player[] PLAYERS;
         private CardBarManager cardBarManager;
         private PlayerSettings playerSettings;
+        private bool firstPick;
 
         void Awake()
         {
@@ -53,11 +55,15 @@ namespace BrutalGun
         void Start()
         {
             Instance = this;
+            firstPick = true;
             BuildCards();
             CreateManagers();
             
+            
             GameModeManager.AddHook(GameModeHooks.HookPickEnd, PickEnd);
-            //GameModeManager.AddHook(GameModeHooks.HookBattleStart, BattleStart);
+            //GameModeManager.AddHook(GameModeHooks.HookPickStart, FirstPickStart);
+            GameModeManager.AddHook(GameModeHooks.HookGameEnd, GameEnd);
+                   
         }       
 
         private void CreateManagers()
@@ -66,21 +72,44 @@ namespace BrutalGun
             playerSettings = new PlayerSettings();
         }
 
-        IEnumerator BattleStart(IGameModeHandler arg)
+        IEnumerator FirstPickStart(IGameModeHandler arg)
         {
-            
+            if (firstPick)
+            {
+                firstPick = false;
+                PLAYERS = PlayerManager.instance.players.Where((person) => !ModdingUtils.AIMinion.Extensions.CharacterDataExtension.GetAdditionalData(person.data).isAIMinion).ToArray();
+                playerSettings.SetStartStats();
+            }         
 
-            yield return playerSettings.SetStartStats();
+            yield break; 
         }
 
         IEnumerator PickEnd(IGameModeHandler arg)
-        {           
-            yield return cardBarManager.CheckCardBar();
+        {
+            if (PhotonNetwork.IsMasterClient || PhotonNetwork.OfflineMode)
+            {
+                PLAYERS = PlayerManager.instance.players.Where((person) => !ModdingUtils.AIMinion.Extensions.CharacterDataExtension.GetAdditionalData(person.data).isAIMinion).ToArray();
+
+                yield return cardBarManager.CheckCardBar();
+            }
+            else
+            {
+                yield break;
+            }            
+        }
+
+        IEnumerator GameEnd(IGameModeHandler arg)
+        {
+            cardBarManager.Restore();
+            firstPick = true;
+
+            yield break;
         }
 
         private void BuildCards()
         {
             //Modules_common
+            CustomCard.BuildCard<BatteriesEnergizer>();
             CustomCard.BuildCard<IFAK>();
             CustomCard.BuildCard<Laser>();
             CustomCard.BuildCard<QuickDrop>();
@@ -97,18 +126,20 @@ namespace BrutalGun
             //Modules_rare
             CustomCard.BuildCard<ScopeX8>();
             CustomCard.BuildCard<ArmoredSuit>();
-            CustomCard.BuildCard<ExpBullet>();
+            CustomCard.BuildCard<APBullet>();
             //Weapon_common
             CustomCard.BuildCard<FiveSeven>();
             CustomCard.BuildCard<Glock>();
             CustomCard.BuildCard<SawnOff>();
             //Weapon_uncommon
+            CustomCard.BuildCard<Famas>();
             CustomCard.BuildCard<Mosin>();
             CustomCard.BuildCard<Nova>();
             CustomCard.BuildCard<P90>();
             //Weapon_rare
             CustomCard.BuildCard<AK74>();
             CustomCard.BuildCard<M4A1>();
+            CustomCard.BuildCard<Winchester>();
         }
     }
 }

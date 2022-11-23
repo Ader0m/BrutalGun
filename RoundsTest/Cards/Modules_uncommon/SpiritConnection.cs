@@ -18,7 +18,7 @@ namespace BrutalGun.Cards
             cardInfo.categories = new CardCategory[] { MyCategories.Module };
 
             statModifiers.lifeSteal = 0.2f;
-            gun.multiplySpread = 1.05f;
+            gun.multiplySpread = 1.1f;
         }
 
         public override void OnAddCard(Player player, Gun gun, GunAmmo gunAmmo, CharacterData data, HealthHandler health, Gravity gravity, Block block, CharacterStatModifiers characterStats)
@@ -65,9 +65,9 @@ namespace BrutalGun.Cards
 
                 new CardInfoStat()
                 {
-                    positive = true,
+                    positive = false,
                     stat = "Accuracy",
-                    amount = "-5%",
+                    amount = "-10%",
                     simepleAmount = CardInfoStat.SimpleAmount.notAssigned
                 }
             };

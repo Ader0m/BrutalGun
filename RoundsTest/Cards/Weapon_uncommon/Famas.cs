@@ -1,5 +1,4 @@
-﻿using BrutalGun;
-using CardChoiceSpawnUniqueCardPatch.CustomCategories;
+﻿using CardChoiceSpawnUniqueCardPatch.CustomCategories;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -8,29 +7,36 @@ using System.Threading.Tasks;
 using UnboundLib;
 using UnboundLib.Cards;
 using UnityEngine;
+using BrutalGun;
 
 namespace BrutalGun.Cards
 {
-    public class AK74 : CustomCard
+    public class Famas : CustomCard
     {
         public override void SetupCard(CardInfo cardInfo, Gun gun, ApplyCardStats cardStats, CharacterStatModifiers statModifiers, Block block)
         {
             cardInfo.categories = new CardCategory[] { MyCategories.Weapon };
+
+            //Edits values on card itself, which are then applied to the player in `ApplyCardStats`
         }
 
         public override void OnAddCard(Player player, Gun gun, GunAmmo gunAmmo, CharacterData data, HealthHandler health, Gravity gravity, Block block, CharacterStatModifiers characterStats)
         {
             //show stats
-            gun.damage = 0.72f;
-            gun.attackSpeed = 0.2f;
-            gunAmmo.maxAmmo = 12;
-            gunAmmo.reloadTimeAdd = 1.1f;
+            gun.damage = 0.5f;
+            gun.attackSpeed = 0.4f;
+            gunAmmo.maxAmmo = 9;
+            gunAmmo.reloadTimeAdd = 0.7f;
 
             // hide stats
-            gun.dontAllowAutoFire = false;
-            gun.projectileSpeed = 3.2f;
+            gun.projectileSpeed = 2.5f;
             gun.gravity = 0.3f;
-            gun.spread = 0.08f;
+            gun.spread = 0.07f;
+
+            //burst
+            gun.timeBetweenBullets = 0.15f;
+            gun.bursts = 3;
+            gun.numberOfProjectiles = 1;         
         }
 
         public override void OnRemoveCard(Player player, Gun gun, GunAmmo gunAmmo, CharacterData data, HealthHandler health, Gravity gravity, Block block, CharacterStatModifiers characterStats)
@@ -45,16 +51,21 @@ namespace BrutalGun.Cards
             gun.dontAllowAutoFire = true;
             gun.projectileSpeed = 1f;
             gun.gravity = 1f;
+
+            //burst
+            gun.bursts = 0;
+            gun.numberOfProjectiles = 1;
+            gun.timeBetweenBullets = 0f;
         }
 
         protected override string GetTitle()
         {
-            return "AK-74";
+            return "Famas";
         }
 
         protected override string GetDescription()
         {
-            return "Standart Soviet assault rifle";
+            return "3 bullet one time, do 3 hole in you a**";
         }
 
         protected override GameObject GetCardArt()
@@ -64,7 +75,7 @@ namespace BrutalGun.Cards
 
         protected override CardInfo.Rarity GetRarity()
         {
-            return CardInfo.Rarity.Rare;
+            return CardInfo.Rarity.Uncommon;
         }
 
         protected override CardInfoStat[] GetStats()
@@ -75,7 +86,7 @@ namespace BrutalGun.Cards
                 {
                     positive = true,
                     stat = "DMG",
-                    amount = "40",
+                    amount = "28",
                     simepleAmount = CardInfoStat.SimpleAmount.notAssigned
                 },
 
@@ -83,7 +94,7 @@ namespace BrutalGun.Cards
                 {
                     positive = true,
                     stat = "ATKSPD",
-                    amount = "5",
+                    amount = "2.5",
                     simepleAmount = CardInfoStat.SimpleAmount.notAssigned
                 },
 
@@ -91,7 +102,7 @@ namespace BrutalGun.Cards
                 {
                     positive = true,
                     stat = "Ammo",
-                    amount = "12",
+                    amount = "9",
                     simepleAmount = CardInfoStat.SimpleAmount.notAssigned
                 },
 
@@ -99,7 +110,7 @@ namespace BrutalGun.Cards
                 {
                     positive = true,
                     stat = "Reload time",
-                    amount = "2.1s",
+                    amount = "1.7s",
                     simepleAmount = CardInfoStat.SimpleAmount.notAssigned
                 }
             };

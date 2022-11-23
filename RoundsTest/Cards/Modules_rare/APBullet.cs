@@ -1,5 +1,4 @@
-﻿using BrutalGun;
-using CardChoiceSpawnUniqueCardPatch.CustomCategories;
+﻿using CardChoiceSpawnUniqueCardPatch.CustomCategories;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -8,53 +7,38 @@ using System.Threading.Tasks;
 using UnboundLib;
 using UnboundLib.Cards;
 using UnityEngine;
+using BrutalGun;
 
 namespace BrutalGun.Cards
 {
-    public class AK74 : CustomCard
+    public class APBullet : CustomCard
     {
         public override void SetupCard(CardInfo cardInfo, Gun gun, ApplyCardStats cardStats, CharacterStatModifiers statModifiers, Block block)
         {
-            cardInfo.categories = new CardCategory[] { MyCategories.Weapon };
+            cardInfo.categories = new CardCategory[] { MyCategories.Module };
+
+            gun.bulletDamageMultiplier = 1.15f;
+            gun.multiplySpread = 1.2f;
         }
 
         public override void OnAddCard(Player player, Gun gun, GunAmmo gunAmmo, CharacterData data, HealthHandler health, Gravity gravity, Block block, CharacterStatModifiers characterStats)
         {
-            //show stats
-            gun.damage = 0.72f;
-            gun.attackSpeed = 0.2f;
-            gunAmmo.maxAmmo = 12;
-            gunAmmo.reloadTimeAdd = 1.1f;
-
-            // hide stats
-            gun.dontAllowAutoFire = false;
-            gun.projectileSpeed = 3.2f;
-            gun.gravity = 0.3f;
-            gun.spread = 0.08f;
+            //Edits values on player when card is selected
         }
 
         public override void OnRemoveCard(Player player, Gun gun, GunAmmo gunAmmo, CharacterData data, HealthHandler health, Gravity gravity, Block block, CharacterStatModifiers characterStats)
         {
-            //show stats
-            gun.damage = 1f;
-            gun.attackSpeed = 1f;
-            gunAmmo.maxAmmo = 3;
-            gunAmmo.reloadTimeAdd = -1.1f;
-
-            // hide stats
-            gun.dontAllowAutoFire = true;
-            gun.projectileSpeed = 1f;
-            gun.gravity = 1f;
+            //Run when the card is removed from the player
         }
 
         protected override string GetTitle()
         {
-            return "AK-74";
+            return "Armor-piercing bullet";
         }
 
         protected override string GetDescription()
         {
-            return "Standart Soviet assault rifle";
+            return "Shakes the bodies of enemies as well as your hands";
         }
 
         protected override GameObject GetCardArt()
@@ -75,31 +59,15 @@ namespace BrutalGun.Cards
                 {
                     positive = true,
                     stat = "DMG",
-                    amount = "40",
+                    amount = "+15%",
                     simepleAmount = CardInfoStat.SimpleAmount.notAssigned
                 },
 
                 new CardInfoStat()
                 {
-                    positive = true,
-                    stat = "ATKSPD",
-                    amount = "5",
-                    simepleAmount = CardInfoStat.SimpleAmount.notAssigned
-                },
-
-                new CardInfoStat()
-                {
-                    positive = true,
-                    stat = "Ammo",
-                    amount = "12",
-                    simepleAmount = CardInfoStat.SimpleAmount.notAssigned
-                },
-
-                new CardInfoStat()
-                {
-                    positive = true,
-                    stat = "Reload time",
-                    amount = "2.1s",
+                    positive = false,
+                    stat = "Accuracy",
+                    amount = "-20%",
                     simepleAmount = CardInfoStat.SimpleAmount.notAssigned
                 }
             };
@@ -107,7 +75,7 @@ namespace BrutalGun.Cards
 
         protected override CardThemeColor.CardThemeColorType GetTheme()
         {
-            return CardThemeColor.CardThemeColorType.DestructiveRed;
+            return CardThemeColor.CardThemeColorType.ColdBlue;
         }
 
         public override string GetModName()

@@ -22,19 +22,21 @@ namespace BrutalGun.Cards
         {
             //show stats
             gun.damage = 1f;
-            gun.attackSpeed = 0.01f;
+            gun.attackSpeed = 0.1f;
             gunAmmo.maxAmmo = 6;
             gunAmmo.reloadTimeAdd = -0.3f;
 
             // hide stats
             gun.dontAllowAutoFire = true;
-            gun.projectileSpeed = 1.5f;
+            gun.projectileSpeed = 1.2f;
             gun.gravity = 0.5f;
             gun.spread = 0.2f;
 
             //shotgun
             gun.bursts = 1;
             gun.numberOfProjectiles = 3;
+            gun.destroyBulletAfter = 0.3f;
+            gun.damageAfterDistanceMultiplier = 0.55f;
         }
 
         public override void OnRemoveCard(Player player, Gun gun, GunAmmo gunAmmo, CharacterData data, HealthHandler health, Gravity gravity, Block block, CharacterStatModifiers characterStats)
@@ -54,6 +56,7 @@ namespace BrutalGun.Cards
             //shotgun
             gun.bursts = 0;
             gun.numberOfProjectiles = 1;
+            gun.destroyBulletAfter = 0f;
         }
 
         protected override string GetTitle()
@@ -92,7 +95,7 @@ namespace BrutalGun.Cards
                 {
                     positive = true,
                     stat = "ATKSPD",
-                    amount = "100",
+                    amount = "10",
                     simepleAmount = CardInfoStat.SimpleAmount.notAssigned
                 },
 

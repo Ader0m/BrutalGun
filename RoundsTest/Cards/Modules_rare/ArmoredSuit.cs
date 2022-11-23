@@ -19,7 +19,7 @@ namespace BrutalGun.Cards
 
             statModifiers.health = 1.6f;
             statModifiers.movementSpeed = 0.8f;
-            gun.ammo = 5;
+            gun.ammo = 4;
             gun.multiplySpread = 0.95f;
 
             //Edits values on card itself, which are then applied to the player in `ApplyCardStats`
@@ -37,7 +37,7 @@ namespace BrutalGun.Cards
 
         protected override string GetTitle()
         {
-            return "ArmoredSuit";
+            return "Armored Suit";
         }
 
         protected override string GetDescription()
