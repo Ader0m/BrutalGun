@@ -29,7 +29,7 @@ namespace BrutalGun.Cards
             // hide stats
             gun.dontAllowAutoFire = false;
             gun.projectileSpeed = 3.2f;
-            gun.gravity = 0.3f;
+            gun.gravity = 0.65f;
             gun.spread = 0.08f;
         }
 
