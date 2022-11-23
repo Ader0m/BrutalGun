@@ -17,7 +17,7 @@ namespace BrutalGun.Cards
         {
             cardInfo.categories = new CardCategory[] { MyCategories.Module };
 
-            gun.reloadTime = 0.85f;
+            gun.reloadTime = 0.8f;
         }
 
         public override void OnAddCard(Player player, Gun gun, GunAmmo gunAmmo, CharacterData data, HealthHandler health, Gravity gravity, Block block, CharacterStatModifiers characterStats)
@@ -58,7 +58,7 @@ namespace BrutalGun.Cards
                 {
                     positive = true,
                     stat = "Reload time",
-                    amount = "-15%",
+                    amount = "-20%",
                     simepleAmount = CardInfoStat.SimpleAmount.notAssigned
                 }
             };
