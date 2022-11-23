@@ -10,6 +10,7 @@ using UnboundLib.GameModes;
 using System.Collections.Generic;
 using System.Collections;
 using System.Linq;
+using Photon.Pun;
 
 namespace BrutalGun
 {
@@ -54,14 +55,15 @@ namespace BrutalGun
         void Start()
         {
             Instance = this;
+            firstPick = true;
             BuildCards();
             CreateManagers();
-            firstPick = true;
-
-
+            
+            
             GameModeManager.AddHook(GameModeHooks.HookPickEnd, PickEnd);
-           // GameModeManager.AddHook(GameModeHooks.HookPickStart, FirstPickStart);
+            //GameModeManager.AddHook(GameModeHooks.HookPickStart, FirstPickStart);
             GameModeManager.AddHook(GameModeHooks.HookGameEnd, GameEnd);
+                   
         }       
 
         private void CreateManagers()
@@ -84,10 +86,16 @@ namespace BrutalGun
 
         IEnumerator PickEnd(IGameModeHandler arg)
         {
-            PLAYERS = PlayerManager.instance.players.Where((person) => !ModdingUtils.AIMinion.Extensions.CharacterDataExtension.GetAdditionalData(person.data).isAIMinion).ToArray();
-            UnityEngine.Debug.Log(PLAYERS.Length);
+            if (PhotonNetwork.IsMasterClient || PhotonNetwork.OfflineMode)
+            {
+                PLAYERS = PlayerManager.instance.players.Where((person) => !ModdingUtils.AIMinion.Extensions.CharacterDataExtension.GetAdditionalData(person.data).isAIMinion).ToArray();
 
-            yield return cardBarManager.CheckCardBar();
+                yield return cardBarManager.CheckCardBar();
+            }
+            else
+            {
+                yield break;
+            }            
         }
 
         IEnumerator GameEnd(IGameModeHandler arg)
@@ -101,7 +109,7 @@ namespace BrutalGun
         private void BuildCards()
         {
             //Modules_common
-            //CustomCard.BuildCard<BatteriesEnergizer>();
+            CustomCard.BuildCard<BatteriesEnergizer>();
             CustomCard.BuildCard<IFAK>();
             CustomCard.BuildCard<Laser>();
             CustomCard.BuildCard<QuickDrop>();
@@ -124,6 +132,7 @@ namespace BrutalGun
             CustomCard.BuildCard<Glock>();
             CustomCard.BuildCard<SawnOff>();
             //Weapon_uncommon
+            CustomCard.BuildCard<Famas>();
             CustomCard.BuildCard<Mosin>();
             CustomCard.BuildCard<Nova>();
             CustomCard.BuildCard<P90>();
