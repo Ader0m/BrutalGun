@@ -17,7 +17,7 @@ namespace BrutalGun.Cards
         {
             cardInfo.categories = new CardCategory[] { MyCategories.Module };
 
-            statModifiers.lifeSteal = 0.2f;
+            statModifiers.lifeSteal = 0.3f;
             gun.multiplySpread = 1.1f;
         }
 
@@ -59,7 +59,7 @@ namespace BrutalGun.Cards
                 {
                     positive = true,
                     stat = "LifeSteal",
-                    amount = "+20%",
+                    amount = "+30%",
                     simepleAmount = CardInfoStat.SimpleAmount.notAssigned
                 },
 
