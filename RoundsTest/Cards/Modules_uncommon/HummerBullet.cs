@@ -11,14 +11,14 @@ using BrutalGun;
 
 namespace BrutalGun.Cards
 {
-    public class LightBolt : CustomCard
+    public class HummerBullet : CustomCard
     {
         public override void SetupCard(CardInfo cardInfo, Gun gun, ApplyCardStats cardStats, CharacterStatModifiers statModifiers, Block block)
         {
             cardInfo.categories = new CardCategory[] { MyCategories.Module };
 
-            gun.attackSpeed = 0.8f;
-            gun.multiplySpread = 1.1f;
+            gun.bulletDamageMultiplier = 0.8f;
+            gun.knockback = 1.8f;
         }
 
         public override void OnAddCard(Player player, Gun gun, GunAmmo gunAmmo, CharacterData data, HealthHandler health, Gravity gravity, Block block, CharacterStatModifiers characterStats)
@@ -33,7 +33,7 @@ namespace BrutalGun.Cards
 
         protected override string GetTitle()
         {
-            return "Light Bolt";
+            return "Hummer Bullet";
         }
 
         protected override string GetDescription()
@@ -58,16 +58,16 @@ namespace BrutalGun.Cards
                 new CardInfoStat()
                 {
                     positive = true,
-                    stat = "ATKSPD",
-                    amount = "+20%",
+                    stat = "Knockback",
+                    amount = "+80%",
                     simepleAmount = CardInfoStat.SimpleAmount.notAssigned
                 },
-
+                
                 new CardInfoStat()
                 {
                     positive = false,
-                    stat = "Accuracy",
-                    amount = "-10%",
+                    stat = "DMG",
+                    amount = "-20%",
                     simepleAmount = CardInfoStat.SimpleAmount.notAssigned
                 }
             };

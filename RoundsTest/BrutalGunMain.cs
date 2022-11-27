@@ -13,7 +13,7 @@ using System.Linq;
 using Photon.Pun;
 
 namespace BrutalGun
-{
+{   
     // These are the mods required for our mod to work
     [BepInDependency("com.willis.rounds.unbound", BepInDependency.DependencyFlags.HardDependency)]
     [BepInDependency("pykess.rounds.plugins.moddingutils", BepInDependency.DependencyFlags.HardDependency)]
@@ -64,8 +64,8 @@ namespace BrutalGun
             
             GameModeManager.AddHook(GameModeHooks.HookPickEnd, PickEnd);
             GameModeManager.AddHook(GameModeHooks.HookPickStart, FirstPickStart);
-            GameModeManager.AddHook(GameModeHooks.HookGameEnd, GameEnd);
-            //GameModeManager.AddHook(GameModeHooks.HookInitStart, GameEnd);
+            GameModeManager.AddHook(GameModeHooks.HookGameEnd, ResetData);
+            GameModeManager.AddHook(GameModeHooks.HookInitStart, ResetData);
         }       
 
         private void CreateManagers()
@@ -100,7 +100,7 @@ namespace BrutalGun
             }            
         }
 
-        IEnumerator GameEnd(IGameModeHandler arg)
+        IEnumerator ResetData(IGameModeHandler arg)
         {
             cardBarManager.Restore();
             firstPick = true;
@@ -120,6 +120,7 @@ namespace BrutalGun
             //Modules_uncommon
             CustomCard.BuildCard<AmmoXL>();
             CustomCard.BuildCard<BigBullet>();
+            CustomCard.BuildCard<HummerBullet>();
             CustomCard.BuildCard<LightArmor>();
             CustomCard.BuildCard<LightBolt>();
             CustomCard.BuildCard<LongBarrel>();
@@ -150,6 +151,8 @@ namespace BrutalGun
                 startCardList.Add(cardInfo);
                 ModdingUtils.Utils.Cards.instance.AddHiddenCard(cardInfo);
             });
+
+            //CustomCard.BuildCard<Granade>();
         }
     }
 }
