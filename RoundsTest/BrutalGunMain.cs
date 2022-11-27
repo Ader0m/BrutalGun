@@ -115,6 +115,7 @@ namespace BrutalGun
             CustomCard.BuildCard<IFAK>();
             CustomCard.BuildCard<Laser>();
             CustomCard.BuildCard<QuickDrop>();
+            CustomCard.BuildCard<RocketJump>();
             CustomCard.BuildCard<StrangePill>();
             CustomCard.BuildCard<TitaniumParts>();
             //Modules_uncommon
