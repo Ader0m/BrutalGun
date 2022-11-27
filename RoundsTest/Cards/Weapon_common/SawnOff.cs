@@ -66,7 +66,7 @@ namespace BrutalGun.Cards
 
         protected override string GetDescription()
         {
-            return "CartDescription";
+            return "Very powerful short barrel";
         }
 
         protected override GameObject GetCardArt()
