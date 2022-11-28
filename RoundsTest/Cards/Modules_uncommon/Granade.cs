@@ -12,6 +12,7 @@ using UnityEngine;
 using BrutalGun;
 using ModsPlus;
 using System.Runtime.CompilerServices;
+using CardsPlusPlugin;
 
 namespace BrutalGun.Cards
 {
@@ -34,8 +35,7 @@ namespace BrutalGun.Cards
                     amount = "",
                     simepleAmount = CardInfoStat.SimpleAmount.notAssigned
                 }              
-            },
-            Art = null
+            }            
         };
 
         public override void SetupCard(CardInfo cardInfo, Gun gun, ApplyCardStats cardStats, CharacterStatModifiers statModifiers, Block block)
@@ -48,11 +48,13 @@ namespace BrutalGun.Cards
     {
         public override void OnBlock(BlockTrigger.BlockTriggerType trigger)
         {
+            CardsPlus.LOGGER.LogInfo("block");
             UnityEngine.Debug.Log("[ExampleEffect] Player blocked!");
         }
 
         public override void OnShoot(GameObject projectile)
         {
+            CardsPlus.LOGGER.LogInfo("shoot");
             UnityEngine.Debug.Log("[ExampleEffect] Player fired a shot!");
         }
     }

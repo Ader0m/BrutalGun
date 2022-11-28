@@ -153,7 +153,7 @@ namespace BrutalGun
                 ModdingUtils.Utils.Cards.instance.AddHiddenCard(cardInfo);
             });
 
-            //CustomCard.BuildCard<Granade>();
+            CustomCard.BuildCard<Granade>();
         }
     }
 }
