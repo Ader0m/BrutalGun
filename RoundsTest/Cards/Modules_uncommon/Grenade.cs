@@ -13,10 +13,12 @@ using BrutalGun;
 using ModsPlus;
 using System.Runtime.CompilerServices;
 using CardsPlusPlugin;
+using Photon.Pun.UtilityScripts;
+using System.Xml.Linq;
 
 namespace BrutalGun.Cards
 {
-    public class Granade : CustomEffectCard<ExampleEffect>
+    public class Grenade : CustomEffectCard<GrenadeEffect>
     {
         public override CardDetails Details => new CardDetails
         {
@@ -44,18 +46,42 @@ namespace BrutalGun.Cards
         }
     }
 
-    public class ExampleEffect : CardEffect
+    public class GrenadeEffect : CardEffect
     {
         public override void OnBlock(BlockTrigger.BlockTriggerType trigger)
         {
-            CardsPlus.LOGGER.LogInfo("block");
-            UnityEngine.Debug.Log("[ExampleEffect] Player blocked!");
-        }
+            float SaveDamage = gun.damage;
+            float SaveProjectileSpeed = gun.projectileSpeed;
+            float SaveGravity = gun.gravity;
+            float SaveExplDamage = gun.explodeNearEnemyDamage;
+            float SaveExplRange = gun.explodeNearEnemyRange;
+            
 
-        public override void OnShoot(GameObject projectile)
-        {
-            CardsPlus.LOGGER.LogInfo("shoot");
-            UnityEngine.Debug.Log("[ExampleEffect] Player fired a shot!");
+            UnityEngine.Debug.Log("save " + SaveDamage);
+            UnityEngine.Debug.Log("real " + gun.damage);
+            //set
+            gun.damage *= 1.3f;
+            gun.projectileSpeed *= 0.5f;
+            gun.gravity = 1;
+            
+            
+            gun.explodeNearEnemyDamage = gun.damage;
+            gun.explodeNearEnemyRange = 10f;
+
+            UnityEngine.Debug.Log("s: save " + SaveDamage);
+            UnityEngine.Debug.Log("s: real " + gun.damage);
+
+            gun.Attack(0, false, 1, 1, false);
+
+            //reset
+            gun.damage = SaveDamage;
+            gun.projectileSpeed = SaveProjectileSpeed;
+            gun.gravity = SaveGravity;
+            gun.explodeNearEnemyDamage = SaveExplDamage;
+            gun.explodeNearEnemyRange = SaveExplRange;
+
+            
+            UnityEngine.Debug.Log("[ExampleEffect] Player blocked!");
         }
     }
 }
