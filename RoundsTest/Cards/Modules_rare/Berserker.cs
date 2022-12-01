@@ -98,7 +98,7 @@ namespace BrutalGun.Cards
         }
     }
 
-    public class BerserkerEffect: CardEffect 
+    public class BerserkerEffect: CardEffect
     {
         HealthHandler healthHandler;
         bool isDead = false;
@@ -119,7 +119,7 @@ namespace BrutalGun.Cards
         }
 
         private IEnumerator HealingFase()
-        {
+        {           
             gun.multiplySpread = 0.8f;
             characterStats.movementSpeed = 1.15f;
 
@@ -130,14 +130,14 @@ namespace BrutalGun.Cards
                 yield return new WaitForSeconds(1f);
             }
         }
-
+        
         private IEnumerator СonsequenceFase(float spread, float speed)
         {
             gun.multiplySpread = spread;
             characterStats.movementSpeed = speed;
 
          
-            while (characterStats.health <= 0)
+            while (characterStats.health >= 0)
             {
                 healthHandler.CallTakeDamage(UnityEngine.Vector2.up * gun.damage, UnityEngine.Vector2.zero, null, null, true);
                 yield return new WaitForSeconds(1f);
