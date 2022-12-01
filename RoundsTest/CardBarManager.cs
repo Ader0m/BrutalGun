@@ -25,24 +25,22 @@ namespace BrutalGun
         public IEnumerator CheckCardBar()
         {
             foreach (Player player in BrutalGunMain.Instance.PlayersMass)
-            {             
+            {               
                 if (CardBarLengthDict.ContainsKey(player.playerID))
                 {
                     if (CardBarLengthDict[player.playerID] < player.data.currentCards.Count)
                     {                     
-                        FindExtraWeapon(player);
+                        yield return FindExtraWeapon(player);
                     }            
                 }
                 else
-                { 
-                    FindExtraWeapon(player);
+                {
+                    yield return FindExtraWeapon(player);
                 }
             }
-
-            yield break;
         }
 
-        private void FindExtraWeapon(Player player)
+        private IEnumerator FindExtraWeapon(Player player)
         {          
             int countWeapon = 0;
             List<int> countWeaponCardsIndex = new List<int>();
@@ -63,23 +61,61 @@ namespace BrutalGun
                     cards.Add(player.data.currentCards[i]);
                 }
             }
+            
+            yield return WithStartWeapon(player, currentWeapon, cards, countWeapon);           
+        }
 
+        public void Restore()
+        {
+            CardBarLengthDict.Clear();
+        }
+
+        /// <summary>
+        /// How startPlayercards not include weapon
+        /// </summary>
+        /// <param name="player"></param>
+        /// <param name="currentWeapon"></param>
+        /// <param name="cards"></param>
+        /// <param name="countWeapon"></param>
+        /// <returns></returns>
+        private IEnumerator WithoutStartWeapon(Player player, CardInfo currentWeapon, List<CardInfo> cards, int countWeapon)
+        {
             if (currentWeapon != null)
             {
                 ModdingUtils.Utils.Cards.instance.RemoveAllCardsFromPlayer(player, true);
+                yield return null;
                 ModdingUtils.Utils.Cards.instance.AddCardToPlayer(player, currentWeapon, false, "", 0, 0);
                 if (cards.Count != 0)
                 {
                     ModdingUtils.Utils.Cards.instance.AddCardsToPlayer(player, cards.ToArray(), false, null, null, null);
                 }
             }
-            
-            CardBarLengthDict[player.playerID] = player.data.currentCards.Count - countWeapon + 1;                    
+
+            CardBarLengthDict[player.playerID] = player.data.currentCards.Count - (countWeapon > 0 ? countWeapon + 1 : 0);
         }
 
-        public void Restore()
-        {
-            CardBarLengthDict.Clear();
+        /// <summary>
+        /// How startPlayercards include weapon
+        /// </summary>
+        /// <param name="player"></param>
+        /// <param name="currentWeapon"></param>
+        /// <param name="cards"></param>
+        /// <param name="countWeapon"></param>
+        /// <returns></returns>
+        private IEnumerator WithStartWeapon(Player player, CardInfo currentWeapon, List<CardInfo> cards, int countWeapon)
+        {           
+            if (currentWeapon != null && countWeapon > 0)
+            {
+                ModdingUtils.Utils.Cards.instance.RemoveAllCardsFromPlayer(player, true);
+                yield return null;
+                ModdingUtils.Utils.Cards.instance.AddCardToPlayer(player, currentWeapon, false, "", 0, 0);
+                if (cards.Count != 0)
+                {
+                    ModdingUtils.Utils.Cards.instance.AddCardsToPlayer(player, cards.ToArray(), false, null, null, null);
+                }
+            }
+
+            CardBarLengthDict[player.playerID] = player.data.currentCards.Count - countWeapon + 1;
         }
     }
 }
