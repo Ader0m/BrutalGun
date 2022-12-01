@@ -18,6 +18,8 @@ namespace BrutalGun
     [BepInDependency("com.willis.rounds.unbound", BepInDependency.DependencyFlags.HardDependency)]
     [BepInDependency("pykess.rounds.plugins.moddingutils", BepInDependency.DependencyFlags.HardDependency)]
     [BepInDependency("pykess.rounds.plugins.cardchoicespawnuniquecardpatch", BepInDependency.DependencyFlags.HardDependency)]
+    [BepInDependency("com.willis.rounds.cardsplus", BepInDependency.DependencyFlags.HardDependency)]
+
     // Declares our mod to Bepin
     [BepInPlugin(_MOD_ID, _MOD_NAME, VERSION)]
     // The game our mod is associated with
@@ -90,7 +92,7 @@ namespace BrutalGun
         {
             if (PhotonNetwork.IsMasterClient || PhotonNetwork.OfflineMode)
             {
-                //PLAYERS = PlayerManager.instance.players.Where((person) => !ModdingUtils.AIMinion.Extensions.CharacterDataExtension.GetAdditionalData(person.data).isAIMinion).ToArray();
+                PlayersMass = PlayerManager.instance.players.Where((person) => !ModdingUtils.AIMinion.Extensions.CharacterDataExtension.GetAdditionalData(person.data).isAIMinion).ToArray();
 
                 yield return cardBarManager.CheckCardBar();
             }
@@ -131,6 +133,7 @@ namespace BrutalGun
             //Modules_rare
             CustomCard.BuildCard<ScopeX8>();
             CustomCard.BuildCard<ArmoredSuit>();
+            CustomCard.BuildCard<Berserker>();
             CustomCard.BuildCard<APBullet>();
             //Weapon_common
             CustomCard.BuildCard<FiveSeven>();
@@ -153,7 +156,7 @@ namespace BrutalGun
                 ModdingUtils.Utils.Cards.instance.AddHiddenCard(cardInfo);
             });
 
-            CustomCard.BuildCard<Granade>();
+            CustomCard.BuildCard<Grenade>();
         }
     }
 }
