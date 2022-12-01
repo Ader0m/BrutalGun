@@ -7,12 +7,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using UnboundLib;
-using UnboundLib.Cards;
-using UnityEngine;
 using BrutalGun;
 using ModsPlus;
 using System.Runtime.CompilerServices;
-using CardsPlusPlugin;
 using Photon.Pun.UtilityScripts;
 using System.Xml.Linq;
 
