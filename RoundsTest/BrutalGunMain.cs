@@ -18,7 +18,7 @@ namespace BrutalGun
     [BepInDependency("com.willis.rounds.unbound", BepInDependency.DependencyFlags.HardDependency)]
     [BepInDependency("pykess.rounds.plugins.moddingutils", BepInDependency.DependencyFlags.HardDependency)]
     [BepInDependency("pykess.rounds.plugins.cardchoicespawnuniquecardpatch", BepInDependency.DependencyFlags.HardDependency)]
-    [BepInDependency("com.willis.rounds.cardsplus", BepInDependency.DependencyFlags.HardDependency)]
+    //[BepInDependency("com.willis.rounds.cardsplus", BepInDependency.DependencyFlags.HardDependency)]
 
     // Declares our mod to Bepin
     [BepInPlugin(_MOD_ID, _MOD_NAME, VERSION)]
@@ -123,6 +123,7 @@ namespace BrutalGun
             //Modules_uncommon
             CustomCard.BuildCard<AmmoXL>();
             CustomCard.BuildCard<BigBullet>();
+            CustomCard.BuildCard<Grenade>();
             CustomCard.BuildCard<HummerBullet>();
             CustomCard.BuildCard<LightArmor>();
             CustomCard.BuildCard<LightBolt>();
@@ -156,7 +157,17 @@ namespace BrutalGun
                 ModdingUtils.Utils.Cards.instance.AddHiddenCard(cardInfo);
             });
 
-            CustomCard.BuildCard<Grenade>();
+            //SupportCard
+            CustomCard.BuildCard<PowerfullBerserk>(cardInfo => 
+            {
+                SupportCardContainer.PowerfullBerserk = cardInfo;
+                ModdingUtils.Utils.Cards.instance.AddHiddenCard(cardInfo);
+            });
+            CustomCard.BuildCard<DyingBerserk>(cardInfo => 
+            {
+                SupportCardContainer.DyingBerserk = cardInfo;
+                ModdingUtils.Utils.Cards.instance.AddHiddenCard(cardInfo);
+            });           
         }
     }
 }

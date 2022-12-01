@@ -30,17 +30,17 @@ namespace BrutalGun
                 {
                     if (CardBarLengthDict[player.playerID] < player.data.currentCards.Count)
                     {                     
-                        yield return FindExtraWeapon(player);
+                        yield return FindExtraCard(player);
                     }            
                 }
                 else
                 {
-                    yield return FindExtraWeapon(player);
+                    yield return FindExtraCard(player);
                 }
             }
         }
 
-        private IEnumerator FindExtraWeapon(Player player)
+        private IEnumerator FindExtraCard(Player player)
         {          
             int countWeapon = 0;
             List<int> countWeaponCardsIndex = new List<int>();
@@ -55,6 +55,10 @@ namespace BrutalGun
                     countWeaponCardsIndex.Add(i);
                     currentWeapon = player.data.currentCards[i];
                     countWeapon++;
+                }
+                else if (player.data.currentCards[i].categories.Contains(MyCategories.TimeEffect))
+                {
+                    ModdingUtils.Utils.Cards.instance.RemoveCardFromPlayer(player, i);
                 }
                 else
                 {

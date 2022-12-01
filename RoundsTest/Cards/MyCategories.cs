@@ -9,5 +9,6 @@ namespace BrutalGun.Cards
     {
         public static CardCategory Weapon = CustomCardCategories.instance.CardCategory("Weapon");
         public static CardCategory Module = CustomCardCategories.instance.CardCategory("Module");
+        public static CardCategory TimeEffect = CustomCardCategories.instance.CardCategory("TimeEffect");
     }
 }
