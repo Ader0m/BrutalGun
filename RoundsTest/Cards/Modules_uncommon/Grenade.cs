@@ -76,7 +76,7 @@ namespace BrutalGun.Cards
             explosion.range = 10f;
             explosion.force = 4000;
 
-            player.data.weaponHandler.gun.objectsToSpawn = new ObjectsToSpawn[] { new ObjectsToSpawn
+            ObjectsToSpawn[] obj = {new ObjectsToSpawn
             {
                 AddToProjectile = AddToProjectile,
                 effect = effect,
@@ -86,7 +86,10 @@ namespace BrutalGun.Cards
                 scaleStacks = true,
                 spawnOn = ObjectsToSpawn.SpawnOn.all,
                 direction = ObjectsToSpawn.Direction.forward
-            }};
+            } };
+
+            player.data.weaponHandler.gun.objectsToSpawn.Concat(obj).ToArray();
+                
 
             gun.Attack(0, false, 1, 1, false);
 
@@ -94,7 +97,7 @@ namespace BrutalGun.Cards
             gun.damage = SaveDamage;
             gun.projectileSpeed = SaveProjectileSpeed;
             gun.gravity = SaveGravity;
-            player.data.weaponHandler.gun.objectsToSpawn = objectsToSpawn;
+            player.data.weaponHandler.gun.objectsToSpawn.Except(obj).ToArray();
 
             UnityEngine.Debug.Log("[ExampleEffect] Player use grenade!");
         }
