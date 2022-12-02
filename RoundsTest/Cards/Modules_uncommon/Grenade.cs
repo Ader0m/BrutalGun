@@ -58,30 +58,32 @@ namespace BrutalGun.Cards
 
             //getExplosion
             GameObject explosiveBullet = (GameObject)Resources.Load("0 cards/Explosive bullet");
-            GameObject AddToProjectile = explosiveBullet.GetComponent<Gun>().objectsToSpawn[0].AddToProjectile;
-            GameObject effect = explosiveBullet.GetComponent<Gun>().objectsToSpawn[0].effect;
-            GameObject exp = Instantiate(effect);
-            exp.transform.position = new UnityEngine.Vector3(1000, 0, 0);
-            exp.hideFlags = HideFlags.HideAndDontSave;
-            exp.name = "customExplo";
-            DestroyImmediate(exp.GetComponent<RemoveAfterSeconds>());
-            Explosion explosion = exp.GetComponent<Explosion>();
-            
+            Gun explosiveGun = explosiveBullet.GetComponent<Gun>();
+
+
+            GameObject A_ExplosionSpark = explosiveGun.objectsToSpawn[0].AddToProjectile;
+            GameObject explosionCustom = Instantiate(explosiveGun.objectsToSpawn[0].effect);
+            explosionCustom.transform.position = new UnityEngine.Vector3(1000, 0, 0);
+            explosionCustom.hideFlags = HideFlags.HideAndDontSave;
+            explosionCustom.name = "customExpl";
+            DestroyImmediate(explosionCustom.GetComponent<RemoveAfterSeconds>());
+            Explosion explosion = explosionCustom.GetComponent<Explosion>();
+
             //setStats
             gun.projectileSpeed *= 0.5f;
             gun.damage *= 1.5f;
             gun.gravity = 1f;
 
-            explosion.damage = 1000f;
-            explosion.range = 10f;
-            explosion.force = 4000;
+            explosion.damage = 10f;
+            explosion.range = 1f;
+            explosion.force = 40;
 
             ObjectsToSpawn[] obj = {new ObjectsToSpawn
             {
-                AddToProjectile = AddToProjectile,
-                effect = effect,
+                AddToProjectile = A_ExplosionSpark,
+                effect = explosionCustom,
                 normalOffset = 0.1f,
-                scaleFromDamage = 0f,
+                scaleFromDamage = 1f,
                 scaleStackM = 0.7f,
                 scaleStacks = true,
                 spawnOn = ObjectsToSpawn.SpawnOn.all,
