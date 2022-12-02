@@ -23,6 +23,8 @@ namespace BrutalGun.Cards
     {
         private float _regenDuration, _regen, _damageDuration, _sumDamage;
         private Player _player;
+        private float _dSpread, _dSpeed;
+
 
         /// <summary>
         /// finally damage = damage / damage duration
@@ -45,27 +47,29 @@ namespace BrutalGun.Cards
         }
 
         private void Start()
-        {
+        {          
+            _dSpread = _player.data.weaponHandler.gun.spread - _player.data.weaponHandler.gun.spread * 0.8f;
+            _dSpeed = _player.data.stats.movementSpeed - _player.data.stats.movementSpeed * 1.2f;
+            
+            //buf
             _player.data.healthHandler.regeneration += _regen;
-            ModdingUtils.Utils.Cards.instance.AddCardToPlayer(
-                _player, SupportCardContainer.PowerfullBerserk, false, "", 0, 0);
+            _player.data.weaponHandler.gun.spread -= _dSpread;
+            _player.data.stats.movementSpeed -= _dSpeed;
             Destroy(this, _regenDuration);
         }
 
         private void OnDestroy()
         {
-            ModdingUtils.Utils.Cards.instance.RemoveCardFromPlayer(
-                _player, SupportCardContainer.PowerfullBerserk, ModdingUtils.Utils.Cards.SelectionType.All);
-            AddCardNextFrame();
-            _player.data.healthHandler.regeneration -= _regen;        
-            _player.data.healthHandler.TakeDamageOverTime(UnityEngine.Vector2.up * _sumDamage, UnityEngine.Vector2.zero, _damageDuration, 1f, Color.red);
-        }
+            //reset
+            _player.data.healthHandler.regeneration -= _regen;
+            _player.data.weaponHandler.gun.spread += _dSpread;
+            _player.data.stats.movementSpeed += _dSpeed;
 
-        private IEnumerator AddCardNextFrame()
-        {
-            yield return null;
-            ModdingUtils.Utils.Cards.instance.AddCardToPlayer(
-               _player, SupportCardContainer.DyingBerserk, false, "", 0, 0);
+            //debuf
+            _player.data.weaponHandler.gun.spread += _dSpread;
+            _player.data.stats.movementSpeed += _dSpeed;
+
+            _player.data.healthHandler.TakeDamageOverTime(UnityEngine.Vector2.up * _sumDamage, UnityEngine.Vector2.zero, _damageDuration, 1f, Color.red);
         }
     }
 }

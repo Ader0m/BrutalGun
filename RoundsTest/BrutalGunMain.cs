@@ -158,16 +158,7 @@ namespace BrutalGun
             });
 
             //SupportCard
-            CustomCard.BuildCard<PowerfullBerserk>(cardInfo => 
-            {
-                SupportCardContainer.PowerfullBerserk = cardInfo;
-                ModdingUtils.Utils.Cards.instance.AddHiddenCard(cardInfo);
-            });
-            CustomCard.BuildCard<DyingBerserk>(cardInfo => 
-            {
-                SupportCardContainer.DyingBerserk = cardInfo;
-                ModdingUtils.Utils.Cards.instance.AddHiddenCard(cardInfo);
-            });           
+             
         }
     }
 }

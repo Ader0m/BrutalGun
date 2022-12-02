@@ -95,45 +95,15 @@ namespace BrutalGun.Cards
         }
     }
 
-    public class BerserkerEffect: CardEffect
+    public class BerserkerEffect : CardEffect
     {
         public override IEnumerator OnPointStart(IGameModeHandler gameModeHandler)
         {
             float spread = gun.spread;
             float speed = characterStats.movementSpeed;
-            
+
             player.gameObject.AddComponent<BerserkerController>().Initialize(10, 10, 1000, 10000);
             yield break;
-
-            //yield return HealingFase();
-            //player.data.maxHealth += 1;
-            //yield return СonsequenceFase(spread, speed);
-            //player.data.maxHealth -= 1;           
-        }
-
-        private IEnumerator HealingFase()
-        {           
-            gun.multiplySpread = 0.8f;
-            characterStats.movementSpeed = 1.15f;
-
-
-            for (int i = 0; i < 7; i++)
-            {
-                player.data.healthHandler.Heal(10);
-                yield return new WaitForSeconds(1f);
-            }
-        }
-        private IEnumerator СonsequenceFase(float spread, float speed)
-        {
-            gun.multiplySpread = spread;
-            characterStats.movementSpeed = speed;
-
-         
-            while (characterStats.health >= 0)
-            {
-                player.data.healthHandler.CallTakeDamage(UnityEngine.Vector2.up * gun.damage, UnityEngine.Vector2.zero);
-                yield return new WaitForSeconds(1f);
-            }           
         }
     }
 }
