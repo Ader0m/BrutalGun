@@ -12,6 +12,9 @@ using ModsPlus;
 using System.Runtime.CompilerServices;
 using Photon.Pun.UtilityScripts;
 using System.Xml.Linq;
+using HarmonyLib;
+using static ObjectsToSpawn;
+using System.Numerics;
 
 namespace BrutalGun.Cards
 {
@@ -33,8 +36,8 @@ namespace BrutalGun.Cards
                     stat = "Work with block",
                     amount = "",
                     simepleAmount = CardInfoStat.SimpleAmount.notAssigned
-                }              
-            }            
+                }
+            }
         };
 
         public override void SetupCard(CardInfo cardInfo, Gun gun, ApplyCardStats cardStats, CharacterStatModifiers statModifiers, Block block)
@@ -47,38 +50,53 @@ namespace BrutalGun.Cards
     {
         public override void OnBlock(BlockTrigger.BlockTriggerType trigger)
         {
+            //saveData
             float SaveDamage = gun.damage;
             float SaveProjectileSpeed = gun.projectileSpeed;
             float SaveGravity = gun.gravity;
-            float SaveExplDamage = gun.explodeNearEnemyDamage;
-            float SaveExplRange = gun.explodeNearEnemyRange;
-            
+            ObjectsToSpawn[] objectsToSpawn = player.data.weaponHandler.gun.objectsToSpawn;
 
-            UnityEngine.Debug.Log("save " + SaveDamage);
-            UnityEngine.Debug.Log("real " + gun.damage);
-            //set
-            gun.damage *= 1.3f;
+            //getExplosion
+            GameObject explosiveBullet = (GameObject)Resources.Load("0 cards/Explosive bullet");
+            GameObject AddToProjectile = explosiveBullet.GetComponent<Gun>().objectsToSpawn[0].AddToProjectile;
+            GameObject effect = explosiveBullet.GetComponent<Gun>().objectsToSpawn[0].effect;
+            GameObject exp = Instantiate(effect);
+            exp.transform.position = new UnityEngine.Vector3(1000, 0, 0);
+            exp.hideFlags = HideFlags.HideAndDontSave;
+            exp.name = "customExplo";
+            DestroyImmediate(exp.GetComponent<RemoveAfterSeconds>());
+            Explosion explosion = exp.GetComponent<Explosion>();
+            
+            //setStats
             gun.projectileSpeed *= 0.5f;
-            gun.gravity = 1;
-            
-            
-            gun.explodeNearEnemyDamage = gun.damage;
-            gun.explodeNearEnemyRange = 10f;
+            gun.damage *= 1.5f;
+            gun.gravity = 1f;
 
-            UnityEngine.Debug.Log("s: save " + SaveDamage);
-            UnityEngine.Debug.Log("s: real " + gun.damage);
+            explosion.damage = 1000f;
+            explosion.range = 10f;
+            explosion.force = 4000;
+
+            player.data.weaponHandler.gun.objectsToSpawn = new ObjectsToSpawn[] { new ObjectsToSpawn
+            {
+                AddToProjectile = AddToProjectile,
+                effect = effect,
+                normalOffset = 0.1f,
+                scaleFromDamage = 0f,
+                scaleStackM = 0.7f,
+                scaleStacks = true,
+                spawnOn = ObjectsToSpawn.SpawnOn.all,
+                direction = ObjectsToSpawn.Direction.forward
+            }};
 
             gun.Attack(0, false, 1, 1, false);
 
-            //reset
+            //resetStats
             gun.damage = SaveDamage;
             gun.projectileSpeed = SaveProjectileSpeed;
             gun.gravity = SaveGravity;
-            gun.explodeNearEnemyDamage = SaveExplDamage;
-            gun.explodeNearEnemyRange = SaveExplRange;
+            player.data.weaponHandler.gun.objectsToSpawn = objectsToSpawn;
 
-            
-            UnityEngine.Debug.Log("[ExampleEffect] Player blocked!");
+            UnityEngine.Debug.Log("[ExampleEffect] Player use grenade!");
         }
     }
 }
