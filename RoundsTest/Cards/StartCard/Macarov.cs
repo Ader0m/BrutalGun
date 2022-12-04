@@ -23,7 +23,7 @@ namespace BrutalGun.Cards
         public override void OnAddCard(Player player, Gun gun, GunAmmo gunAmmo, CharacterData data, HealthHandler health, Gravity gravity, Block block, CharacterStatModifiers characterStats)
         {         
             // show stats
-            gun.damage = 0.7f;
+            gun.damage = 0.65f;
             gun.attackSpeed = 0.3f;
             gunAmmo.maxAmmo = 5;
             gunAmmo.reloadTimeAdd = -0.1f;
@@ -31,7 +31,7 @@ namespace BrutalGun.Cards
             // hide stats
             gun.dontAllowAutoFire = true;
             gun.projectileSpeed = 1.4f;
-            gun.gravity = 1f;
+            gun.gravity = 1.4f;
             gun.spread = 0.09f;
         }
 
@@ -78,7 +78,7 @@ namespace BrutalGun.Cards
                 {
                     positive = true,
                     stat = "DMG",
-                    amount = "39",
+                    amount = "36",
                     simepleAmount = CardInfoStat.SimpleAmount.notAssigned
                 },
 
@@ -110,7 +110,7 @@ namespace BrutalGun.Cards
 
         protected override CardThemeColor.CardThemeColorType GetTheme()
         {
-            return CardThemeColor.CardThemeColorType.ColdBlue;
+            return CardThemeColor.CardThemeColorType.DestructiveRed;
         }
 
         public override string GetModName()
