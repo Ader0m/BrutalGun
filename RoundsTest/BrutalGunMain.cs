@@ -11,9 +11,10 @@ using System.Collections.Generic;
 using System.Collections;
 using System.Linq;
 using Photon.Pun;
+using BrutalGun.Cards.Modules_rare;
 
 namespace BrutalGun
-{   
+{
     // These are the mods required for our mod to work
     [BepInDependency("com.willis.rounds.unbound", BepInDependency.DependencyFlags.HardDependency)]
     [BepInDependency("pykess.rounds.plugins.moddingutils", BepInDependency.DependencyFlags.HardDependency)]
@@ -82,7 +83,7 @@ namespace BrutalGun
             {
                 firstPick = false;
                 PlayersMass = PlayerManager.instance.players.Where((person) => !ModdingUtils.AIMinion.Extensions.CharacterDataExtension.GetAdditionalData(person.data).isAIMinion).ToArray();
-                playerSettings.SetStartStats(startCardList);
+                playerSettings.SetStartStats(startCardList);            
             }         
 
             yield break; 
@@ -110,7 +111,7 @@ namespace BrutalGun
             yield break;
         }
 
-        public static (GameObject A_ExplosionSpark, GameObject explosionCustom, Explosion explosion) LoadExplosionElements()
+        public static (GameObject AddToProjectile, GameObject effect, Explosion explosion) LoadExplosionElements()
         {
             GameObject explosiveBullet = (GameObject)Resources.Load("0 cards/Explosive bullet");
             Gun explosiveGun = explosiveBullet.GetComponent<Gun>();

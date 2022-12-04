@@ -16,6 +16,7 @@ using HarmonyLib;
 using static ObjectsToSpawn;
 using System.Numerics;
 using ModdingUtils.MonoBehaviours;
+using System.Reflection.Emit;
 
 namespace BrutalGun.Cards
 {
@@ -43,79 +44,90 @@ namespace BrutalGun.Cards
 
         public override void SetupCard(CardInfo cardInfo, Gun gun, ApplyCardStats cardStats, CharacterStatModifiers statModifiers, Block block)
         {
-            cardInfo.categories = new CardCategory[] { MyCategories.Module };
+            cardInfo.categories = new CardCategory[] { MyCategories.Module };                    
         }
     }
 
     public class GrenadeHundler : CardEffect
     {
-        public override void OnBlock(BlockTrigger.BlockTriggerType trigger)
-        {
-            //getExplosion
-            (GameObject A_ExplosionSpark, GameObject explosionCustom, Explosion explosion) = BrutalGunMain.LoadExplosionElements();
-            
-            //setExplosionStats
-            explosion.damage = 10f;
-            explosion.range = 1f;
-            explosion.force = 40;
+        private GameObject _addToProjectile;
+        private GameObject _effect;
+        private Explosion _explosion;
 
-            ObjectsToSpawn[] obj = {new ObjectsToSpawn
+        GrenadeHundler()
+        {
+            (GameObject addToProjectile, GameObject effect, Explosion explosion) = BrutalGunMain.LoadExplosionElements();
+            _addToProjectile = addToProjectile;
+            _effect = effect;
+            _explosion = explosion;
+        }
+
+        public override void OnBlock(BlockTrigger.BlockTriggerType trigger)
+        {           
+            //setExplosionStats
+            _explosion.damage = Mathf.Clamp((gun.damage * 1.5f) * 55, 40, 75);
+            _explosion.range = Mathf.Clamp((gun.damage * 15), 10, 15);
+            _explosion.force = 2000;
+
+            UnityEngine.Debug.Log((gun.damage * 1.5f) * 55 + " " + _explosion.damage);
+            UnityEngine.Debug.Log((gun.damage * 15) + " " + _explosion.range);
+
+            ObjectsToSpawn[] obj = { new ObjectsToSpawn
             {
-                AddToProjectile = A_ExplosionSpark,
-                effect = explosionCustom,
+                AddToProjectile = _addToProjectile,
+                direction = ObjectsToSpawn.Direction.forward,
+                effect = _effect,
                 normalOffset = 0.1f,
                 scaleFromDamage = 1f,
-                scaleStackM = 0.7f,
+                scaleStackM = 1f,
                 scaleStacks = true,
+                spawnAsChild = false,
                 spawnOn = ObjectsToSpawn.SpawnOn.all,
-                direction = ObjectsToSpawn.Direction.forward
+                stacks = 0,
+                stickToAllTargets = false,
+                stickToBigTargets = false,
+                zeroZ = false
             } };
 
-            //lounchGrenade
-            player.gameObject.AddComponent<GrenadeEffect>().Init(1.5f, 0.5f, 1, obj);
-
-            UnityEngine.Debug.Log("[ExampleEffect] Player use grenade!");
+            //launch grenade
+            player.gameObject.AddComponent<GrenadeEffect>().Init(0.5f, 0.5f, 1, obj.ToList());
         }
     }
 
     public class GrenadeEffect: ReversibleEffect
     {
-        private ObjectsToSpawn[] _objectsTospawn;
-        private float _projectileSpeed, _bulletDamageMultiplyer, _gravityM;
+        private List<ObjectsToSpawn> _objectsToSpawn;
+        private float _projectileSpeedM, _bulletDamageM, _gravityValue;
 
         /// <summary>
         /// GravityM - The value that should be obtained!
         /// </summary>
-        /// <param name="bulletDamageMultiplyer"></param>
-        /// <param name="projectileSpeed"></param>
-        /// <param name="gravityM"> The value that should be obtained! </param>
+        /// <param name="bulletDamageM"></param>
+        /// <param name="projectileSpeedM"></param>
+        /// <param name="gravityValue"> The value that should be obtained! </param>
         /// <param name="objectsToSpawn"></param>
-        public void Init(float bulletDamageMultiplyer, float projectileSpeed, float gravityM, ObjectsToSpawn[] objectsToSpawn)
+        public void Init(float bulletDamageM, float projectileSpeedM, float gravityValue, List<ObjectsToSpawn> objectsToSpawn)
         {
-            _bulletDamageMultiplyer = bulletDamageMultiplyer;
-            _projectileSpeed = projectileSpeed;
-            _gravityM = gravityM;
-            _objectsTospawn = objectsToSpawn;
+            _bulletDamageM = bulletDamageM;
+            _projectileSpeedM = projectileSpeedM;
+            _gravityValue = gravityValue;
+            _objectsToSpawn = objectsToSpawn;
         }
 
         public override void OnStart()
         {
-            gunStatModifier.bulletDamageMultiplier_mult = _bulletDamageMultiplyer;
-            gunStatModifier.projectileSpeed_mult = _projectileSpeed;
-            gunStatModifier.gravity_add = -(gun.gravity - _gravityM);
+            gunStatModifier.bulletDamageMultiplier_mult = _bulletDamageM;
+            gunStatModifier.projectileSpeed_mult = _projectileSpeedM;
+            gunStatModifier.gravity_add = -(gun.gravity - _gravityValue);
+            gunStatModifier.spread_add = -gun.spread;
 
-            player.data.weaponHandler.gun.objectsToSpawn.Concat(_objectsTospawn).ToArray();                     
+            gunStatModifier.objectsToSpawn_add = _objectsToSpawn;
         }
 
         public override void OnUpdate()
         {
             gun.Attack(0, false, 1, 1, false);
             Destroy(this);
-        }
-
-        public override void OnOnDestroy() 
-        {          
-            player.data.weaponHandler.gun.objectsToSpawn.Except(_objectsTospawn).ToArray();
         }
     }
 }
