@@ -17,6 +17,7 @@ using static ObjectsToSpawn;
 using System.Numerics;
 using ModdingUtils.MonoBehaviours;
 using System.Reflection.Emit;
+using System.Collections;
 
 namespace BrutalGun.Cards
 {
@@ -44,7 +45,7 @@ namespace BrutalGun.Cards
 
         public override void SetupCard(CardInfo cardInfo, Gun gun, ApplyCardStats cardStats, CharacterStatModifiers statModifiers, Block block)
         {
-            cardInfo.categories = new CardCategory[] { MyCategories.Module };                    
+            cardInfo.categories = new CardCategory[] { MyCategories.Module };
         }
     }
 
@@ -53,6 +54,8 @@ namespace BrutalGun.Cards
         private GameObject _addToProjectile;
         private GameObject _effect;
         private Explosion _explosion;
+        private int _countGrenade = 1;
+
 
         GrenadeHundler()
         {
@@ -63,7 +66,7 @@ namespace BrutalGun.Cards
         }
 
         public override void OnBlock(BlockTrigger.BlockTriggerType trigger)
-        {           
+        {
             //setExplosionStats
             _explosion.damage = Mathf.Clamp((gun.damage * 1.5f) * 55, 40, 75);
             _explosion.range = Mathf.Clamp((gun.damage * 15), 10, 15);
@@ -90,28 +93,35 @@ namespace BrutalGun.Cards
             } };
 
             //launch grenade
-            player.gameObject.AddComponent<GrenadeEffect>().Init(0.5f, 0.5f, 1, obj.ToList());
+            player.gameObject.AddComponent<GrenadeEffect>().Init(obj.ToList(), 0.5f, 0.5f, 1, _countGrenade);
+        }
+
+        public override void OnUpgradeCard()
+        {
+            _countGrenade += 1;
         }
     }
 
-    public class GrenadeEffect: ReversibleEffect
+    public class GrenadeEffect : ReversibleEffect
     {
         private List<ObjectsToSpawn> _objectsToSpawn;
         private float _projectileSpeedM, _bulletDamageM, _gravityValue;
+        private int _countGrenade;
+        private bool _flag;
 
         /// <summary>
         /// GravityM - The value that should be obtained!
         /// </summary>
-        /// <param name="bulletDamageM"></param>
-        /// <param name="projectileSpeedM"></param>
         /// <param name="gravityValue"> The value that should be obtained! </param>
-        /// <param name="objectsToSpawn"></param>
-        public void Init(float bulletDamageM, float projectileSpeedM, float gravityValue, List<ObjectsToSpawn> objectsToSpawn)
+        public void Init(List<ObjectsToSpawn> objectsToSpawn, float bulletDamageM, float projectileSpeedM, float gravityValue, int countGrenade)
         {
+            _objectsToSpawn = objectsToSpawn;
             _bulletDamageM = bulletDamageM;
             _projectileSpeedM = projectileSpeedM;
             _gravityValue = gravityValue;
-            _objectsToSpawn = objectsToSpawn;
+            _countGrenade = countGrenade;
+
+            _flag = true;
         }
 
         public override void OnStart()
@@ -122,11 +132,21 @@ namespace BrutalGun.Cards
             gunStatModifier.spread_add = -gun.spread;
 
             gunStatModifier.objectsToSpawn_add = _objectsToSpawn;
+
+            StartCoroutine(Shoot());
         }
 
-        public override void OnUpdate()
+        private IEnumerator Shoot()
         {
-            gun.Attack(0, false, 1, 1, false);
+            //wait apply modificators
+            yield return null;
+
+
+            for (int i = 0; i < _countGrenade; i++)
+            {
+                gun.Attack(0, true, 1, 1, false);
+                yield return new WaitForSeconds(0.15f);
+            }
             Destroy(this);
         }
     }
