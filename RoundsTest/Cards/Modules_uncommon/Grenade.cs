@@ -15,10 +15,11 @@ using System.Xml.Linq;
 using HarmonyLib;
 using static ObjectsToSpawn;
 using System.Numerics;
+using ModdingUtils.MonoBehaviours;
 
 namespace BrutalGun.Cards
 {
-    public class Grenade : CustomEffectCard<GrenadeEffect>
+    public class Grenade : CustomEffectCard<GrenadeHundler>
     {
         public override CardDetails Details => new CardDetails
         {
@@ -46,34 +47,14 @@ namespace BrutalGun.Cards
         }
     }
 
-    public class GrenadeEffect : CardEffect
+    public class GrenadeHundler : CardEffect
     {
         public override void OnBlock(BlockTrigger.BlockTriggerType trigger)
         {
-            //saveData
-            float SaveDamage = gun.damage;
-            float SaveProjectileSpeed = gun.projectileSpeed;
-            float SaveGravity = gun.gravity;
-            ObjectsToSpawn[] objectsToSpawn = player.data.weaponHandler.gun.objectsToSpawn;
-
             //getExplosion
-            GameObject explosiveBullet = (GameObject)Resources.Load("0 cards/Explosive bullet");
-            Gun explosiveGun = explosiveBullet.GetComponent<Gun>();
-
-
-            GameObject A_ExplosionSpark = explosiveGun.objectsToSpawn[0].AddToProjectile;
-            GameObject explosionCustom = Instantiate(explosiveGun.objectsToSpawn[0].effect);
-            explosionCustom.transform.position = new UnityEngine.Vector3(1000, 0, 0);
-            explosionCustom.hideFlags = HideFlags.HideAndDontSave;
-            explosionCustom.name = "customExpl";
-            DestroyImmediate(explosionCustom.GetComponent<RemoveAfterSeconds>());
-            Explosion explosion = explosionCustom.GetComponent<Explosion>();
-
-            //setStats
-            gun.projectileSpeed *= 0.5f;
-            gun.damage *= 1.5f;
-            gun.gravity = 1f;
-
+            (GameObject A_ExplosionSpark, GameObject explosionCustom, Explosion explosion) = BrutalGunMain.LoadExplosionElements();
+            
+            //setExplosionStats
             explosion.damage = 10f;
             explosion.range = 1f;
             explosion.force = 40;
@@ -90,18 +71,49 @@ namespace BrutalGun.Cards
                 direction = ObjectsToSpawn.Direction.forward
             } };
 
-            player.data.weaponHandler.gun.objectsToSpawn.Concat(obj).ToArray();
-                
+            //lounchGrenade
+            player.gameObject.AddComponent<GrenadeEffect>().Init(1.5f, 0.5f, 1, obj);
+
+            UnityEngine.Debug.Log("[ExampleEffect] Player use grenade!");
+        }
+    }
+
+    public class GrenadeEffect: ReversibleEffect
+    {
+        private ObjectsToSpawn[] _objectsTospawn;
+        private float _projectileSpeed, _bulletDamageMultiplyer, _gravityM;
+
+        /// <summary>
+        /// GravityM - The value that should be obtained!
+        /// </summary>
+        /// <param name="bulletDamageMultiplyer"></param>
+        /// <param name="projectileSpeed"></param>
+        /// <param name="gravityM"> The value that should be obtained! </param>
+        /// <param name="objectsToSpawn"></param>
+        public void Init(float bulletDamageMultiplyer, float projectileSpeed, float gravityM, ObjectsToSpawn[] objectsToSpawn)
+        {
+            _bulletDamageMultiplyer = bulletDamageMultiplyer;
+            _projectileSpeed = projectileSpeed;
+            _gravityM = gravityM;
+            _objectsTospawn = objectsToSpawn;
+        }
+
+        public override void OnStart()
+        {
+            gunStatModifier.bulletDamageMultiplier_mult = _bulletDamageMultiplyer;
+            gunStatModifier.projectileSpeed_mult = _projectileSpeed;
+            gunStatModifier.gravity_add = -(gun.gravity - _gravityM);
+
+            player.data.weaponHandler.gun.objectsToSpawn.Concat(_objectsTospawn).ToArray();
 
             gun.Attack(0, false, 1, 1, false);
 
-            //resetStats
-            gun.damage = SaveDamage;
-            gun.projectileSpeed = SaveProjectileSpeed;
-            gun.gravity = SaveGravity;
-            player.data.weaponHandler.gun.objectsToSpawn.Except(obj).ToArray();
+            Destroy(this);
+        }
 
-            UnityEngine.Debug.Log("[ExampleEffect] Player use grenade!");
+        public override void OnOnDestroy() 
+        {
+            player.data.weaponHandler.gun.objectsToSpawn.Except(_objectsTospawn).ToArray();
         }
     }
 }

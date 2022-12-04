@@ -110,6 +110,23 @@ namespace BrutalGun
             yield break;
         }
 
+        public static (GameObject A_ExplosionSpark, GameObject explosionCustom, Explosion explosion) LoadExplosionElements()
+        {
+            GameObject explosiveBullet = (GameObject)Resources.Load("0 cards/Explosive bullet");
+            Gun explosiveGun = explosiveBullet.GetComponent<Gun>();
+
+            GameObject A_ExplosionSpark = explosiveGun.objectsToSpawn[0].AddToProjectile;
+            GameObject explosionCustom = Instantiate(explosiveGun.objectsToSpawn[0].effect);
+            explosionCustom.transform.position = new UnityEngine.Vector3(1000, 0, 0);
+            explosionCustom.hideFlags = HideFlags.HideAndDontSave;
+            explosionCustom.name = "customExpl";
+
+            DestroyImmediate(explosionCustom.GetComponent<RemoveAfterSeconds>());
+
+
+            return (A_ExplosionSpark, explosionCustom, explosionCustom.GetComponent<Explosion>());
+        }
+
         private void BuildCards()
         {
             //Modules_common
@@ -157,8 +174,7 @@ namespace BrutalGun
                 ModdingUtils.Utils.Cards.instance.AddHiddenCard(cardInfo);
             });
 
-            //SupportCard
-             
+            //SupportCard            
         }
     }
 }
