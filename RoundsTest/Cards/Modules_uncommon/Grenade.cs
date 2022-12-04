@@ -104,15 +104,17 @@ namespace BrutalGun.Cards
             gunStatModifier.projectileSpeed_mult = _projectileSpeed;
             gunStatModifier.gravity_add = -(gun.gravity - _gravityM);
 
-            player.data.weaponHandler.gun.objectsToSpawn.Concat(_objectsTospawn).ToArray();
+            player.data.weaponHandler.gun.objectsToSpawn.Concat(_objectsTospawn).ToArray();                     
+        }
 
+        public override void OnUpdate()
+        {
             gun.Attack(0, false, 1, 1, false);
-
             Destroy(this);
         }
 
         public override void OnOnDestroy() 
-        {
+        {          
             player.data.weaponHandler.gun.objectsToSpawn.Except(_objectsTospawn).ToArray();
         }
     }
