@@ -132,6 +132,7 @@ namespace BrutalGun
         {
             //Modules_common
             CustomCard.BuildCard<BatteriesEnergizer>();
+            CustomCard.BuildCard<ExtendedMag>();
             CustomCard.BuildCard<IFAK>();
             CustomCard.BuildCard<Laser>();
             CustomCard.BuildCard<QuickDrop>();
