@@ -18,6 +18,7 @@ using System.Numerics;
 using ModdingUtils.MonoBehaviours;
 using System.Text.RegularExpressions;
 using ModdingUtils.Extensions;
+using static System.Net.Mime.MediaTypeNames;
 
 namespace BrutalGun.Cards.Modules_rare
 {
@@ -99,14 +100,25 @@ namespace BrutalGun.Cards.Modules_rare
 
     public class BerserkerHandler : CardEffect
     {
+        private float _regenDuration = 10;
 
+        /// <summary>
+        /// Set a BerserkerUpEffect effect. Then the BerserkerUpEffect effect class will set the negative effect on its own
+        /// </summary>
+        /// <param name="gameModeHandler"></param>
+        /// <returns></returns>
         public override IEnumerator OnPointStart(IGameModeHandler gameModeHandler)
         {
             float spread = gun.spread;
             float speed = characterStats.movementSpeed;
 
-            player.gameObject.AddComponent<BerserkerUpEffect>().Initialize(10, 10, 1000, 10000);
+            player.gameObject.AddComponent<BerserkerUpEffect>().Initialize(_regenDuration, 10, 1000, 10000);
             yield break;
+        }
+
+        public override void OnUpgradeCard()
+        {
+            _regenDuration += 5;
         }
     }
 
@@ -117,10 +129,6 @@ namespace BrutalGun.Cards.Modules_rare
         /// <summary>
         /// finally damage = damage / damage duration
         /// </summary>
-        /// <param name="regenDuration"></param>
-        /// <param name="regen"></param>
-        /// <param name="damageDuration"></param>
-        /// <param name="damage"></param>
         public void Initialize(float regenDuration, float regen, float damageDuration, float damage)
         {
             _regenDuration = regenDuration;
@@ -128,7 +136,7 @@ namespace BrutalGun.Cards.Modules_rare
             _damageDuration = damageDuration;
             _sumDamage = damage;
         }
-
+        
         public override void OnStart()
         {
             player.data.healthHandler.regeneration += _regen;
@@ -141,6 +149,7 @@ namespace BrutalGun.Cards.Modules_rare
         {
             player.data.healthHandler.regeneration -= _regen;
             player.gameObject.AddComponent<BerserkerDownEffect>().Initialize(_damageDuration, _sumDamage);
+            
         }
     }
 
