@@ -95,7 +95,7 @@ namespace BrutalGun.Cards
                 {
                     positive = true,
                     stat = "ATKSPD",
-                    amount = "50",
+                    amount = "20",
                     simepleAmount = CardInfoStat.SimpleAmount.notAssigned
                 },
 
