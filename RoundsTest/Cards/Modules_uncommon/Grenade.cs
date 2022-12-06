@@ -107,7 +107,6 @@ namespace BrutalGun.Cards
         private List<ObjectsToSpawn> _objectsToSpawn;
         private float _projectileSpeedM, _bulletDamageM, _gravityValue;
         private int _countGrenade;
-        private bool _flag;
 
         /// <summary>
         /// GravityM - The value that should be obtained!
@@ -120,8 +119,6 @@ namespace BrutalGun.Cards
             _projectileSpeedM = projectileSpeedM;
             _gravityValue = gravityValue;
             _countGrenade = countGrenade;
-
-            _flag = true;
         }
 
         public override void OnStart()
