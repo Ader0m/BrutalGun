@@ -19,7 +19,7 @@ namespace BrutalGun.Cards
 
             gun.attackSpeedMultiplier = 1.2f;
             gun.multiplySpread = 0.5f;
-            statModifiers.movementSpeed = 0.8f;
+            statModifiers.movementSpeed = 0.9f;
         }
 
         public override void OnAddCard(Player player, Gun gun, GunAmmo gunAmmo, CharacterData data, HealthHandler health, Gravity gravity, Block block, CharacterStatModifiers characterStats)
@@ -76,7 +76,7 @@ namespace BrutalGun.Cards
                 {
                     positive = false,
                     stat = "Speed",
-                    amount = "-20%",
+                    amount = "-10%",
                     simepleAmount = CardInfoStat.SimpleAmount.notAssigned
                 }               
             };
