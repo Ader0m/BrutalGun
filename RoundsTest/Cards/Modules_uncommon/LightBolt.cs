@@ -38,7 +38,7 @@ namespace BrutalGun.Cards
 
         protected override string GetDescription()
         {
-            return "Pull faster, shoot faster";
+            return "Light bolt for a lightweight lighting";
         }
 
         protected override GameObject GetCardArt()
