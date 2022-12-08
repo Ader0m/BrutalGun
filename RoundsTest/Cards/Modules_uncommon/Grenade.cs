@@ -127,6 +127,7 @@ namespace BrutalGun.Cards
             gunStatModifier.projectileSpeed_mult = _projectileSpeedM;
             gunStatModifier.gravity_add = -(gun.gravity - _gravityValue);
             gunStatModifier.spread_add = -gun.spread;
+            gunStatModifier.destroyBulletAfter_mult *= 0;
 
             gunStatModifier.objectsToSpawn_add = _objectsToSpawn;
 
