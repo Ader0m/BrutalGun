@@ -59,7 +59,7 @@ namespace BrutalGun.Cards
 
         GrenadeHundler()
         {
-            (GameObject addToProjectile, GameObject effect, Explosion explosion) = BrutalGunMain.LoadExplosionElements();
+            (GameObject addToProjectile, GameObject effect, Explosion explosion) = BrutalTools.LoadExplosionElements();
             _addToProjectile = addToProjectile;
             _effect = effect;
             _explosion = explosion;
