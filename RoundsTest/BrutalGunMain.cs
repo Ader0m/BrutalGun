@@ -44,10 +44,9 @@ namespace BrutalGun
         #endregion
 
         public Player[] PlayersMass;
-        private List<CardInfo> startCardList;
-        private CardBarManager cardBarManager;
-        private PlayerSettings playerSettings;
-        private bool firstPick;
+        private List<CardInfo> _startCardList;
+        private CardBarController _cardBarController;
+        private bool _firstPick;
 
         void Awake()
         {
@@ -59,8 +58,8 @@ namespace BrutalGun
         void Start()
         {
             Instance = this;
-            firstPick = true;
-            startCardList = new List<CardInfo>();
+            _firstPick = true;
+            _startCardList = new List<CardInfo>();
             BuildCards();
             CreateManagers();
             
@@ -69,21 +68,46 @@ namespace BrutalGun
             GameModeManager.AddHook(GameModeHooks.HookPickStart, FirstPickStart);
             GameModeManager.AddHook(GameModeHooks.HookGameEnd, ResetData);
             GameModeManager.AddHook(GameModeHooks.HookInitStart, ResetData);
+
+            //StartCoroutine(debug());
         }       
 
+        public IEnumerator debug()
+        {
+            while (true)
+            {
+                try
+                {
+                    foreach (Player player in PlayersMass)
+                    {
+                        UnityEngine.Debug.Log("player " + player.playerID + " " + player.data.health);
+                    }
+                }
+                catch
+                {
+                    UnityEngine.Debug.Log("error");
+                }
+
+                yield return new WaitForSeconds(0.5f);
+            }                      
+        }
         private void CreateManagers()
         {
-            cardBarManager = new CardBarManager();
-            playerSettings = new PlayerSettings();
+            _cardBarController = new CardBarController();
+
         }
 
         IEnumerator FirstPickStart(IGameModeHandler arg)
         {
-            if (firstPick)
+            if (_firstPick)
             {
-                firstPick = false;
+                _firstPick = false;
                 PlayersMass = PlayerManager.instance.players.Where((person) => !ModdingUtils.AIMinion.Extensions.CharacterDataExtension.GetAdditionalData(person.data).isAIMinion).ToArray();
-                playerSettings.SetStartStats(startCardList);            
+                PlayerSettings.SetStartStats(_startCardList);
+                foreach (Player player in PlayersMass)
+                {
+                    PickCardController.InitPlayer(player);
+                }
             }         
 
             yield break; 
@@ -93,9 +117,10 @@ namespace BrutalGun
         {
             if (PhotonNetwork.IsMasterClient || PhotonNetwork.OfflineMode)
             {
-                PlayersMass = PlayerManager.instance.players.Where((person) => !ModdingUtils.AIMinion.Extensions.CharacterDataExtension.GetAdditionalData(person.data).isAIMinion).ToArray();
-
-                yield return cardBarManager.CheckCardBar();
+                foreach (Player player in PlayersMass)
+                {
+                    yield return _cardBarController.CheckCardBar(player);
+                }             
             }
             else
             {
@@ -105,27 +130,10 @@ namespace BrutalGun
 
         IEnumerator ResetData(IGameModeHandler arg)
         {
-            cardBarManager.Restore();
-            firstPick = true;
+            _cardBarController.Restore();
+            _firstPick = true;
 
             yield break;
-        }
-
-        public static (GameObject AddToProjectile, GameObject effect, Explosion explosion) LoadExplosionElements()
-        {
-            GameObject explosiveBullet = (GameObject)Resources.Load("0 cards/Explosive bullet");
-            Gun explosiveGun = explosiveBullet.GetComponent<Gun>();
-
-            GameObject A_ExplosionSpark = explosiveGun.objectsToSpawn[0].AddToProjectile;
-            GameObject explosionCustom = Instantiate(explosiveGun.objectsToSpawn[0].effect);
-            explosionCustom.transform.position = new UnityEngine.Vector3(1000, 0, 0);
-            explosionCustom.hideFlags = HideFlags.HideAndDontSave;
-            explosionCustom.name = "customExpl";
-
-            DestroyImmediate(explosionCustom.GetComponent<RemoveAfterSeconds>());
-
-
-            return (A_ExplosionSpark, explosionCustom, explosionCustom.GetComponent<Explosion>());
         }
 
         private void BuildCards()
@@ -167,12 +175,13 @@ namespace BrutalGun
             //Weapon_rare
             CustomCard.BuildCard<AK74>();
             CustomCard.BuildCard<M4A1>();
+            CustomCard.BuildCard<Vampire>();
             CustomCard.BuildCard<Winchester>();
 
             //StartCards
             CustomCard.BuildCard<Macarov>(cardInfo => 
             {
-                startCardList.Add(cardInfo);
+                _startCardList.Add(cardInfo);
                 ModdingUtils.Utils.Cards.instance.AddHiddenCard(cardInfo);
             });
 
