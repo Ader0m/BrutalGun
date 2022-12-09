@@ -8,9 +8,9 @@ using UnityEngine;
 
 namespace BrutalGun
 {
-    public class PlayerSettings
+    public static class PlayerSettings
     {
-        public void SetStartStats(List<CardInfo> startCardList)
+        public static void SetStartStats(List<CardInfo> startCardList)
         {
             foreach (Player player in BrutalGunMain.Instance.PlayersMass)
             {
