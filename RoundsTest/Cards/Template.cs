@@ -8,71 +8,35 @@ using UnboundLib;
 using UnboundLib.Cards;
 using UnityEngine;
 using BrutalGun;
+using ModsPlus;
 
 namespace BrutalGun.Cards
 {
-    public class Template : CustomCard
+    public class Template : SimpleCard
     {
-        public override void SetupCard(CardInfo cardInfo, Gun gun, ApplyCardStats cardStats, CharacterStatModifiers statModifiers, Block block)
+        public override CardDetails Details => new CardDetails
         {
-            cardInfo.categories = new CardCategory[] { MyCategories.Module };
-
-            //Edits values on card itself, which are then applied to the player in `ApplyCardStats`
-        }
-
-        public override void OnAddCard(Player player, Gun gun, GunAmmo gunAmmo, CharacterData data, HealthHandler health, Gravity gravity, Block block, CharacterStatModifiers characterStats)
-        {
-            //Edits values on player when card is selected
-        }
-
-        public override void OnRemoveCard(Player player, Gun gun, GunAmmo gunAmmo, CharacterData data, HealthHandler health, Gravity gravity, Block block, CharacterStatModifiers characterStats)
-        {
-            //Run when the card is removed from the player
-        }
-
-        protected override string GetTitle()
-        {
-            return "CardName";
-        }
-
-        protected override string GetDescription()
-        {
-            return "CardDescription";
-        }
-
-        protected override GameObject GetCardArt()
-        {
-            return null;
-        }
-
-        protected override CardInfo.Rarity GetRarity()
-        {
-            return CardInfo.Rarity.Common;
-        }
-
-        protected override CardInfoStat[] GetStats()
-        {
-            return new CardInfoStat[]
+            Title = "Title",
+            Description = "Description",
+            ModName = BrutalGunMain.MOD_INITIALS,
+            OwnerOnly = false,
+            Rarity = CardInfo.Rarity.Rare,
+            Theme = CardThemeColor.CardThemeColorType.ColdBlue,
+            Stats = new CardInfoStat[]
             {
                 new CardInfoStat()
                 {
                     positive = true,
-                    stat = "Effect",
-                    amount = "No",
+                    stat = "DMG",
+                    amount = "14",
                     simepleAmount = CardInfoStat.SimpleAmount.notAssigned
                 }
-            };
-        }
+            }
+        };
 
-        protected override CardThemeColor.CardThemeColorType GetTheme()
+        public override void SetupCard(CardInfo cardInfo, Gun gun, ApplyCardStats cardStats, CharacterStatModifiers statModifiers, Block block)
         {
-            return CardThemeColor.CardThemeColorType.ColdBlue;
-        }
-
-        public override string GetModName()
-        {
-            return BrutalGun.BrutalGunMain.MOD_INITIALS;
+            cardInfo.categories = new CardCategory[] { MyCategories.Module };
         }
     }
 }
-
