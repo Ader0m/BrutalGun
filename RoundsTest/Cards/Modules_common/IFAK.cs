@@ -1,48 +1,19 @@
-﻿using UnboundLib.Cards;
-using UnityEngine;
+﻿using BrutalGun;
+using ModsPlus;
 
 namespace BrutalGun.Cards
 {
-    public class IFAK : CustomCard
+    public class IFAK : SimpleCard
     {
-        public override void SetupCard(CardInfo cardInfo, Gun gun, ApplyCardStats cardStats, CharacterStatModifiers statModifiers, Block block)
+        public override CardDetails Details => new CardDetails
         {
-            cardInfo.categories = new CardCategory[] { MyCategories.Module, MyCategories.Human };
-        }
-
-        public override void OnAddCard(Player player, Gun gun, GunAmmo gunAmmo, CharacterData data, HealthHandler health, Gravity gravity, Block block, CharacterStatModifiers characterStats)
-        {
-            block.healing += 15;
-        }
-
-        public override void OnRemoveCard(Player player, Gun gun, GunAmmo gunAmmo, CharacterData data, HealthHandler health, Gravity gravity, Block block, CharacterStatModifiers characterStats)
-        {
-            block.healing -= 15;
-        }
-
-        protected override string GetTitle()
-        {
-            return "IFAK";
-        }
-
-        protected override string GetDescription()
-        {
-            return "Prolongs existence on the material plane of the universe";
-        }
-
-        protected override GameObject GetCardArt()
-        {
-            return null;
-        }
-
-        protected override CardInfo.Rarity GetRarity()
-        {
-            return CardInfo.Rarity.Common;
-        }
-
-        protected override CardInfoStat[] GetStats()
-        {
-            return new CardInfoStat[]
+            Title = "IFAK",
+            Description = "Prolongs existence on the material plane of the universe",
+            ModName = BrutalGunMain.MOD_INITIALS,
+            OwnerOnly = false,
+            Rarity = CardInfo.Rarity.Common,
+            Theme = CardThemeColor.CardThemeColorType.ColdBlue,
+            Stats = new CardInfoStat[]
             {
                 new CardInfoStat()
                 {
@@ -59,18 +30,14 @@ namespace BrutalGun.Cards
                     amount = "+15",
                     simepleAmount = CardInfoStat.SimpleAmount.notAssigned
                 }
-            };
-        }
+            }
+        };
 
-        protected override CardThemeColor.CardThemeColorType GetTheme()
+        public override void SetupCard(CardInfo cardInfo, Gun gun, ApplyCardStats cardStats, CharacterStatModifiers statModifiers, Block block)
         {
-            return CardThemeColor.CardThemeColorType.ColdBlue;
-        }
+            cardInfo.categories = new CardCategory[] { MyCategories.Module, MyCategories.Human };
 
-        public override string GetModName()
-        {
-            return BrutalGun.BrutalGunMain.MOD_INITIALS;
+            block.healing = 15;
         }
     }
 }
-

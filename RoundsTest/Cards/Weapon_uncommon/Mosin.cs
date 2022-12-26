@@ -1,70 +1,21 @@
-﻿using UnboundLib.Cards;
-using UnityEngine;
+﻿using BrutalGun;
+using ModsPlus;
 
 namespace BrutalGun.Cards
 {
-    public class Mosin : CustomCard
+    public class Mosin : SimpleCard
     {
-        public override void SetupCard(CardInfo cardInfo, Gun gun, ApplyCardStats cardStats, CharacterStatModifiers statModifiers, Block block)
+        public override CardDetails Details => new CardDetails
         {
-            cardInfo.categories = new CardCategory[] { MyCategories.Weapon };
-            cardInfo.allowMultiple = false;
-        }
-
-        public override void OnAddCard(Player player, Gun gun, GunAmmo gunAmmo, CharacterData data, HealthHandler health, Gravity gravity, Block block, CharacterStatModifiers characterStats)
-        {
-            //show stats
-            gun.damage = 1.5f;
-            gun.attackSpeed = 0.65f;
-            gunAmmo.maxAmmo = 3;
-            gunAmmo.reloadTimeAdd = 1f;
-
-            // hide stats
-            gun.dontAllowAutoFire = true;
-            gun.projectileSpeed = 3.5f;
-            gun.gravity = 0.7f;
-            gun.spread = 0.07f;
-        }
-
-        public override void OnRemoveCard(Player player, Gun gun, GunAmmo gunAmmo, CharacterData data, HealthHandler health, Gravity gravity, Block block, CharacterStatModifiers characterStats)
-        {
-            //show stats
-            gun.damage = 1f;
-            gun.attackSpeed = 1f;
-            gunAmmo.maxAmmo = 3;
-            gunAmmo.reloadTimeAdd = -1f;
-
-            // hide stats
-            gun.dontAllowAutoFire = true;
-            gun.projectileSpeed = 1f;
-            gun.gravity = 1f;
-        }
-
-        protected override string GetTitle()
-        {
-            return "Mosin";
-        }
-
-        protected override string GetDescription()
-        {
-            return "Legendary rifle for endless war";
-        }
-
-        protected override GameObject GetCardArt()
-        {
-            return null;
-        }
-
-        protected override CardInfo.Rarity GetRarity()
-        {
-            return CardInfo.Rarity.Uncommon;
-        }
-
-        protected override CardInfoStat[] GetStats()
-        {
-            return new CardInfoStat[]
+            Title = "Mosin",
+            Description = "Legendary rifle for endless war",
+            ModName = BrutalGunMain.MOD_INITIALS,
+            OwnerOnly = false,
+            Rarity = CardInfo.Rarity.Uncommon,
+            Theme = CardThemeColor.CardThemeColorType.DestructiveRed,
+            Stats = new CardInfoStat[]
             {
-                new CardInfoStat()
+               new CardInfoStat()
                 {
                     positive = true,
                     stat = "DMG",
@@ -95,18 +46,43 @@ namespace BrutalGun.Cards
                     amount = "2s",
                     simepleAmount = CardInfoStat.SimpleAmount.notAssigned
                 }
-            };
+            }
+        };
+
+        public override void SetupCard(CardInfo cardInfo, Gun gun, ApplyCardStats cardStats, CharacterStatModifiers statModifiers, Block block)
+        {
+            cardInfo.categories = new CardCategory[] { MyCategories.Weapon };
+            cardInfo.allowMultiple = false;
         }
 
-        protected override CardThemeColor.CardThemeColorType GetTheme()
+        protected override void Added(Player player, Gun gun, GunAmmo gunAmmo, CharacterData data, HealthHandler health, Gravity gravity, Block block, CharacterStatModifiers characterStats)
         {
-            return CardThemeColor.CardThemeColorType.DestructiveRed;
+            //show stats
+            gun.damage = 1.5f;
+            gun.attackSpeed = 0.65f;
+            gunAmmo.maxAmmo = 3;
+            gunAmmo.reloadTime = 2f;
+
+            // hide stats
+            gun.dontAllowAutoFire = true;
+            gun.projectileSpeed = 3.5f;
+            gun.gravity = 0.7f;
+            gun.spread = 0.07f;
         }
 
-        public override string GetModName()
+        protected override void Removed(Player player, Gun gun, GunAmmo gunAmmo, CharacterData data, HealthHandler health, Gravity gravity, Block block, CharacterStatModifiers characterStats)
         {
-            return BrutalGun.BrutalGunMain.MOD_INITIALS;
+            //show stats
+            gun.damage = 1f;
+            gun.attackSpeed = 1f;
+            gunAmmo.maxAmmo = 3;
+            gunAmmo.reloadTime = 1f;
+
+            // hide stats
+            gun.dontAllowAutoFire = true;
+            gun.projectileSpeed = 1f;
+            gun.gravity = 1f;
+            gun.spread = 0f;
         }
     }
 }
-

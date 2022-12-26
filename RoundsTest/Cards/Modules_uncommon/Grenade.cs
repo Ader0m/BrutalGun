@@ -122,12 +122,12 @@ namespace BrutalGun.Cards
             //wait apply modificators
             yield return null;
 
-
             for (int i = 0; i < _countGrenade; i++)
             {
                 gun.Attack(0, true, 1, 1, false);
                 yield return new WaitForSeconds(0.15f);
             }
+
             Destroy(this);
         }
     }

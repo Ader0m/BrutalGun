@@ -1,70 +1,19 @@
-﻿using UnboundLib.Cards;
-using UnityEngine;
+﻿using BrutalGun;
+using ModsPlus;
 
 namespace BrutalGun.Cards
 {
-    public class Macarov : CustomCard
+    public class Macarov : SimpleCard
     {
-        public override void SetupCard(CardInfo cardInfo, Gun gun, ApplyCardStats cardStats, CharacterStatModifiers statModifiers, Block block)
+        public override CardDetails Details => new CardDetails
         {
-            cardInfo.categories = new CardCategory[] { MyCategories.Weapon };
-        }
-
-        public override void OnAddCard(Player player, Gun gun, GunAmmo gunAmmo, CharacterData data, HealthHandler health, Gravity gravity, Block block, CharacterStatModifiers characterStats)
-        {
-            gun.multiplySpread = 1.3f;
-
-            // show stats
-            gun.damage = 0.65f;
-            gun.attackSpeed = 0.3f;
-            gunAmmo.maxAmmo = 5;
-            gunAmmo.reloadTimeAdd = -0.1f;
-
-            // hide stats
-            gun.dontAllowAutoFire = true;
-            gun.projectileSpeed = 1.3f;
-            gun.gravity = 1.5f;
-            gun.spread = 0.1f;
-        }
-
-        public override void OnRemoveCard(Player player, Gun gun, GunAmmo gunAmmo, CharacterData data, HealthHandler health, Gravity gravity, Block block, CharacterStatModifiers characterStats)
-        {
-            //show stats
-            gun.damage = 1f;
-            gun.attackSpeed = 1f;
-            gunAmmo.maxAmmo = 3;
-            gunAmmo.reloadTimeAdd = -1f;
-
-            // hide stats
-            gun.dontAllowAutoFire = true;
-            gun.projectileSpeed = 1f;
-            gun.gravity = 1f;
-            gun.spread = 0f;
-        }
-
-        protected override string GetTitle()
-        {
-            return "Macarov";
-        }
-
-        protected override string GetDescription()
-        {
-            return "Old week pistol for policman";
-        }
-
-        protected override GameObject GetCardArt()
-        {
-            return null;
-        }
-
-        protected override CardInfo.Rarity GetRarity()
-        {
-            return CardInfo.Rarity.Common;
-        }
-
-        protected override CardInfoStat[] GetStats()
-        {
-            return new CardInfoStat[]
+            Title = "Macarov",
+            Description = "A gun that is underestimated",
+            ModName = BrutalGunMain.MOD_INITIALS,
+            OwnerOnly = false,
+            Rarity = CardInfo.Rarity.Common,
+            Theme = CardThemeColor.CardThemeColorType.DestructiveRed,
+            Stats = new CardInfoStat[]
             {
                 new CardInfoStat()
                 {
@@ -78,7 +27,7 @@ namespace BrutalGun.Cards
                 {
                     positive = true,
                     stat = "ATKSPD",
-                    amount = "1",
+                    amount = "3.3",
                     simepleAmount = CardInfoStat.SimpleAmount.notAssigned
                 },
 
@@ -94,26 +43,46 @@ namespace BrutalGun.Cards
                 {
                     positive = true,
                     stat = "Reload Time",
-                    amount = "1s",
+                    amount = "0.8s",
                     simepleAmount = CardInfoStat.SimpleAmount.notAssigned
-                },
-            };
+                }
+            }
+        };
+
+        public override void SetupCard(CardInfo cardInfo, Gun gun, ApplyCardStats cardStats, CharacterStatModifiers statModifiers, Block block)
+        {
+            cardInfo.categories = new CardCategory[] { MyCategories.Weapon };
+            cardInfo.allowMultiple = false;
         }
 
-        protected override CardThemeColor.CardThemeColorType GetTheme()
+        protected override void Added(Player player, Gun gun, GunAmmo gunAmmo, CharacterData data, HealthHandler health, Gravity gravity, Block block, CharacterStatModifiers characterStats)
         {
-            return CardThemeColor.CardThemeColorType.DestructiveRed;
+            // show stats
+            gun.damage = 0.65f;
+            gun.attackSpeed = 0.3f;
+            gunAmmo.maxAmmo = 5;
+            gunAmmo.reloadTime = 0.8f;
+
+            // hide stats
+            gun.dontAllowAutoFire = true;
+            gun.projectileSpeed = 1.3f;
+            gun.gravity = 1.5f;
+            gun.spread = 0.1f;
         }
 
-        public override string GetModName()
+        protected override void Removed(Player player, Gun gun, GunAmmo gunAmmo, CharacterData data, HealthHandler health, Gravity gravity, Block block, CharacterStatModifiers characterStats)
         {
-            return BrutalGun.BrutalGunMain.MOD_INITIALS;
-        }
+            //show stats
+            gun.damage = 1f;
+            gun.attackSpeed = 1f;
+            gunAmmo.maxAmmo = 3;
+            gunAmmo.reloadTime = 1f;
 
-        public override bool GetEnabled()
-        {
-            return false;
-        }
+            // hide stats
+            gun.dontAllowAutoFire = true;
+            gun.projectileSpeed = 1f;
+            gun.gravity = 1f;
+            gun.spread = 0f;
+        }       
     }
 }
-

@@ -93,10 +93,8 @@ namespace BrutalGun.Cards.Modules_rare
         /// <returns></returns>
         public override IEnumerator OnPointStart(IGameModeHandler gameModeHandler)
         {
-            float spread = gun.spread;
-            float speed = characterStats.movementSpeed;
-
             player.gameObject.AddComponent<BerserkerUpEffect>().Initialize(_regenDuration, 10, 1000, 10000);
+
             yield break;
         }
 
@@ -126,14 +124,14 @@ namespace BrutalGun.Cards.Modules_rare
             player.data.healthHandler.regeneration += _regen;
             gunStatModifier.spread_mult = 0.8f;
             characterStatModifiersModifier.movementSpeed_mult = 1.2f;
+
             Destroy(this, _regenDuration);
         }
 
         public override void OnOnDestroy()
         {
             player.data.healthHandler.regeneration -= _regen;
-            player.gameObject.AddComponent<BerserkerDownEffect>().Initialize(_damageDuration, _sumDamage);
-            
+            player.gameObject.AddComponent<BerserkerDownEffect>().Initialize(_damageDuration, _sumDamage);         
         }
     }
 
@@ -152,7 +150,7 @@ namespace BrutalGun.Cards.Modules_rare
             gunStatModifier.spread_mult = 1.2f;
             characterStatModifiersModifier.movementSpeed_mult = 0.8f;
 
-            player.data.healthHandler.TakeDamageOverTime(UnityEngine.Vector2.up * _sumDamage, UnityEngine.Vector2.zero, _damageDuration, 1f, Color.red);
+            player.data.healthHandler.TakeDamageOverTime(Vector2.up * _sumDamage, Vector2.zero, _damageDuration, 1f, Color.red);
         }
 
         public override void OnUpdate()

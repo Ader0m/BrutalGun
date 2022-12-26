@@ -1,51 +1,19 @@
-﻿using UnboundLib.Cards;
-using UnityEngine;
+﻿using BrutalGun;
+using ModsPlus;
 
 namespace BrutalGun.Cards
 {
-    public class AmmoXL : CustomCard
+    public class AmmoXL : SimpleCard
     {
-        public override void SetupCard(CardInfo cardInfo, Gun gun, ApplyCardStats cardStats, CharacterStatModifiers statModifiers, Block block)
+        public override CardDetails Details => new CardDetails
         {
-            cardInfo.categories = new CardCategory[] { MyCategories.Module, MyCategories.Human };
-
-            gun.reloadTimeAdd = 2.5f;
-            gun.ammo = 8;
-        }
-
-        public override void OnAddCard(Player player, Gun gun, GunAmmo gunAmmo, CharacterData data, HealthHandler health, Gravity gravity, Block block, CharacterStatModifiers characterStats)
-        {
-
-        }
-
-        public override void OnRemoveCard(Player player, Gun gun, GunAmmo gunAmmo, CharacterData data, HealthHandler health, Gravity gravity, Block block, CharacterStatModifiers characterStats)
-        {
-
-        }
-
-        protected override string GetTitle()
-        {
-            return "AmmoXL";
-        }
-
-        protected override string GetDescription()
-        {
-            return "Make you magazine big and fat";
-        }
-
-        protected override GameObject GetCardArt()
-        {
-            return null;
-        }
-
-        protected override CardInfo.Rarity GetRarity()
-        {
-            return CardInfo.Rarity.Uncommon;
-        }
-
-        protected override CardInfoStat[] GetStats()
-        {
-            return new CardInfoStat[]
+            Title = "AmmoXL",
+            Description = "Make you magazine big and fat",
+            ModName = BrutalGunMain.MOD_INITIALS,
+            OwnerOnly = false,
+            Rarity = CardInfo.Rarity.Uncommon,
+            Theme = CardThemeColor.CardThemeColorType.ColdBlue,
+            Stats = new CardInfoStat[]
             {
                 new CardInfoStat()
                 {
@@ -62,19 +30,15 @@ namespace BrutalGun.Cards
                     amount = "+2.5s",
                     simepleAmount = CardInfoStat.SimpleAmount.notAssigned
                 }
-            };
-        }
+            }
+        };
 
-        protected override CardThemeColor.CardThemeColorType GetTheme()
+        public override void SetupCard(CardInfo cardInfo, Gun gun, ApplyCardStats cardStats, CharacterStatModifiers statModifiers, Block block)
         {
-            return CardThemeColor.CardThemeColorType.ColdBlue;
-        }
+            cardInfo.categories = new CardCategory[] { MyCategories.Module, MyCategories.Human };
 
-        public override string GetModName()
-        {
-            return BrutalGunMain.MOD_INITIALS;
+            gun.reloadTimeAdd = 2.5f;
+            gun.ammo = 8;
         }
     }
 }
-
-

@@ -1,51 +1,19 @@
-﻿using UnboundLib.Cards;
-using UnityEngine;
+﻿using BrutalGun;
+using ModsPlus;
 
 namespace BrutalGun.Cards
 {
-    public class SecondArmorPlate : CustomCard
+    public class SecondArmorPlate : SimpleCard
     {
-        public override void SetupCard(CardInfo cardInfo, Gun gun, ApplyCardStats cardStats, CharacterStatModifiers statModifiers, Block block)
+        public override CardDetails Details => new CardDetails
         {
-            cardInfo.categories = new CardCategory[] { MyCategories.Module };
-
-            statModifiers.health = 1.3f;
-            statModifiers.movementSpeed = 0.9f;
-        }
-
-        public override void OnAddCard(Player player, Gun gun, GunAmmo gunAmmo, CharacterData data, HealthHandler health, Gravity gravity, Block block, CharacterStatModifiers characterStats)
-        {
-            //Edits values on player when card is selected
-        }
-
-        public override void OnRemoveCard(Player player, Gun gun, GunAmmo gunAmmo, CharacterData data, HealthHandler health, Gravity gravity, Block block, CharacterStatModifiers characterStats)
-        {
-            //Run when the card is removed from the player
-        }
-
-        protected override string GetTitle()
-        {
-            return "Second Armor Plate";
-        }
-
-        protected override string GetDescription()
-        {
-            return "CardDescription";
-        }
-
-        protected override GameObject GetCardArt()
-        {
-            return null;
-        }
-
-        protected override CardInfo.Rarity GetRarity()
-        {
-            return CardInfo.Rarity.Uncommon;
-        }
-
-        protected override CardInfoStat[] GetStats()
-        {
-            return new CardInfoStat[]
+            Title = "Second Armor Plate",
+            Description = "Stop passing off your fat as armor",
+            ModName = BrutalGunMain.MOD_INITIALS,
+            OwnerOnly = false,
+            Rarity = CardInfo.Rarity.Uncommon,
+            Theme = CardThemeColor.CardThemeColorType.ColdBlue,
+            Stats = new CardInfoStat[]
             {
                 new CardInfoStat()
                 {
@@ -62,18 +30,15 @@ namespace BrutalGun.Cards
                     amount = "-10%",
                     simepleAmount = CardInfoStat.SimpleAmount.notAssigned
                 }
-            };
-        }
+            }
+        };
 
-        protected override CardThemeColor.CardThemeColorType GetTheme()
+        public override void SetupCard(CardInfo cardInfo, Gun gun, ApplyCardStats cardStats, CharacterStatModifiers statModifiers, Block block)
         {
-            return CardThemeColor.CardThemeColorType.ColdBlue;
-        }
+            cardInfo.categories = new CardCategory[] { MyCategories.Module, MyCategories.Human };
 
-        public override string GetModName()
-        {
-            return BrutalGun.BrutalGunMain.MOD_INITIALS;
+            statModifiers.health = 1.3f;
+            statModifiers.movementSpeed = 0.9f;
         }
     }
 }
-

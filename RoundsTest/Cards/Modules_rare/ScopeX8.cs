@@ -1,52 +1,19 @@
-﻿using UnboundLib.Cards;
-using UnityEngine;
+﻿using BrutalGun;
+using ModsPlus;
 
 namespace BrutalGun.Cards
 {
-    public class ScopeX8 : CustomCard
+    public class ScopeX8 : SimpleCard
     {
-        public override void SetupCard(CardInfo cardInfo, Gun gun, ApplyCardStats cardStats, CharacterStatModifiers statModifiers, Block block)
+        public override CardDetails Details => new CardDetails
         {
-            cardInfo.categories = new CardCategory[] { MyCategories.Module, MyCategories.Human };
-
-            gun.attackSpeedMultiplier = 1.2f;
-            gun.multiplySpread = 0.5f;
-            statModifiers.movementSpeed = 0.9f;
-        }
-
-        public override void OnAddCard(Player player, Gun gun, GunAmmo gunAmmo, CharacterData data, HealthHandler health, Gravity gravity, Block block, CharacterStatModifiers characterStats)
-        {
-
-        }
-
-        public override void OnRemoveCard(Player player, Gun gun, GunAmmo gunAmmo, CharacterData data, HealthHandler health, Gravity gravity, Block block, CharacterStatModifiers characterStats)
-        {
-
-        }
-
-        protected override string GetTitle()
-        {
-            return "Scope X8";
-        }
-
-        protected override string GetDescription()
-        {
-            return "Check the Wind. Iron. The natal chart. Well done, you can shoot";
-        }
-
-        protected override GameObject GetCardArt()
-        {
-            return null;
-        }
-
-        protected override CardInfo.Rarity GetRarity()
-        {
-            return CardInfo.Rarity.Rare;
-        }
-
-        protected override CardInfoStat[] GetStats()
-        {
-            return new CardInfoStat[]
+            Title = "Scope X8",
+            Description = "Check the Wind. Iron. The natal chart. Well done, you can shoot",
+            ModName = BrutalGunMain.MOD_INITIALS,
+            OwnerOnly = false,
+            Rarity = CardInfo.Rarity.Rare,
+            Theme = CardThemeColor.CardThemeColorType.ColdBlue,
+            Stats = new CardInfoStat[]
             {
                 new CardInfoStat()
                 {
@@ -70,19 +37,17 @@ namespace BrutalGun.Cards
                     stat = "Speed",
                     amount = "-10%",
                     simepleAmount = CardInfoStat.SimpleAmount.notAssigned
-                }               
-            };
-        }
+                }
+            }
+        };
 
-        protected override CardThemeColor.CardThemeColorType GetTheme()
+        public override void SetupCard(CardInfo cardInfo, Gun gun, ApplyCardStats cardStats, CharacterStatModifiers statModifiers, Block block)
         {
-            return CardThemeColor.CardThemeColorType.ColdBlue;
-        }
+            cardInfo.categories = new CardCategory[] { MyCategories.Module, MyCategories.Human };
 
-        public override string GetModName()
-        {
-            return BrutalGun.BrutalGunMain.MOD_INITIALS;
+            gun.attackSpeedMultiplier = 1.2f;
+            gun.multiplySpread = 0.5f;
+            statModifiers.movementSpeed = 0.9f;
         }
     }
 }
-
