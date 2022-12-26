@@ -1,5 +1,8 @@
-﻿using System;
+﻿using BrutalGun.Cards;
+using System;
 using System.Collections.Generic;
+using System.Linq;
+using System.Reflection;
 using System.Text;
 using UnityEngine;
 
@@ -22,6 +25,28 @@ namespace BrutalGun
 
 
             return (A_ExplosionSpark, explosionCustom, explosionCustom.GetComponent<Explosion>());
+        }
+
+        public static void AddCurse(Player sender, CardInfo cardInfo, List<Player>? receivers = null)
+        {
+            foreach (Player enemy in receivers == null ? PlayerManager.instance.players : receivers)
+            {
+                if (enemy.playerID != sender.playerID)
+                {
+                    ModdingUtils.Utils.Cards.instance.AddCardToPlayer(enemy, cardInfo, false, "", 0, 0);
+                }
+            }
+        }
+
+        public static void RemoveCurse(Player sender, CardInfo cardInfo, List<Player>? receivers = null)
+        {
+            foreach (Player enemy in receivers == null ? PlayerManager.instance.players : receivers)
+            {
+                if (enemy.playerID != sender.playerID)
+                {
+                    ModdingUtils.Utils.Cards.instance.RemoveCardFromPlayer(enemy, cardInfo, ModdingUtils.Utils.Cards.SelectionType.Oldest);
+                }
+            }
         }
     }
 }
