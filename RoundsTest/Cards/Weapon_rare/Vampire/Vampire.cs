@@ -39,8 +39,8 @@ namespace BrutalGun.Cards
                 new CardInfoStat()
                 {
                     positive = true,
-                    stat = "Healing",
-                    amount = "+10",
+                    stat = "Health",
+                    amount = "150",
                     simepleAmount = CardInfoStat.SimpleAmount.notAssigned
                 },
 
@@ -48,49 +48,33 @@ namespace BrutalGun.Cards
                 {
                     positive = true,
                     stat = "Speed",
-                    amount = "+15%",
+                    amount = "150%",
                     simepleAmount = CardInfoStat.SimpleAmount.notAssigned
                 },
 
                 new CardInfoStat()
                 {
                     positive = true,
-                    stat = "Accuracy",
-                    amount = "+20%",
-                    simepleAmount = CardInfoStat.SimpleAmount.notAssigned
-                },
-
-                new CardInfoStat()
-                {
-                    positive = true,
-                    stat = "After 10 sec",
-                    amount = "",
+                    stat = "Jumps",
+                    amount = "3",
                     simepleAmount = CardInfoStat.SimpleAmount.notAssigned
                 },
 
                 new CardInfoStat()
                 {
                     positive = false,
-                    stat = "Healing",
-                    amount = "-10",
+                    stat = "use weapons",
+                    amount = "You can't",
                     simepleAmount = CardInfoStat.SimpleAmount.notAssigned
                 },
 
                 new CardInfoStat()
                 {
                     positive = false,
-                    stat = "Speed",
-                    amount = "-15%",
+                    stat = "longer human",
+                    amount = "You are no",
                     simepleAmount = CardInfoStat.SimpleAmount.notAssigned
-                },
-
-                new CardInfoStat()
-                {
-                    positive = false,
-                    stat = "Accuracy",
-                    amount = "-20%",
-                    simepleAmount = CardInfoStat.SimpleAmount.notAssigned
-                }
+                }         
             }
         };
 
@@ -100,13 +84,15 @@ namespace BrutalGun.Cards
 
             statModifiers.health = 1.5f;
             statModifiers.movementSpeed = 1.5f;
-            statModifiers.numberOfJumps = 3;
+            statModifiers.numberOfJumps = 2;
         }
 
         protected override void Added(Player player, Gun gun, GunAmmo gunAmmo, CharacterData data, HealthHandler health, Gravity gravity, Block block, CharacterStatModifiers characterStats)
         {
             PickCardController.SetVampirePick(player);
             VampireManager.PlayerStatsDict.TryAdd(player.playerID, new VampireManager.Stats());
+            StartCoroutine(BrutalGunMain.Instance.CardBarController.AdaptateHumanToVampire(player));
+                      
 
             //show stats
             gun.damage = 0.82f;
@@ -155,7 +141,7 @@ namespace BrutalGun.Cards
             if (hit.collider.gameObject.TryGetComponent<Player>(out _enemy)) 
             {
                 _player.gameObject.AddComponent<VampireHealEffect>().Init(_regen, _duration);
-                _enemy.data.healthHandler.TakeDamageOverTime(UnityEngine.Vector2.up * _damage, UnityEngine.Vector2.zero, _duration, 1, Color.red);
+                _enemy.data.healthHandler.TakeDamageOverTime(UnityEngine.Vector2.up * _damage * _duration, UnityEngine.Vector2.zero, _duration, 1, Color.red);
                 return HasToReturn.hasToReturn;
             }
 

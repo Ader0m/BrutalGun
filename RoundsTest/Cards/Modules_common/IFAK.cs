@@ -15,7 +15,7 @@ namespace BrutalGun.Cards
     {
         public override void SetupCard(CardInfo cardInfo, Gun gun, ApplyCardStats cardStats, CharacterStatModifiers statModifiers, Block block)
         {
-            cardInfo.categories = new CardCategory[] { MyCategories.Module };           
+            cardInfo.categories = new CardCategory[] { MyCategories.Module, MyCategories.Human };
         }
 
         public override void OnAddCard(Player player, Gun gun, GunAmmo gunAmmo, CharacterData data, HealthHandler health, Gravity gravity, Block block, CharacterStatModifiers characterStats)

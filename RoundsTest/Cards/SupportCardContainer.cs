@@ -6,7 +6,7 @@ namespace BrutalGun.Cards
 {
     public static class SupportCardContainer
     {
-        public static CardInfo PowerfullBerserk;
-        public static CardInfo DyingBerserk;
+        public static CardInfo DevilMantleCurse;
+        public static CardInfo AuraGreatCurse;
     }
 }

@@ -3,9 +3,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
-using System.Reflection;
-using System.Text;
-using System.Threading;
+using UnboundLib;
 using UnityEngine;
 
 namespace BrutalGun
@@ -22,8 +20,138 @@ namespace BrutalGun
             CardBarLengthDict = new Dictionary<int, int>();
         }
 
-        public IEnumerator CheckCardBar(Player player)
-        {                        
+        public IEnumerator AdaptateHumanToVampire(Player player)
+        {
+            string[] CommonCardNameObj = {  "__BGun__Body Reinforcement",
+                                            "__BGun__Arms Reinforcement",
+                                            "__BGun__Legs Reinforcement"
+                                            };
+
+            string[] UncommonCardNameObj = {"__BGun__Aura Great",
+                                            "__BGun__Heavy Punch",
+                                            "__BGun__Long Punch",
+                                            "__BGun__Lacerations"                                          
+                                           };
+
+            string[] RareCardNameObj = {    "__BGun__Dash"
+                                            
+                                            
+                                       };
+
+            for (int i = 0; i < player.data.currentCards.Count; i++)
+            {
+                yield return null;
+
+                switch (player.data.currentCards[i].cardName)
+                {
+                    case "RocketJump":
+                        {
+                            yield return ReplaseCard("__BGun__Bat Watching", i);
+
+                            break;
+                        }
+                    case "IFAK":
+                        {
+                            yield return ReplaseCard("__BGun__Taste Blood", i);                 
+
+                            break;
+                        }
+                    case "Extended Magazin":
+                        {
+                            yield return ReplaseCard(CommonCardNameObj.GetRandom<string>(), i);
+
+                            break;
+                        }
+                    case "Laser":
+                        {
+                            yield return ReplaseCard(CommonCardNameObj.GetRandom<string>(), i);
+
+                            break;
+                        }
+                    case "Quick Drop":
+                        {
+                            yield return ReplaseCard(CommonCardNameObj.GetRandom<string>(), i);
+
+                            break;
+                        }
+                    case "Titanium Parts":
+                        {
+                            yield return ReplaseCard(CommonCardNameObj.GetRandom<string>(), i);
+
+                            break;
+                        }
+                    case "Armor-piercing bullet":
+                        {
+                            yield return ReplaseCard("__BGun__Steel Claws", i);
+
+                            break;
+                        }
+                    case "Armored Suit":
+                        {
+                            yield return ReplaseCard("__BGun__The Devil Mantle", i);
+
+                            break;
+                        }
+                    case "Scope X8":
+                        {
+                            yield return ReplaseCard(RareCardNameObj.GetRandom<string>(), i);
+
+                            break;
+                        }
+                    case "AmmoXL":
+                        {
+                            yield return ReplaseCard("__BGun__Taste Blood", i);
+
+                            break;
+                        }
+                    case "Hummer Bullet":
+                        {
+                            yield return ReplaseCard("__BGun__Heavy Punch", i);
+
+                            break;
+                        }
+                    case "Big Bullet":
+                        {                           
+                            yield return ReplaseCard(UncommonCardNameObj.GetRandom<string>(), i);
+
+                            break;
+                        }              
+                    case "Light Bolt":
+                        {
+                            yield return ReplaseCard(UncommonCardNameObj.GetRandom<string>(), i);
+
+                            break;
+                        }
+                    case "Long Barrel":
+                        {                            
+                            yield return ReplaseCard("__BGun__Long Punch", i);
+
+                            break;
+                        }
+                    case "Scope X2":
+                        {
+                            yield return ReplaseCard(UncommonCardNameObj.GetRandom<string>(), i);
+
+                            break;
+                        }
+                    case "Light Armor":
+                        {
+                            yield return ReplaseCard(UncommonCardNameObj.GetRandom<string>(), i);
+
+                            break;
+                        }
+                        default: { break; }
+                }       
+            }    
+
+            IEnumerator ReplaseCard(string cardPath, int index)
+            {
+                yield return ModdingUtils.Utils.Cards.instance.ReplaceCard(player, index, ModdingUtils.Utils.Cards.instance.GetCardWithObjectName(cardPath), "", 0, 0);
+            }
+        }
+
+        public IEnumerator CheckCorrectCardBar(Player player)
+        {
             if (CardBarLengthDict.ContainsKey(player.playerID))
             {
                 if (CardBarLengthDict[player.playerID] < player.data.currentCards.Count)
@@ -69,6 +197,7 @@ namespace BrutalGun
         public void Restore()
         {
             CardBarLengthDict.Clear();
+            VampireManager.PlayerStatsDict.Clear();
         }
 
         /// <summary>
@@ -83,7 +212,7 @@ namespace BrutalGun
         {
             if (currentWeapon != null)
             {
-                ModdingUtils.Utils.Cards.instance.RemoveAllCardsFromPlayer(player, true);
+                ModdingUtils.Utils.Cards.instance.RemoveAllCardsFromPlayer(player);
                 yield return null;
                 ModdingUtils.Utils.Cards.instance.AddCardToPlayer(player, currentWeapon, false, "", 0, 0);
                 if (cards.Count != 0)
@@ -105,9 +234,9 @@ namespace BrutalGun
         /// <returns></returns>
         private IEnumerator WithStartWeapon(Player player, CardInfo currentWeapon, List<CardInfo> cards, int countWeapon)
         {           
-            if (currentWeapon != null && countWeapon > 0)
+            if (currentWeapon != null && countWeapon > 1)
             {
-                ModdingUtils.Utils.Cards.instance.RemoveAllCardsFromPlayer(player, true);
+                ModdingUtils.Utils.Cards.instance.RemoveAllCardsFromPlayer(player);
                 yield return null;
                 ModdingUtils.Utils.Cards.instance.AddCardToPlayer(player, currentWeapon, false, "", 0, 0);
                 if (cards.Count != 0)

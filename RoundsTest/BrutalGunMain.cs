@@ -12,6 +12,7 @@ using System.Collections;
 using System.Linq;
 using Photon.Pun;
 using BrutalGun.Cards.Modules_rare;
+using BrutalGun.Cards.VimpireCard.Rare;
 
 namespace BrutalGun
 {
@@ -45,7 +46,7 @@ namespace BrutalGun
 
         public Player[] PlayersMass;
         private List<CardInfo> _startCardList;
-        private CardBarController _cardBarController;
+        public CardBarController CardBarController;
         private bool _firstPick;
 
         void Awake()
@@ -69,7 +70,7 @@ namespace BrutalGun
             GameModeManager.AddHook(GameModeHooks.HookGameEnd, ResetData);
             GameModeManager.AddHook(GameModeHooks.HookInitStart, ResetData);
 
-            //StartCoroutine(debug());
+            StartCoroutine(debug());
         }       
 
         public IEnumerator debug()
@@ -88,12 +89,12 @@ namespace BrutalGun
                     UnityEngine.Debug.Log("error");
                 }
 
-                yield return new WaitForSeconds(0.5f);
+                yield return new WaitForSeconds(1f);
             }                      
         }
         private void CreateManagers()
         {
-            _cardBarController = new CardBarController();
+            CardBarController = new CardBarController();
 
         }
 
@@ -119,7 +120,7 @@ namespace BrutalGun
             {
                 foreach (Player player in PlayersMass)
                 {
-                    yield return _cardBarController.CheckCardBar(player);
+                    yield return CardBarController.CheckCorrectCardBar(player);
                 }             
             }
             else
@@ -130,7 +131,8 @@ namespace BrutalGun
 
         IEnumerator ResetData(IGameModeHandler arg)
         {
-            _cardBarController.Restore();
+            CardBarController.Restore();
+            VampireManager.Restore();
             _firstPick = true;
 
             yield break;
@@ -178,14 +180,41 @@ namespace BrutalGun
             CustomCard.BuildCard<Vampire>();
             CustomCard.BuildCard<Winchester>();
 
+            //VimpireCard
+            //Common
+            CustomCard.BuildCard<ArmsReinforcement>();
+            CustomCard.BuildCard<BatWatching>();
+            CustomCard.BuildCard<BodyReinforcement>();
+            CustomCard.BuildCard<LegsReinforcement>();
+            CustomCard.BuildCard<TasteBlood>();
+            //Uncommon
+            CustomCard.BuildCard<AuraGreat>();
+            CustomCard.BuildCard<HeavyPunch>();
+            CustomCard.BuildCard<LongPunch>();
+            //Rare
+            CustomCard.BuildCard<Dash>();
+            CustomCard.BuildCard<DevilMantle>();
+            CustomCard.BuildCard<SteelClaws>();
+         
+            //SupportCard
+            CustomCard.BuildCard<DevilMantleCurse>(cardInfo =>
+            {
+                SupportCardContainer.DevilMantleCurse = cardInfo;
+                ModdingUtils.Utils.Cards.instance.AddHiddenCard(cardInfo);
+            });
+
+            CustomCard.BuildCard<AuraGreatCurse>(cardInfo =>
+            {
+                SupportCardContainer.AuraGreatCurse = cardInfo;
+                ModdingUtils.Utils.Cards.instance.AddHiddenCard(cardInfo);
+            });
+
             //StartCards
-            CustomCard.BuildCard<Macarov>(cardInfo => 
+            CustomCard.BuildCard<Macarov>(cardInfo =>
             {
                 _startCardList.Add(cardInfo);
                 ModdingUtils.Utils.Cards.instance.AddHiddenCard(cardInfo);
             });
-
-            //SupportCard            
         }
     }
 }

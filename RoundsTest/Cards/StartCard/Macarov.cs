@@ -16,12 +16,13 @@ namespace BrutalGun.Cards
         public override void SetupCard(CardInfo cardInfo, Gun gun, ApplyCardStats cardStats, CharacterStatModifiers statModifiers, Block block)
         {
             cardInfo.categories = new CardCategory[] { MyCategories.Weapon };
-
             //Edits values on card itself, which are then applied to the player in `ApplyCardStats`
         }
 
         public override void OnAddCard(Player player, Gun gun, GunAmmo gunAmmo, CharacterData data, HealthHandler health, Gravity gravity, Block block, CharacterStatModifiers characterStats)
-        {         
+        {
+            gun.multiplySpread = 1.3f;
+
             // show stats
             gun.damage = 0.65f;
             gun.attackSpeed = 0.3f;

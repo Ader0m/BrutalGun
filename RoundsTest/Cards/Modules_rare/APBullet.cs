@@ -15,20 +15,18 @@ namespace BrutalGun.Cards
     {
         public override void SetupCard(CardInfo cardInfo, Gun gun, ApplyCardStats cardStats, CharacterStatModifiers statModifiers, Block block)
         {
-            cardInfo.categories = new CardCategory[] { MyCategories.Module };
-
+            cardInfo.categories = new CardCategory[] { MyCategories.Module, MyCategories.Human };
+            
             gun.bulletDamageMultiplier = 1.20f;
             gun.multiplySpread = 1.2f;
         }
 
         public override void OnAddCard(Player player, Gun gun, GunAmmo gunAmmo, CharacterData data, HealthHandler health, Gravity gravity, Block block, CharacterStatModifiers characterStats)
         {
-            //Edits values on player when card is selected
         }
 
         public override void OnRemoveCard(Player player, Gun gun, GunAmmo gunAmmo, CharacterData data, HealthHandler health, Gravity gravity, Block block, CharacterStatModifiers characterStats)
         {
-            //Run when the card is removed from the player
         }
 
         protected override string GetTitle()

@@ -59,10 +59,7 @@ namespace BrutalGun.Cards
 
         GrenadeHundler()
         {
-            (GameObject addToProjectile, GameObject effect, Explosion explosion) = BrutalTools.LoadExplosionElements();
-            _addToProjectile = addToProjectile;
-            _effect = effect;
-            _explosion = explosion;
+            (_addToProjectile, _effect, _explosion) = BrutalTools.LoadExplosionElements();          
         }
 
         public override void OnBlock(BlockTrigger.BlockTriggerType trigger)

@@ -16,11 +16,16 @@ namespace BrutalGun.Cards
             public Stats() 
             {
                 Duration = 2;
-                Damage = 10 / Duration;
+                Damage = 5;
                 Regen = 5;
             }
         }
 
         public static Dictionary<int, Stats> PlayerStatsDict = new Dictionary<int, Stats>();
+
+        public static void Restore()
+        {
+            PlayerStatsDict.Clear();
+        }
     }
 }

@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-using BrutalGun.Cards;
+﻿using BrutalGun.Cards;
 
 namespace BrutalGun
 {
