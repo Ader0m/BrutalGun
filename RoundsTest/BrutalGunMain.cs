@@ -173,7 +173,6 @@ namespace BrutalGun
             CustomCard.BuildCard<P90>();
             //Weapon_rare
             CustomCard.BuildCard<AK74>();
-            CustomCard.BuildCard<M4A1>();
             CustomCard.BuildCard<Vampire>();
             CustomCard.BuildCard<Winchester>();
 
