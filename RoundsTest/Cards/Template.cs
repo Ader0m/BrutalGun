@@ -11,7 +11,7 @@ namespace BrutalGun.Cards
             Description = "Description",
             ModName = BrutalGunMain.MOD_INITIALS,
             OwnerOnly = false,
-            Rarity = CardInfo.Rarity.Rare,
+            Rarity = CardInfo.Rarity.Uncommon,
             Theme = CardThemeColor.CardThemeColorType.ColdBlue,
             Stats = new CardInfoStat[]
             {
@@ -28,6 +28,14 @@ namespace BrutalGun.Cards
         public override void SetupCard(CardInfo cardInfo, Gun gun, ApplyCardStats cardStats, CharacterStatModifiers statModifiers, Block block)
         {
             cardInfo.categories = new CardCategory[] { MyCategories.Module };
+        }
+
+        protected override void Added(Player player, Gun gun, GunAmmo gunAmmo, CharacterData data, HealthHandler health, Gravity gravity, Block block, CharacterStatModifiers characterStats)
+        {
+        }
+
+        protected override void Removed(Player player, Gun gun, GunAmmo gunAmmo, CharacterData data, HealthHandler health, Gravity gravity, Block block, CharacterStatModifiers characterStats)
+        {
         }
     }
 }
