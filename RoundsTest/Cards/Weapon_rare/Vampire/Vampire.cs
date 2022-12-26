@@ -65,6 +65,8 @@ namespace BrutalGun.Cards
             statModifiers.health = 1.5f;
             statModifiers.movementSpeed = 1.5f;
             statModifiers.numberOfJumps = 2;
+
+            gun.projectileColor = new Color(123, 0, 255); //purple
         }
 
         protected override void Added(Player player, Gun gun, GunAmmo gunAmmo, CharacterData data, HealthHandler health, Gravity gravity, Block block, CharacterStatModifiers characterStats)
