@@ -28,7 +28,7 @@ namespace BrutalGun.Cards
                 {
                     positive = true,
                     stat = "ATKSPD",
-                    amount = "2,8",
+                    amount = "2,5",
                     simepleAmount = CardInfoStat.SimpleAmount.notAssigned
                 },
 
@@ -60,7 +60,7 @@ namespace BrutalGun.Cards
         {
             //show stats
             gun.damage = 0.72f;
-            gun.attackSpeed = 0.35f;
+            gun.attackSpeed = 0.4f;
             gunAmmo.maxAmmo = 5;
             gunAmmo.reloadTime = 2f;
 
