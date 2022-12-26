@@ -1,14 +1,4 @@
-﻿using CardChoiceSpawnUniqueCardPatch.CustomCategories;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using UnboundLib;
-using UnboundLib.Cards;
-using UnityEngine;
-using BrutalGun;
-using ModsPlus;
+﻿using ModsPlus;
 
 namespace BrutalGun.Cards
 {

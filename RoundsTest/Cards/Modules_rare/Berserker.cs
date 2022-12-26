@@ -1,24 +1,8 @@
-﻿using UnboundLib.Cards;
-using UnityEngine;
-using CardChoiceSpawnUniqueCardPatch.CustomCategories;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using UnboundLib;
+﻿using ModdingUtils.MonoBehaviours;
 using ModsPlus;
-using System.Runtime.CompilerServices;
-using Photon.Pun.UtilityScripts;
-using System.Xml.Linq;
-using UnboundLib.GameModes;
 using System.Collections;
-using System.Reflection;
-using System.Numerics;
-using ModdingUtils.MonoBehaviours;
-using System.Text.RegularExpressions;
-using ModdingUtils.Extensions;
-using static System.Net.Mime.MediaTypeNames;
+using UnboundLib.GameModes;
+using UnityEngine;
 
 namespace BrutalGun.Cards.Modules_rare
 {

@@ -1,10 +1,4 @@
-﻿using BrutalGun.Cards;
-using System;
-using System.Collections;
-using System.Collections.Generic;
-using System.Reflection;
-using System.Text;
-using UnityEngine;
+﻿using System.Collections.Generic;
 
 namespace BrutalGun
 {

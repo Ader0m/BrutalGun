@@ -1,13 +1,5 @@
-﻿using CardChoiceSpawnUniqueCardPatch.CustomCategories;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using UnboundLib;
-using UnboundLib.Cards;
+﻿using UnboundLib.Cards;
 using UnityEngine;
-using BrutalGun;
 
 namespace BrutalGun.Cards
 {
@@ -16,7 +8,6 @@ namespace BrutalGun.Cards
         public override void SetupCard(CardInfo cardInfo, Gun gun, ApplyCardStats cardStats, CharacterStatModifiers statModifiers, Block block)
         {
             cardInfo.categories = new CardCategory[] { MyCategories.Weapon };
-            //Edits values on card itself, which are then applied to the player in `ApplyCardStats`
         }
 
         public override void OnAddCard(Player player, Gun gun, GunAmmo gunAmmo, CharacterData data, HealthHandler health, Gravity gravity, Block block, CharacterStatModifiers characterStats)

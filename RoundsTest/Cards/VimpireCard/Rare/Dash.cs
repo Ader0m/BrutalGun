@@ -1,18 +1,5 @@
-﻿using CardChoiceSpawnUniqueCardPatch.CustomCategories;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using UnboundLib;
-using UnboundLib.Cards;
-using UnityEngine;
-using ModsPlus;
-using System.Reflection;
-using System.Xml.Linq;
+﻿using ModsPlus;
 using System.Collections;
-using ModdingUtils.Extensions;
-using System.Numerics;
 
 namespace BrutalGun.Cards.VimpireCard.Rare
 {

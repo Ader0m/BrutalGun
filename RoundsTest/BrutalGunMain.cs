@@ -1,18 +1,15 @@
 ﻿using BepInEx;
-using UnboundLib;
-using UnboundLib.Cards;
 using BrutalGun.Cards;
-using HarmonyLib;
-using System;
-using UnityEngine.Events;
-using UnityEngine;
-using UnboundLib.GameModes;
-using System.Collections.Generic;
-using System.Collections;
-using System.Linq;
-using Photon.Pun;
 using BrutalGun.Cards.Modules_rare;
 using BrutalGun.Cards.VimpireCard.Rare;
+using HarmonyLib;
+using Photon.Pun;
+using System.Collections;
+using System.Collections.Generic;
+using System.Linq;
+using UnboundLib.Cards;
+using UnboundLib.GameModes;
+using UnityEngine;
 
 namespace BrutalGun
 {
