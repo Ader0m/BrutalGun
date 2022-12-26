@@ -100,7 +100,7 @@ namespace BrutalGun
                         }
                     case "AmmoXL":
                         {
-                            yield return ReplaseCard("__BGun__Taste Blood", i);
+                            yield return ReplaseCard(UncommonCardNameObj.GetRandom<string>(), i);
 
                             break;
                         }
