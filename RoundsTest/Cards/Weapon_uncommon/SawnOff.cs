@@ -43,7 +43,7 @@ namespace BrutalGun.Cards
                 {
                     positive = true,
                     stat = "Reload Time",
-                    amount = "0.7s",
+                    amount = "0.9s",
                     simepleAmount = CardInfoStat.SimpleAmount.notAssigned
                 }
             }
@@ -61,7 +61,6 @@ namespace BrutalGun.Cards
             gun.damage = 1f;
             gun.attackSpeed = 0.05f;
             gunAmmo.maxAmmo = 6;
-            gunAmmo.reloadTime = 0.7f;
 
             // hide stats
             gun.dontAllowAutoFire = true;
@@ -82,7 +81,6 @@ namespace BrutalGun.Cards
             gun.damage = 1f;
             gun.attackSpeed = 1f;
             gunAmmo.maxAmmo = 3;
-            gunAmmo.reloadTimeAdd = 1f;
 
             // hide stats
             gun.dontAllowAutoFire = true;
@@ -94,6 +92,7 @@ namespace BrutalGun.Cards
             gun.bursts = 0;
             gun.numberOfProjectiles = 1;
             gun.destroyBulletAfter = 0f;
+            gun.damageAfterDistanceMultiplier = 0f;
         }
     }
 }
