@@ -35,7 +35,7 @@ namespace BrutalGun.Cards
                 new CardInfoStat()
                 {
                     positive = true,
-                    stat = "Jumps",
+                    stat = "Count jump",
                     amount = "3",
                     simepleAmount = CardInfoStat.SimpleAmount.notAssigned
                 },
