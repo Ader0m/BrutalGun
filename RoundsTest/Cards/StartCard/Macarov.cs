@@ -83,6 +83,11 @@ namespace BrutalGun.Cards
             gun.projectileSpeed = 1f;
             gun.gravity = 1f;
             gun.spread = 0f;
-        }       
+        }
+
+        public override bool GetEnabled()
+        {
+            return false;
+        }
     }
 }
