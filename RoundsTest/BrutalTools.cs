@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using ModsPlus;
+using System.Collections.Generic;
 using UnityEngine;
 
 namespace BrutalGun
@@ -42,6 +43,17 @@ namespace BrutalGun
                     ModdingUtils.Utils.Cards.instance.RemoveCardFromPlayer(enemy, cardInfo, ModdingUtils.Utils.Cards.SelectionType.Oldest);
                 }
             }
+        }
+
+        public static bool TryDeleteComponent<T>(Player player) where T : Component
+        {
+            T component;
+            if (player.gameObject.TryGetComponent<T>(out component))
+            {
+                UnityEngine.Object.Destroy(component);
+                return true;
+            }
+            return false;
         }
     }
 }
