@@ -50,9 +50,7 @@ namespace BrutalGun
 
             for (int i = 0; i < player.data.currentCards.Count; i++)
             {
-                UnityEngine.Debug.Log($"Количество карт {player.data.currentCards.Count} Название {player.data.currentCards[i].cardName} Индекс {i}");
-                yield return null;
-                
+                yield return null;             
 
                 switch (player.data.currentCards[i].cardName)
                 {
@@ -154,12 +152,10 @@ namespace BrutalGun
                         }
                     default: 
                     {
-                        UnityEngine.Debug.Log($"Pass {player.data.currentCards[i].cardName} card"); 
+                        //UnityEngine.Debug.Log($"Pass {player.data.currentCards[i].cardName} card"); 
                         break;
                     }
-                }
-
-                
+                }                
             }
 
             InProcess = false;
