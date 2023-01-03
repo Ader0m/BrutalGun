@@ -1,4 +1,6 @@
-﻿using ModsPlus;
+﻿using BrutalGun.Cards;
+using ModsPlus;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -54,6 +56,15 @@ namespace BrutalGun
                 return true;
             }
             return false;
+        }
+
+        public static IEnumerator ReplaseCard(Player player, string cardPath, int index)
+        {
+            UnityEngine.Debug.Log("Start ReplaseCard");
+            CardInfo cardinfo = CardContainer.GetCard<BatWatching>();
+            UnityEngine.Debug.Log("get Cardinfo");
+            yield return ModdingUtils.Utils.Cards.instance.ReplaceCard(player, index, cardinfo, "", 0, 0);
+            UnityEngine.Debug.Log("Finish ReplaseCard");
         }
     }
 }

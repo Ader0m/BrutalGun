@@ -43,9 +43,9 @@ namespace BrutalGun
 
         #endregion
 
-        public Player[] PlayersMass;
-        private List<CardInfo> _startCardList;
+        public Player[] PlayersMass;    
         public CardBarController CardBarController;
+        private List<CardInfo> _startCardList;
         private bool _firstPick;
 
         void Awake()
@@ -142,7 +142,7 @@ namespace BrutalGun
 
         private void BuildCards()
         {
-            //Modules_common
+            //Modules_common           
             CustomCard.BuildCard<BatteriesEnergizer>();
             CustomCard.BuildCard<ExtendedMag>();
             CustomCard.BuildCard<IFAK>();
@@ -186,7 +186,7 @@ namespace BrutalGun
             //VimpireCard
             //Common
             CustomCard.BuildCard<ArmsReinforcement>();
-            CustomCard.BuildCard<BatWatching>();
+            CardContainer.RegisterCard<BatWatching>();
             CustomCard.BuildCard<BodyReinforcement>();
             CustomCard.BuildCard<LegsReinforcement>();
             CustomCard.BuildCard<TasteBlood>();
@@ -202,13 +202,13 @@ namespace BrutalGun
             //SupportCard
             CustomCard.BuildCard<DevilMantleCurse>(cardInfo =>
             {
-                SupportCardContainer.DevilMantleCurse = cardInfo;
+                CardContainer.DevilMantleCurse = cardInfo;
                 ModdingUtils.Utils.Cards.instance.AddHiddenCard(cardInfo);
             });
 
             CustomCard.BuildCard<AuraGreatCurse>(cardInfo =>
             {
-                SupportCardContainer.AuraGreatCurse = cardInfo;
+                CardContainer.AuraGreatCurse = cardInfo;
                 ModdingUtils.Utils.Cards.instance.AddHiddenCard(cardInfo);
             });
 

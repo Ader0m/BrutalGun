@@ -22,20 +22,12 @@ namespace BrutalGun
         }
 
         public IEnumerator AdaptateHumanToVampire(Player player)
-        {
-
-            IEnumerator ReplaseCard(string cardPath, int index)
-            {
-                UnityEngine.Debug.Log("Start ReplaseCard");
-                yield return ModdingUtils.Utils.Cards.instance.ReplaceCard(player, index, ModdingUtils.Utils.Cards.instance.GetCardWithObjectName(cardPath), "", 0, 0);
-                UnityEngine.Debug.Log("Finish ReplaseCard");
-            }
-
-            while (InProcess)
-            {
-                UnityEngine.Debug.Log("AdaptateHumanToVampire - wait");
-                yield return null;
-            }
+        {          
+            //while (InProcess)
+            //{
+            //    UnityEngine.Debug.Log("AdaptateHumanToVampire - wait");
+            //    yield return null;
+            //}
 
             InProcess = true;
 
@@ -60,102 +52,103 @@ namespace BrutalGun
                 UnityEngine.Debug.Log($"Количество карт {player.data.currentCards.Count} Название {player.data.currentCards[i].cardName} Индекс {i}");
                 yield return null;
                 
+
                 switch (player.data.currentCards[i].cardName)
                 {
                     case "Rocket Jump":
                         {
                             UnityEngine.Debug.Log("1");
-                            yield return ReplaseCard("__BGun__Bat Watching", i);
+                            yield return BrutalTools.ReplaseCard(player, "__BGun__Bat Watching", i);
                             UnityEngine.Debug.Log("2");
                             break;
                         }
                     case "IFAK":
                         {
-                            yield return ReplaseCard("__BGun__Taste Blood", i);                 
+                            yield return BrutalTools.ReplaseCard(player, "__BGun__Taste Blood", i);                 
 
                             break;
                         }
                     case "Extended Magazin":
                         {
-                            yield return ReplaseCard(CommonCardNameObj.GetRandom<string>(), i);
+                            yield return BrutalTools.ReplaseCard(player, CommonCardNameObj.GetRandom<string>(), i);
 
                             break;
                         }
                     case "Laser":
                         {
-                            yield return ReplaseCard(CommonCardNameObj.GetRandom<string>(), i);
+                            yield return BrutalTools.ReplaseCard(player, CommonCardNameObj.GetRandom<string>(), i);
 
                             break;
                         }
                     case "Quick Drop":
                         {
-                            yield return ReplaseCard(CommonCardNameObj.GetRandom<string>(), i);
+                            yield return BrutalTools.ReplaseCard(player, CommonCardNameObj.GetRandom<string>(), i);
 
                             break;
                         }
                     case "Titanium Parts":
                         {
-                            yield return ReplaseCard(CommonCardNameObj.GetRandom<string>(), i);
+                            yield return BrutalTools.ReplaseCard(player, CommonCardNameObj.GetRandom<string>(), i);
 
                             break;
                         }
                     case "Armor-piercing bullet":
                         {
-                            yield return ReplaseCard("__BGun__Steel Claws", i);
+                            yield return BrutalTools.ReplaseCard(player, "__BGun__Steel Claws", i);
 
                             break;
                         }
                     case "Armored Suit":
                         {
-                            yield return ReplaseCard("__BGun__The Devil Mantle", i);
+                            yield return BrutalTools.ReplaseCard(player, "__BGun__The Devil Mantle", i);
 
                             break;
                         }
                     case "Scope X8":
                         {
-                            yield return ReplaseCard(RareCardNameObj.GetRandom<string>(), i);
+                            yield return BrutalTools.ReplaseCard(player, RareCardNameObj.GetRandom<string>(), i);
 
                             break;
                         }
                     case "AmmoXL":
                         {
-                            yield return ReplaseCard(UncommonCardNameObj.GetRandom<string>(), i);
+                            yield return BrutalTools.ReplaseCard(player, UncommonCardNameObj.GetRandom<string>(), i);
 
                             break;
                         }
                     case "Hummer Bullet":
                         {
-                            yield return ReplaseCard("__BGun__Heavy Punch", i);
+                            yield return BrutalTools.ReplaseCard(player, "__BGun__Heavy Punch", i);
 
                             break;
                         }
                     case "Big Bullet":
                         {                           
-                            yield return ReplaseCard(UncommonCardNameObj.GetRandom<string>(), i);
+                            yield return BrutalTools.ReplaseCard(player, UncommonCardNameObj.GetRandom<string>(), i);
 
                             break;
                         }              
                     case "Light Bolt":
                         {
-                            yield return ReplaseCard(UncommonCardNameObj.GetRandom<string>(), i);
+                            yield return BrutalTools.ReplaseCard(player, UncommonCardNameObj.GetRandom<string>(), i);
 
                             break;
                         }
                     case "Long Barrel":
                         {                            
-                            yield return ReplaseCard("__BGun__Long Punch", i);
+                            yield return BrutalTools.ReplaseCard(player, "__BGun__Long Punch", i);
 
                             break;
                         }
                     case "Scope X2":
                         {
-                            yield return ReplaseCard(UncommonCardNameObj.GetRandom<string>(), i);
+                            yield return BrutalTools.ReplaseCard(player, UncommonCardNameObj.GetRandom<string>(), i);
 
                             break;
                         }
                     case "Light Armor":
                         {
-                            yield return ReplaseCard(UncommonCardNameObj.GetRandom<string>(), i);
+                            yield return BrutalTools.ReplaseCard(player, UncommonCardNameObj.GetRandom<string>(), i);
 
                             break;
                         }
@@ -174,11 +167,11 @@ namespace BrutalGun
 
         public IEnumerator CheckCorrectCardBar(Player player)
         {
-            while (InProcess)
-            {
-                UnityEngine.Debug.Log("CheckCorrectCardBar - wait");
-                yield return null;
-            }
+            //while (InProcess)
+            //{
+            //    UnityEngine.Debug.Log("CheckCorrectCardBar - wait");
+            //    yield return null;
+            //}
 
             InProcess = true;
 
