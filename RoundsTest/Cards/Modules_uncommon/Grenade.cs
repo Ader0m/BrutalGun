@@ -13,7 +13,7 @@ namespace BrutalGun.Cards
         {
             Title = "Granade",
             Description = "Send a cake! Or a grenade! After all, the cake is a lie...",
-            ModName = BrutalGun.BrutalGunMain.MOD_INITIALS,
+            ModName = BrutalGunMain.MOD_INITIALS,
             OwnerOnly = false,
             Rarity = CardInfo.Rarity.Uncommon,
             Theme = CardThemeColor.CardThemeColorType.ColdBlue,
@@ -51,8 +51,8 @@ namespace BrutalGun.Cards
         public override void OnBlock(BlockTrigger.BlockTriggerType trigger)
         {
             //setExplosionStats
-            _explosion.damage = Mathf.Clamp((gun.damage * 1.5f) * 55, 40, 75);
-            _explosion.range = Mathf.Clamp((gun.damage * 15), 10, 15);
+            _explosion.damage = Mathf.Clamp((gun.damage * 1.5f) * 55, 45, 75);
+            _explosion.range = Mathf.Clamp((gun.damage * 15), 12, 20);
             _explosion.force = 2000;
 
             UnityEngine.Debug.Log((gun.damage * 1.5f) * 55 + " " + _explosion.damage);
@@ -106,6 +106,8 @@ namespace BrutalGun.Cards
 
         public override void OnStart()
         {
+            gunStatModifier.damage_add = 0.55f - gun.damage;
+
             gunStatModifier.bulletDamageMultiplier_mult = _bulletDamageM;
             gunStatModifier.projectileSpeed_mult = _projectileSpeedM;
             gunStatModifier.gravity_add = -(gun.gravity - _gravityValue);
