@@ -36,7 +36,7 @@ namespace BrutalGun.Cards
                 {
                     positive = true,
                     stat = "AMMO",
-                    amount = "5",
+                    amount = "4",
                     simepleAmount = CardInfoStat.SimpleAmount.notAssigned
                 },
 
@@ -61,7 +61,7 @@ namespace BrutalGun.Cards
             //show stats
             gun.damage = 0.63f;
             gun.attackSpeed = 0.4f;
-            gunAmmo.maxAmmo = 5;
+            gunAmmo.maxAmmo = 4;
             gunAmmo.reloadTime = 2f;
 
             // hide stats
