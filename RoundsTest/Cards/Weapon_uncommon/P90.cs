@@ -59,7 +59,7 @@ namespace BrutalGun.Cards
         {
             //show stats
             gun.damage = 0.25f;
-            gun.attackSpeed = 0.08f;
+            gun.attackSpeed = 0.08f; // 0.075
             gunAmmo.maxAmmo = 15;
             gunAmmo.reloadTime = 1.2f;
 

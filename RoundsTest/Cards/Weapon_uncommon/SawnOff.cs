@@ -72,7 +72,7 @@ namespace BrutalGun.Cards
             gun.bursts = 1;
             gun.numberOfProjectiles = 3;
             gun.destroyBulletAfter = 0.3f;
-            gun.damageAfterDistanceMultiplier = 0.55f;
+            gun.damageAfterDistanceMultiplier = 0.45f;
         }
 
         protected override void Removed(Player player, Gun gun, GunAmmo gunAmmo, CharacterData data, HealthHandler health, Gravity gravity, Block block, CharacterStatModifiers characterStats)

@@ -4,7 +4,7 @@ using UnityEngine;
 
 namespace BrutalGun.Cards
 {
-    public class DesertEagle : CustomEffectCard<DesertEagleController>
+    public class DesertEagle : CustomEffectCard<DesertEagleHandler>
     {
         public override CardDetails Details => new CardDetails
         {
@@ -20,7 +20,7 @@ namespace BrutalGun.Cards
                 {
                     positive = true,
                     stat = "DMG",
-                    amount = "40",
+                    amount = "??",
                     simepleAmount = CardInfoStat.SimpleAmount.notAssigned
                 },
 
@@ -59,7 +59,7 @@ namespace BrutalGun.Cards
         protected override void Added(Player player, Gun gun, GunAmmo gunAmmo, CharacterData data, HealthHandler health, Gravity gravity, Block block, CharacterStatModifiers characterStats)
         {
             //show stats
-            gun.damage = 0.72f;
+            gun.damage = 0.63f;
             gun.attackSpeed = 0.4f;
             gunAmmo.maxAmmo = 5;
             gunAmmo.reloadTime = 2f;
@@ -87,13 +87,14 @@ namespace BrutalGun.Cards
         }
     }
 
-    public class DesertEagleController: CardEffect
+    public class DesertEagleHandler: CardEffect
     {
         public override void OnBlockRecharge()
         {
             player.data.weaponHandler.gun.spread = 0f;
             player.data.weaponHandler.gun.gravity = 0f;
             player.data.weaponHandler.gun.projectileSpeed = 4f;
+            player.data.weaponHandler.gun.damage = 0.81f;
         }
 
         public override void OnBlock(BlockTrigger.BlockTriggerType blockTriggerType)
@@ -101,6 +102,7 @@ namespace BrutalGun.Cards
             player.data.weaponHandler.gun.spread = 0.4f;
             player.data.weaponHandler.gun.gravity = 1f;
             player.data.weaponHandler.gun.projectileSpeed = 2f;
+            player.data.weaponHandler.gun.damage = 0.63f;
         }
 
         public override void OnShoot(GameObject projectile)
