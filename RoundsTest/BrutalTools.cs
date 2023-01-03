@@ -58,13 +58,9 @@ namespace BrutalGun
             return false;
         }
 
-        public static IEnumerator ReplaseCard(Player player, string cardPath, int index)
+        public static IEnumerator ReplaseCard(Player player, CardInfo cardInfo, int index)
         {
-            UnityEngine.Debug.Log("Start ReplaseCard");
-            CardInfo cardinfo = CardContainer.GetCard<BatWatching>();
-            UnityEngine.Debug.Log("get Cardinfo");
-            yield return ModdingUtils.Utils.Cards.instance.ReplaceCard(player, index, cardinfo, "", 0, 0);
-            UnityEngine.Debug.Log("Finish ReplaseCard");
+            yield return ModdingUtils.Utils.Cards.instance.ReplaceCard(player, index, cardInfo, "", 0, 0);
         }
     }
 }
