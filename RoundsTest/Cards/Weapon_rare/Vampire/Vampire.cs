@@ -112,7 +112,7 @@ namespace BrutalGun.Cards
             base.Start();
             PickCardController.SetVampirePick(player);
             VampireManager.PlayerStatsDict.TryAdd(player.playerID, new VampireManager.Stats());
-            StartCoroutine(BrutalGunMain.Instance.CardBarController.AdaptateHumanToVampire(player));
+            BrutalGunMain.Instance.StartVampireCoroutineRedirect(player);          
         }
 
         public override void OnShoot(GameObject projectile)

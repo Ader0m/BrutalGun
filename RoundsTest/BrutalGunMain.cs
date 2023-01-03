@@ -72,25 +72,7 @@ namespace BrutalGun
             //StartCoroutine(debug());
         }
 
-        public IEnumerator debug()
-        {
-            while (true)
-            {
-                try
-                {
-                    foreach (Player player in PlayersMass)
-                    {
-                        UnityEngine.Debug.Log("player " + player.playerID + " " + player.data.health);
-                    }
-                }
-                catch
-                {
-                    UnityEngine.Debug.Log("error");
-                }
-
-                yield return new WaitForSeconds(1f);
-            }                      
-        }
+        
 
         private void CreateManagers()
         {
@@ -128,6 +110,7 @@ namespace BrutalGun
             }            
         }
 
+        
         IEnumerator ResetData(IGameModeHandler arg)
         {          
             if (CardBarController.CardBarLengthDict != null)
@@ -143,74 +126,66 @@ namespace BrutalGun
         private void BuildCards()
         {
             //Modules_common           
-            CustomCard.BuildCard<BatteriesEnergizer>();
-            CustomCard.BuildCard<ExtendedMag>();
-            CustomCard.BuildCard<IFAK>();
-            CustomCard.BuildCard<Laser>();
-            CustomCard.BuildCard<QuickDrop>();
-            CustomCard.BuildCard<RocketJump>();
-            CustomCard.BuildCard<StrangePill>();
-            CustomCard.BuildCard<TitaniumParts>();
+            CardContainer.RegisterCard<BatteriesEnergizer>();
+            CardContainer.RegisterCard<ExtendedMag>();
+            CardContainer.RegisterCard<IFAK>();
+            CardContainer.RegisterCard<Laser>();
+            CardContainer.RegisterCard<QuickDrop>();
+            CardContainer.RegisterCard<RocketJump>();
+            CardContainer.RegisterCard<StrangePill>();
+            CardContainer.RegisterCard<TitaniumParts>();
             //Modules_uncommon
-            CustomCard.BuildCard<AmmoXL>();
-            CustomCard.BuildCard<BigBullet>();
-            CustomCard.BuildCard<Grenade>();
-            CustomCard.BuildCard<HummerBullet>();
-            CustomCard.BuildCard<LightArmor>();
-            CustomCard.BuildCard<LightBolt>();
-            CustomCard.BuildCard<LongBarrel>();
-            CustomCard.BuildCard<ScopeX2>();
-            CustomCard.BuildCard<SecondArmorPlate>();
-            CustomCard.BuildCard<SpiritConnection>();
+            CardContainer.RegisterCard<AmmoXL>();
+            CardContainer.RegisterCard<BigBullet>();
+            CardContainer.RegisterCard<Grenade>();
+            CardContainer.RegisterCard<HummerBullet>();
+            CardContainer.RegisterCard<LightArmor>();
+            CardContainer.RegisterCard<LightBolt>();
+            CardContainer.RegisterCard<LongBarrel>();
+            CardContainer.RegisterCard<ScopeX2>();
+            CardContainer.RegisterCard<SecondArmorPlate>();
+            CardContainer.RegisterCard<SpiritConnection>();
             //Modules_rare
-            CustomCard.BuildCard<ScopeX8>();
-            CustomCard.BuildCard<ArmoredSuit>();
-            CustomCard.BuildCard<Berserker>();
-            CustomCard.BuildCard<APBullet>();
+            CardContainer.RegisterCard<ScopeX8>();
+            CardContainer.RegisterCard<ArmoredSuit>();
+            CardContainer.RegisterCard<Berserker>();
+            CardContainer.RegisterCard<APBullet>();
             //Weapon_common
-            CustomCard.BuildCard<FiveSeven>();
-            CustomCard.BuildCard<Glock>();
-            CustomCard.BuildCard<SawnOff>();
+            CardContainer.RegisterCard<FiveSeven>();
+            CardContainer.RegisterCard<Glock>();
+            CardContainer.RegisterCard<SawnOff>();
             //Weapon_uncommon
-            CustomCard.BuildCard<Famas>();
-            CustomCard.BuildCard<Mosin>();
-            CustomCard.BuildCard<Nova>();
-            CustomCard.BuildCard<P90>();
+            CardContainer.RegisterCard<Famas>();
+            CardContainer.RegisterCard<Mosin>();
+            CardContainer.RegisterCard<Nova>();
+            CardContainer.RegisterCard<P90>();
             //Weapon_rare
-            CustomCard.BuildCard<AK74>();
-            CustomCard.BuildCard<DesertEagle>();
-            CustomCard.BuildCard<M200>();
-            CustomCard.BuildCard<Vampire>();
-            CustomCard.BuildCard<Winchester>();
+            CardContainer.RegisterCard<AK74>();
+            CardContainer.RegisterCard<DesertEagle>();
+            CardContainer.RegisterCard<M200>();
+            CardContainer.RegisterCard<Vampire>();
+            CardContainer.RegisterCard<Winchester>();
 
             //VimpireCard
             //Common
-            CustomCard.BuildCard<ArmsReinforcement>();
+            CardContainer.RegisterCard<ArmsReinforcement>();
             CardContainer.RegisterCard<BatWatching>();
-            CustomCard.BuildCard<BodyReinforcement>();
-            CustomCard.BuildCard<LegsReinforcement>();
-            CustomCard.BuildCard<TasteBlood>();
+            CardContainer.RegisterCard<BodyReinforcement>();
+            CardContainer.RegisterCard<LegsReinforcement>();
+            CardContainer.RegisterCard<TasteBlood>();
             //Uncommon
-            CustomCard.BuildCard<AuraGreat>();
-            CustomCard.BuildCard<HeavyPunch>();
-            CustomCard.BuildCard<LongPunch>();
+            CardContainer.RegisterCard<AuraGreat>();
+            CardContainer.RegisterCard<HeavyPunch>();
+            CardContainer.RegisterCard<LongPunch>();
             //Rare
-            CustomCard.BuildCard<Dash>();
-            CustomCard.BuildCard<DevilMantle>();
-            CustomCard.BuildCard<SteelClaws>();
-         
-            //SupportCard
-            CustomCard.BuildCard<DevilMantleCurse>(cardInfo =>
-            {
-                CardContainer.DevilMantleCurse = cardInfo;
-                ModdingUtils.Utils.Cards.instance.AddHiddenCard(cardInfo);
-            });
+            CardContainer.RegisterCard<Dash>();
+            CardContainer.RegisterCard<DevilMantle>();
+            CardContainer.RegisterCard<SteelClaws>();
 
-            CustomCard.BuildCard<AuraGreatCurse>(cardInfo =>
-            {
-                CardContainer.AuraGreatCurse = cardInfo;
-                ModdingUtils.Utils.Cards.instance.AddHiddenCard(cardInfo);
-            });
+            //SupportCard
+            CardContainer.RegisterCard<DevilMantleCurse>();
+
+            CardContainer.RegisterCard<AuraGreatCurse>();
 
             //StartCards
             CustomCard.BuildCard<Macarov>(cardInfo =>
@@ -218,6 +193,31 @@ namespace BrutalGun
                 _startCardList.Add(cardInfo);
                 ModdingUtils.Utils.Cards.instance.AddHiddenCard(cardInfo);
             });
+        }
+
+        public void StartVampireCoroutineRedirect(Player player)
+        {
+            StartCoroutine(CardBarController.AdaptateHumanToVampire(player));
+        }
+
+        public IEnumerator debug()
+        {
+            while (true)
+            {
+                try
+                {
+                    foreach (Player player in PlayersMass)
+                    {
+                        UnityEngine.Debug.Log("player " + player.playerID + " " + player.data.health);
+                    }
+                }
+                catch
+                {
+                    UnityEngine.Debug.Log("error");
+                }
+
+                yield return new WaitForSeconds(1f);
+            }
         }
     }
 }

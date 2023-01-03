@@ -7,7 +7,7 @@ namespace BrutalGun.Cards
     {
         public override CardDetails Details => new CardDetails
         {
-            Title = "Batteries energizer",
+            Title = "Batteries Energizer",
             Description = "More powerful batteries for your shi(t)eld",
             ModName = BrutalGunMain.MOD_INITIALS,
             OwnerOnly = false,

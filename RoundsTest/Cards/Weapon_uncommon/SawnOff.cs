@@ -71,7 +71,7 @@ namespace BrutalGun.Cards
             //shotgun
             gun.bursts = 1;
             gun.numberOfProjectiles = 3;
-            gun.destroyBulletAfter = 0.3f;
+            gun.destroyBulletAfter = 0.25f;
             gun.damageAfterDistanceMultiplier = 0.45f;
         }
 

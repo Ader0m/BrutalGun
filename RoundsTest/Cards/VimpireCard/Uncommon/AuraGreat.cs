@@ -41,12 +41,12 @@ namespace BrutalGun.Cards
 
         protected override void Added(Player player, Gun gun, GunAmmo gunAmmo, CharacterData data, HealthHandler health, Gravity gravity, Block block, CharacterStatModifiers characterStats)
         {
-            BrutalTools.AddCurse(player, SupportCardContainer.AuraGreatCurse);
+            BrutalTools.AddCurse(player, CardContainer.GetCard<AuraGreatCurse>());
         }
 
         protected override void Removed(Player player, Gun gun, GunAmmo gunAmmo, CharacterData data, HealthHandler health, Gravity gravity, Block block, CharacterStatModifiers characterStats)
         {
-            BrutalTools.RemoveCurse(player, SupportCardContainer.AuraGreatCurse);
+            BrutalTools.RemoveCurse(player, CardContainer.GetCard<AuraGreatCurse>());
         }
     }
 }

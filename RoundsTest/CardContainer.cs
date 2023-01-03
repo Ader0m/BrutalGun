@@ -6,10 +6,7 @@ namespace BrutalGun
 {
     public static class CardContainer
     {
-        public static CardInfo DevilMantleCurse;
-        public static CardInfo AuraGreatCurse;
-
-        private static Dictionary<Type, CardInfo> storedCardInfo = new Dictionary<Type, CardInfo>();
+        private static Dictionary<Type, CardInfo> _storedCardInfo = new Dictionary<Type, CardInfo>();
 
         public static void RegisterCard<T>() where T : CustomCard
         {
@@ -18,12 +15,12 @@ namespace BrutalGun
 
         private static void StoreCard<T>(CardInfo card) where T : CustomCard
         {
-            storedCardInfo.Add(typeof(T), card);
+            _storedCardInfo.Add(typeof(T), card);
         }
 
         public static CardInfo GetCard<T>() where T : CustomCard
         {
-            if (storedCardInfo.TryGetValue(typeof(T), out CardInfo value))
+            if (_storedCardInfo.TryGetValue(typeof(T), out CardInfo value))
             {
                 return value;
             }

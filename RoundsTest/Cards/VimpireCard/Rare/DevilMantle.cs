@@ -41,12 +41,12 @@ namespace BrutalGun.Cards.VimpireCard.Rare
 
         protected override void Added(Player player, Gun gun, GunAmmo gunAmmo, CharacterData data, HealthHandler health, Gravity gravity, Block block, CharacterStatModifiers characterStats)
         {
-            BrutalTools.AddCurse(player, SupportCardContainer.DevilMantleCurse);
+            BrutalTools.AddCurse(player, CardContainer.GetCard<DevilMantleCurse>());
         }
 
         protected override void Removed(Player player, Gun gun, GunAmmo gunAmmo, CharacterData data, HealthHandler health, Gravity gravity, Block block, CharacterStatModifiers characterStats)
         {
-            BrutalTools.RemoveCurse(player, SupportCardContainer.DevilMantleCurse);
+            BrutalTools.RemoveCurse(player, CardContainer.GetCard<DevilMantleCurse>());
         }
     }
 }
