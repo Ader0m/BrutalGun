@@ -3,7 +3,9 @@ using BrutalGun.Cards;
 using BrutalGun.Cards.Modules_rare;
 using BrutalGun.Cards.VimpireCard.Rare;
 using HarmonyLib;
+using ModsPlus;
 using Photon.Pun;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
@@ -17,7 +19,7 @@ namespace BrutalGun
     [BepInDependency("com.willis.rounds.unbound", BepInDependency.DependencyFlags.HardDependency)]
     [BepInDependency("pykess.rounds.plugins.moddingutils", BepInDependency.DependencyFlags.HardDependency)]
     [BepInDependency("pykess.rounds.plugins.cardchoicespawnuniquecardpatch", BepInDependency.DependencyFlags.HardDependency)]
-    //[BepInDependency("com.willis.rounds.cardsplus", BepInDependency.DependencyFlags.HardDependency)]
+    
 
     // Declares our mod to Bepin
     [BepInPlugin(_MOD_ID, _MOD_NAME, VERSION)]
@@ -67,8 +69,8 @@ namespace BrutalGun
             GameModeManager.AddHook(GameModeHooks.HookGameEnd, ResetData);
             GameModeManager.AddHook(GameModeHooks.HookInitStart, ResetData);
 
-            StartCoroutine(debug());
-        }       
+            //StartCoroutine(debug());
+        }
 
         public IEnumerator debug()
         {
@@ -89,10 +91,10 @@ namespace BrutalGun
                 yield return new WaitForSeconds(1f);
             }                      
         }
+
         private void CreateManagers()
         {
             CardBarController = new CardBarController();
-
         }
 
         IEnumerator FirstPickStart(IGameModeHandler arg)
@@ -103,7 +105,7 @@ namespace BrutalGun
                 PlayersMass = PlayerManager.instance.players.Where((person) => !ModdingUtils.AIMinion.Extensions.CharacterDataExtension.GetAdditionalData(person.data).isAIMinion).ToArray();
                 PlayerSettings.SetStartStats(_startCardList);
                 foreach (Player player in PlayersMass)
-                {
+                {                  
                     PickCardController.InitPlayer(player);
                 }
             }         
@@ -127,9 +129,12 @@ namespace BrutalGun
         }
 
         IEnumerator ResetData(IGameModeHandler arg)
-        {
-            CardBarController.Restore();
-            VampireManager.Restore();
+        {          
+            if (CardBarController.CardBarLengthDict != null)
+                CardBarController.Restore();
+            if (VampireManager.PlayerStatsDict != null)
+                VampireManager.Restore();
+            
             _firstPick = true;
 
             yield break;
@@ -174,6 +179,7 @@ namespace BrutalGun
             //Weapon_rare
             CustomCard.BuildCard<AK74>();
             CustomCard.BuildCard<DesertEagle>();
+            CustomCard.BuildCard<M200>();
             CustomCard.BuildCard<Vampire>();
             CustomCard.BuildCard<Winchester>();
 

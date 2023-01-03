@@ -14,6 +14,7 @@ namespace BrutalGun
         /// key - PlayerID, value - count player card
         /// </summary>
         public Dictionary<int, int> CardBarLengthDict;
+        public static bool InProcess = false;
 
         public CardBarController()
         {
@@ -22,6 +23,22 @@ namespace BrutalGun
 
         public IEnumerator AdaptateHumanToVampire(Player player)
         {
+
+            IEnumerator ReplaseCard(string cardPath, int index)
+            {
+                UnityEngine.Debug.Log("Start ReplaseCard");
+                yield return ModdingUtils.Utils.Cards.instance.ReplaceCard(player, index, ModdingUtils.Utils.Cards.instance.GetCardWithObjectName(cardPath), "", 0, 0);
+                UnityEngine.Debug.Log("Finish ReplaseCard");
+            }
+
+            while (InProcess)
+            {
+                UnityEngine.Debug.Log("AdaptateHumanToVampire - wait");
+                yield return null;
+            }
+
+            InProcess = true;
+
             string[] CommonCardNameObj = {  "__BGun__Body Reinforcement",
                                             "__BGun__Arms Reinforcement",
                                             "__BGun__Legs Reinforcement"
@@ -36,18 +53,20 @@ namespace BrutalGun
             string[] RareCardNameObj = {    "__BGun__Dash"
                                             
                                             
-                                       };
+                                       };          
 
             for (int i = 0; i < player.data.currentCards.Count; i++)
             {
+                UnityEngine.Debug.Log($"Количество карт {player.data.currentCards.Count} Название {player.data.currentCards[i].cardName} Индекс {i}");
                 yield return null;
-
+                
                 switch (player.data.currentCards[i].cardName)
                 {
-                    case "RocketJump":
+                    case "Rocket Jump":
                         {
+                            UnityEngine.Debug.Log("1");
                             yield return ReplaseCard("__BGun__Bat Watching", i);
-
+                            UnityEngine.Debug.Log("2");
                             break;
                         }
                     case "IFAK":
@@ -140,18 +159,29 @@ namespace BrutalGun
 
                             break;
                         }
-                        default: { break; }
-                }       
-            }    
+                    default: 
+                    {
+                        UnityEngine.Debug.Log($"Pass {player.data.currentCards[i].cardName} card"); 
+                        break;
+                    }
+                }
 
-            IEnumerator ReplaseCard(string cardPath, int index)
-            {
-                yield return ModdingUtils.Utils.Cards.instance.ReplaceCard(player, index, ModdingUtils.Utils.Cards.instance.GetCardWithObjectName(cardPath), "", 0, 0);
+                
             }
+
+            InProcess = false;
         }
 
         public IEnumerator CheckCorrectCardBar(Player player)
         {
+            while (InProcess)
+            {
+                UnityEngine.Debug.Log("CheckCorrectCardBar - wait");
+                yield return null;
+            }
+
+            InProcess = true;
+
             if (CardBarLengthDict.ContainsKey(player.playerID))
             {
                 if (CardBarLengthDict[player.playerID] < player.data.currentCards.Count)
@@ -162,7 +192,9 @@ namespace BrutalGun
             else
             {
                 yield return FindExtraCard(player);
-            }           
+            }
+
+            InProcess = false;
         }
 
         private IEnumerator FindExtraCard(Player player)
@@ -181,10 +213,6 @@ namespace BrutalGun
                     currentWeapon = player.data.currentCards[i];
                     countWeapon++;
                 }
-                else if (player.data.currentCards[i].categories.Contains(MyCategories.TimeEffect))
-                {
-                    ModdingUtils.Utils.Cards.instance.RemoveCardFromPlayer(player, i);
-                }
                 else
                 {
                     cards.Add(player.data.currentCards[i]);
@@ -201,7 +229,7 @@ namespace BrutalGun
         }
 
         /// <summary>
-        /// How startPlayercards not include weapon
+        /// When startPlayercards not include weapon
         /// </summary>
         /// <param name="player"></param>
         /// <param name="currentWeapon"></param>
@@ -225,7 +253,7 @@ namespace BrutalGun
         }
 
         /// <summary>
-        /// How startPlayercards include weapon
+        /// When startPlayercards include weapon
         /// </summary>
         /// <param name="player"></param>
         /// <param name="currentWeapon"></param>

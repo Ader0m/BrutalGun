@@ -1,5 +1,6 @@
 ﻿using ModdingUtils.MonoBehaviours;
 using ModsPlus;
+using System.Collections;
 using UnityEngine;
 
 namespace BrutalGun.Cards
@@ -70,12 +71,7 @@ namespace BrutalGun.Cards
         }
 
         protected override void Added(Player player, Gun gun, GunAmmo gunAmmo, CharacterData data, HealthHandler health, Gravity gravity, Block block, CharacterStatModifiers characterStats)
-        {
-            PickCardController.SetVampirePick(player);
-            VampireManager.PlayerStatsDict.TryAdd(player.playerID, new VampireManager.Stats());
-            StartCoroutine(BrutalGunMain.Instance.CardBarController.AdaptateHumanToVampire(player));
-                      
-
+        {            
             //show stats
             gun.damage = 0.82f;
             gun.attackSpeed = 1f;
@@ -84,16 +80,41 @@ namespace BrutalGun.Cards
 
             // hide stats
             gun.dontAllowAutoFire = true;
-            gun.projectileSpeed = 0.5f;
+            gun.projectileSpeed = 1f;
             gun.gravity = 1f;
             gun.spread = 0f;
 
-            gun.destroyBulletAfter = 0.1f;
+            gun.destroyBulletAfter = 0.05f;
+        }
+
+        protected override void Removed(Player player, Gun gun, GunAmmo gunAmmo, CharacterData data, HealthHandler health, Gravity gravity, Block block, CharacterStatModifiers characterStats)
+        {
+            //show stats
+            gun.damage = 1f;
+            gun.attackSpeed = 1f;
+            gunAmmo.maxAmmo = 3;
+            gunAmmo.reloadTime = 1f;
+
+            // hide stats
+            gun.dontAllowAutoFire = true;
+            gun.projectileSpeed = 1f;
+            gun.gravity = 1f;
+            gun.spread = 0f;
+
+            gun.destroyBulletAfter = 0f;
         }
     }
 
     public class VampireHandler : CardEffect
     {
+        protected override void Start()
+        {
+            base.Start();
+            PickCardController.SetVampirePick(player);
+            VampireManager.PlayerStatsDict.TryAdd(player.playerID, new VampireManager.Stats());
+            StartCoroutine(BrutalGunMain.Instance.CardBarController.AdaptateHumanToVampire(player));
+        }
+
         public override void OnShoot(GameObject projectile)
         {           
             projectile.gameObject.AddComponent<HitEnemyEffect>().Init(player);
@@ -124,6 +145,7 @@ namespace BrutalGun.Cards
             {
                 _player.gameObject.AddComponent<VampireHealEffect>().Init(_regen, _duration);
                 _enemy.data.healthHandler.TakeDamageOverTime(UnityEngine.Vector2.up * _damage * _duration, UnityEngine.Vector2.zero, _duration, 1, Color.red);
+
                 return HasToReturn.hasToReturn;
             }
 
