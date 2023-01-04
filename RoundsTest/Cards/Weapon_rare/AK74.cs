@@ -43,7 +43,7 @@ namespace BrutalGun.Cards
                 {
                     positive = true,
                     stat = "Reload time",
-                    amount = "3s",
+                    amount = "2s",
                     simepleAmount = CardInfoStat.SimpleAmount.notAssigned
                 }
             }
@@ -61,7 +61,7 @@ namespace BrutalGun.Cards
             gun.damage = 0.6f;
             gun.attackSpeed = 0.2f;
             gunAmmo.maxAmmo = 12;
-            gunAmmo.reloadTime = 3f;
+            gunAmmo.reloadTime = 2f;
 
             // hide stats
             gun.dontAllowAutoFire = false;
