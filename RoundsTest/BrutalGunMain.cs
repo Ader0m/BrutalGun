@@ -112,11 +112,15 @@ namespace BrutalGun
         
         IEnumerator ResetData(IGameModeHandler arg)
         {          
-            if (CardBarController.CardBarLengthDict != null)
-                CardBarController.Restore();
+            if (CardBarController == null)
+            {
+                CardBarController = new CardBarController();
+            }
+            else if (CardBarController.CardBarLengthDict != null)
+                    CardBarController.Restore();           
             if (VampireManager.PlayerStatsDict != null)
                 VampireManager.Restore();
-            
+
             _firstPick = true;
 
             yield break;
