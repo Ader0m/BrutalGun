@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 
-namespace BrutalGun
+namespace BrutalGun.Utils
 {
     public static class PlayerSettings
     {

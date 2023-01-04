@@ -1,6 +1,6 @@
 ﻿using BrutalGun.Cards;
 
-namespace BrutalGun
+namespace BrutalGun.Utils
 {
     public static class PickCardController
     {
@@ -11,8 +11,8 @@ namespace BrutalGun
 
         public static void SetVampirePick(Player player)
         {
-            ModdingUtils.Extensions.CharacterStatModifiersExtension.GetAdditionalData(player.data.stats).blacklistedCategories.Add(MyCategories.Weapon); 
-            ModdingUtils.Extensions.CharacterStatModifiersExtension.GetAdditionalData(player.data.stats).blacklistedCategories.Add(MyCategories.Human); 
+            ModdingUtils.Extensions.CharacterStatModifiersExtension.GetAdditionalData(player.data.stats).blacklistedCategories.Add(MyCategories.Weapon);
+            ModdingUtils.Extensions.CharacterStatModifiersExtension.GetAdditionalData(player.data.stats).blacklistedCategories.Add(MyCategories.Human);
             ModdingUtils.Extensions.CharacterStatModifiersExtension.GetAdditionalData(player.data.stats).blacklistedCategories.Remove(MyCategories.Vampire);
         }
     }

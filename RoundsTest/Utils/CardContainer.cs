@@ -2,7 +2,7 @@
 using System;
 using UnboundLib.Cards;
 
-namespace BrutalGun
+namespace BrutalGun.Utils
 {
     public static class CardContainer
     {

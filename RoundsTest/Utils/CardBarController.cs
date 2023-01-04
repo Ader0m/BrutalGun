@@ -7,7 +7,7 @@ using System.Linq;
 using UnboundLib;
 using UnityEngine;
 
-namespace BrutalGun
+namespace BrutalGun.Utils
 {
     public class CardBarController : MonoBehaviour
     {
@@ -46,23 +46,23 @@ namespace BrutalGun
             CardInfo[] RareCardNameObj = {    CardContainer.GetCard<Dash>()
 
 
-                                       };          
+                                       };
 
             for (int i = 0; i < player.data.currentCards.Count; i++)
             {
-                yield return null;             
+                yield return null;
 
                 switch (player.data.currentCards[i].cardName)
                 {
                     case "Rocket Jump":
                         {
                             yield return BrutalTools.ReplaseCard(player, CardContainer.GetCard<BatWatching>(), i);
- 
+
                             break;
                         }
                     case "IFAK":
                         {
-                            yield return BrutalTools.ReplaseCard(player, CardContainer.GetCard<BatWatching>(), i);                 
+                            yield return BrutalTools.ReplaseCard(player, CardContainer.GetCard<BatWatching>(), i);
 
                             break;
                         }
@@ -121,11 +121,11 @@ namespace BrutalGun
                             break;
                         }
                     case "Big Bullet":
-                        {                           
+                        {
                             yield return BrutalTools.ReplaseCard(player, UncommonCardNameObj.GetRandom<CardInfo>(), i);
 
                             break;
-                        }              
+                        }
                     case "Light Bolt":
                         {
                             yield return BrutalTools.ReplaseCard(player, UncommonCardNameObj.GetRandom<CardInfo>(), i);
@@ -133,7 +133,7 @@ namespace BrutalGun
                             break;
                         }
                     case "Long Barrel":
-                        {                            
+                        {
                             yield return BrutalTools.ReplaseCard(player, CardContainer.GetCard<LongPunch>(), i);
 
                             break;
@@ -150,12 +150,12 @@ namespace BrutalGun
 
                             break;
                         }
-                    default: 
-                    {
-                        //UnityEngine.Debug.Log($"Pass {player.data.currentCards[i].cardName} card"); 
-                        break;
-                    }
-                }                
+                    default:
+                        {
+                            //UnityEngine.Debug.Log($"Pass {player.data.currentCards[i].cardName} card"); 
+                            break;
+                        }
+                }
             }
 
             InProcess = false;
@@ -174,9 +174,9 @@ namespace BrutalGun
             if (CardBarLengthDict.ContainsKey(player.playerID))
             {
                 if (CardBarLengthDict[player.playerID] < player.data.currentCards.Count)
-                {                     
+                {
                     yield return FindExtraCard(player);
-                }            
+                }
             }
             else
             {
@@ -187,7 +187,7 @@ namespace BrutalGun
         }
 
         private IEnumerator FindExtraCard(Player player)
-        {          
+        {
             int countWeapon = 0;
             List<int> countWeaponCardsIndex = new List<int>();
             CardInfo currentWeapon = null;
@@ -207,8 +207,8 @@ namespace BrutalGun
                     cards.Add(player.data.currentCards[i]);
                 }
             }
-            
-            yield return WithStartWeapon(player, currentWeapon, cards, countWeapon);           
+
+            yield return WithStartWeapon(player, currentWeapon, cards, countWeapon);
         }
 
         public void Restore()
@@ -250,7 +250,7 @@ namespace BrutalGun
         /// <param name="countWeapon"></param>
         /// <returns></returns>
         private IEnumerator WithStartWeapon(Player player, CardInfo currentWeapon, List<CardInfo> cards, int countWeapon)
-        {           
+        {
             if (currentWeapon != null && countWeapon > 1)
             {
                 ModdingUtils.Utils.Cards.instance.RemoveAllCardsFromPlayer(player);

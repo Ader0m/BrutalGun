@@ -1,4 +1,5 @@
-﻿using ModsPlus;
+﻿using BrutalGun.Utils;
+using ModsPlus;
 
 namespace BrutalGun.Cards.VimpireCard.Rare
 {

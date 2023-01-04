@@ -1,4 +1,5 @@
-﻿using ModdingUtils.MonoBehaviours;
+﻿using BrutalGun.Utils;
+using ModdingUtils.MonoBehaviours;
 using ModsPlus;
 using System.Collections;
 using UnityEngine;

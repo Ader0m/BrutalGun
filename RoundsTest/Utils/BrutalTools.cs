@@ -4,7 +4,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace BrutalGun
+namespace BrutalGun.Utils
 {
     public static class BrutalTools
     {
@@ -14,12 +14,12 @@ namespace BrutalGun
             Gun explosiveGun = explosiveBullet.GetComponent<Gun>();
 
             GameObject A_ExplosionSpark = explosiveGun.objectsToSpawn[0].AddToProjectile;
-            GameObject explosionCustom = MonoBehaviour.Instantiate(explosiveGun.objectsToSpawn[0].effect);
-            explosionCustom.transform.position = new UnityEngine.Vector3(1000, 0, 0);
+            GameObject explosionCustom = Object.Instantiate(explosiveGun.objectsToSpawn[0].effect);
+            explosionCustom.transform.position = new Vector3(1000, 0, 0);
             explosionCustom.hideFlags = HideFlags.HideAndDontSave;
             explosionCustom.name = "customExpl";
 
-            UnityEngine.Object.DestroyImmediate(explosionCustom.GetComponent<RemoveAfterSeconds>());
+            Object.DestroyImmediate(explosionCustom.GetComponent<RemoveAfterSeconds>());
 
 
             return (A_ExplosionSpark, explosionCustom, explosionCustom.GetComponent<Explosion>());
@@ -50,9 +50,9 @@ namespace BrutalGun
         public static bool TryDeleteComponent<T>(Player player) where T : Component
         {
             T component;
-            if (player.gameObject.TryGetComponent<T>(out component))
+            if (player.gameObject.TryGetComponent(out component))
             {
-                UnityEngine.Object.Destroy(component);
+                Object.Destroy(component);
                 return true;
             }
             return false;

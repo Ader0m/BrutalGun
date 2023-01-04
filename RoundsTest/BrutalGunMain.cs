@@ -2,6 +2,7 @@
 using BrutalGun.Cards;
 using BrutalGun.Cards.Modules_rare;
 using BrutalGun.Cards.VimpireCard.Rare;
+using BrutalGun.Utils;
 using HarmonyLib;
 using ModsPlus;
 using Photon.Pun;
