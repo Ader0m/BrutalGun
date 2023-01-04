@@ -99,7 +99,7 @@ namespace BrutalGun.Cards
         {
             base.Start();
 
-            InitAndInstantiate();
+            //InitAndInstantiate();
 
             player.data.weaponHandler.gun.spread = 0;
             StartCoroutine(SpreadCoroutine());
@@ -140,7 +140,7 @@ namespace BrutalGun.Cards
             {
                 yield return null;
 
-                drawSpreadLine();
+                //drawSpreadLine();
 
                 if (player.data.input.direction.magnitude > 0f)
                 {

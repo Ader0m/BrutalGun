@@ -27,6 +27,7 @@ namespace BrutalGun.Cards
         public override void SetupCard(CardInfo cardInfo, Gun gun, ApplyCardStats cardStats, CharacterStatModifiers statModifiers, Block block)
         {
             cardInfo.categories = new CardCategory[] { MyCategories.Module, MyCategories.Vampire };
+            cardInfo.allowMultiple = true;
 
             statModifiers.movementSpeed = 1.2f;
         }

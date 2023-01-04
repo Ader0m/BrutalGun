@@ -36,6 +36,7 @@ namespace BrutalGun.Cards
         public override void SetupCard(CardInfo cardInfo, Gun gun, ApplyCardStats cardStats, CharacterStatModifiers statModifiers, Block block)
         {
             cardInfo.categories = new CardCategory[] { MyCategories.Module, MyCategories.Human };
+            cardInfo.allowMultiple = true;
 
             gun.attackSpeed = 0.8f;
             gun.multiplySpread = 1.1f;

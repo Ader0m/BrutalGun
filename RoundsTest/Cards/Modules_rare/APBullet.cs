@@ -19,7 +19,7 @@ namespace BrutalGun.Cards
                 {
                     positive = true,
                     stat = "DMG",
-                    amount = "+20%",
+                    amount = "+25%",
                     simepleAmount = CardInfoStat.SimpleAmount.notAssigned
                 },
 
@@ -36,6 +36,7 @@ namespace BrutalGun.Cards
         public override void SetupCard(CardInfo cardInfo, Gun gun, ApplyCardStats cardStats, CharacterStatModifiers statModifiers, Block block)
         {
             cardInfo.categories = new CardCategory[] { MyCategories.Module, MyCategories.Human };
+            cardInfo.allowMultiple = true;
 
             gun.bulletDamageMultiplier = 1.20f;
             gun.multiplySpread = 1.2f;

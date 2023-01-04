@@ -70,9 +70,7 @@ namespace BrutalGun
             GameModeManager.AddHook(GameModeHooks.HookInitStart, ResetData);
 
             //StartCoroutine(debug());
-        }
-
-        
+        }       
 
         private void CreateManagers()
         {

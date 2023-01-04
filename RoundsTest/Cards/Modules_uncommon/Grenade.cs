@@ -11,7 +11,7 @@ namespace BrutalGun.Cards
     {
         public override CardDetails Details => new CardDetails
         {
-            Title = "Granade",
+            Title = "Grenade",
             Description = "Send a cake! Or a grenade! After all, the cake is a lie...",
             ModName = BrutalGunMain.MOD_INITIALS,
             OwnerOnly = false,
@@ -32,6 +32,7 @@ namespace BrutalGun.Cards
         public override void SetupCard(CardInfo cardInfo, Gun gun, ApplyCardStats cardStats, CharacterStatModifiers statModifiers, Block block)
         {
             cardInfo.categories = new CardCategory[] { MyCategories.Module };
+            cardInfo.allowMultiple = true;
         }
     }
 
@@ -40,11 +41,12 @@ namespace BrutalGun.Cards
         private GameObject _addToProjectile;
         private GameObject _effect;
         private Explosion _explosion;
-        private int _countGrenade = 1;
+        private int _countGrenade;
 
 
         GrenadeHundler()
         {
+            _countGrenade = 1;
             (_addToProjectile, _effect, _explosion) = BrutalTools.LoadExplosionElements();          
         }
 
@@ -76,7 +78,8 @@ namespace BrutalGun.Cards
             } };
 
             //launch grenade
-            player.gameObject.AddComponent<GrenadeEffect>().Init(obj.ToList(), 0.5f, 0.5f, 1, _countGrenade);
+            if (!gameObject.TryGetComponent<GrenadeEffect>(out _))
+                player.gameObject.AddComponent<GrenadeEffect>().Init(obj.ToList(), 1, _countGrenade);
         }
 
         public override void OnUpgradeCard()
@@ -88,35 +91,35 @@ namespace BrutalGun.Cards
     public class GrenadeEffect : ReversibleEffect
     {
         private List<ObjectsToSpawn> _objectsToSpawn;
-        private float _projectileSpeedM, _bulletDamageM, _gravityValue;
+        private float  _gravityValue;
         private int _countGrenade;
 
         /// <summary>
         /// GravityM - The value that should be obtained!
         /// </summary>
         /// <param name="gravityValue"> The value that should be obtained! </param>
-        public void Init(List<ObjectsToSpawn> objectsToSpawn, float bulletDamageM, float projectileSpeedM, float gravityValue, int countGrenade)
+        public void Init(List<ObjectsToSpawn> objectsToSpawn, float gravityValue, int countGrenade)
         {
             _objectsToSpawn = objectsToSpawn;
-            _bulletDamageM = bulletDamageM;
-            _projectileSpeedM = projectileSpeedM;
             _gravityValue = gravityValue;
             _countGrenade = countGrenade;
         }
 
         public override void OnStart()
-        {
+        {           
             gunStatModifier.damage_add = 0.55f - gun.damage;
+            gunStatModifier.numberOfProjectiles_add = 1 - gun.numberOfProjectiles;
+            gunStatModifier.bursts_add = 1 - gun.bursts;
 
-            gunStatModifier.bulletDamageMultiplier_mult = _bulletDamageM;
-            gunStatModifier.projectileSpeed_mult = _projectileSpeedM;
+            gunStatModifier.bulletDamageMultiplier_mult = 0.5f;
+            gunStatModifier.projectileSpeed_mult = 0.5f;
             gunStatModifier.gravity_add = -(gun.gravity - _gravityValue);
             gunStatModifier.spread_add = -gun.spread;
             gunStatModifier.destroyBulletAfter_mult *= 0;
 
             gunStatModifier.objectsToSpawn_add = _objectsToSpawn;
 
-            StartCoroutine(Shoot());
+            StartCoroutine(Shoot());            
         }
 
         private IEnumerator Shoot()
@@ -124,11 +127,16 @@ namespace BrutalGun.Cards
             //wait apply modificators
             yield return null;
 
+            gun.enabled = false;
+
             for (int i = 0; i < _countGrenade; i++)
-            {
+            {                              
                 gun.Attack(0, true, 1, 1, false);
+
                 yield return new WaitForSeconds(0.15f);
             }
+
+            gun.enabled = true;
 
             Destroy(this);
         }

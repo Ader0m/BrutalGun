@@ -79,6 +79,7 @@ namespace BrutalGun.Cards.Modules_rare
         public override void SetupCard(CardInfo cardInfo, Gun gun, ApplyCardStats cardStats, CharacterStatModifiers statModifiers, Block block)
         {
             cardInfo.categories = new CardCategory[] { MyCategories.Module };
+            cardInfo.allowMultiple = true;
         }
     }
 

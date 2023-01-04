@@ -28,6 +28,7 @@ namespace BrutalGun.Cards
         public override void SetupCard(CardInfo cardInfo, Gun gun, ApplyCardStats cardStats, CharacterStatModifiers statModifiers, Block block)
         {
             cardInfo.categories = new CardCategory[] { MyCategories.Module };
+            cardInfo.allowMultiple = true;
 
             block.cdMultiplier = 0.8f;
         }
