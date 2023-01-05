@@ -91,8 +91,8 @@ namespace BrutalGun.Cards
     {
         private float _difirent = 0.20f;
         private float _max_spread = 0.55f;
-        GameObject upLine;
-        GameObject downLine;
+        GameObject? upLine = null;
+        GameObject? downLine = null;
 
         protected override void Start()
         {
@@ -104,20 +104,53 @@ namespace BrutalGun.Cards
             StartCoroutine(SpreadCoroutine());
         }
 
+        protected override void OnDestroy()
+        {
+            base.OnDestroy();
+            if (upLine != null)
+            {
+                Destroy(upLine.gameObject);
+            }
+            if (downLine != null)
+            {
+                Destroy(downLine.gameObject);
+            }
+        }
+
         private void InitAndInstantiate()
         {
-            Transform transform = player.gameObject.transform.Find("PlayerSkin").Find("Skin_PlayerOne(Clone)");
+            Transform transformParent = player.gameObject.transform.Find("PlayerSkin").Find("Skin_PlayerOne(Clone)");
+            if (transformParent == null)
+            {
+                return;
+            }
+            GameObject parent = new GameObject("SpreadLineParent");
+            parent = Instantiate(parent);
+            parent.transform.parent = transformParent;
 
-            upLine = GameObject.CreatePrimitive(PrimitiveType.Cube);
-            upLine.name = "M200SpreadUpLine";            
-            downLine = GameObject.CreatePrimitive(PrimitiveType.Cube);
-            downLine.name = "M200SpreadDownLine";
+            UnityEngine.Debug.Log(transformParent);
+            UnityEngine.Debug.Log(123);
 
-            upLine.transform.localScale = new Vector3(0.25f, 0.5f, 0.25f);
-            downLine.transform.localScale = new Vector3(0.25f, 0.5f, 0.25f);
-
-            Instantiate(upLine, transform);
-            Instantiate(downLine, transform);
+            if (upLine == null)
+            {
+                UnityEngine.Debug.Log(1231);
+                upLine = GameObject.CreatePrimitive(PrimitiveType.Cube);
+                upLine.name = "M200SpreadUpLine";
+                upLine.transform.localScale = new Vector3(0.25f, 0.5f, 0.25f);
+                upLine.transform.position = new Vector3(0.45f, 0, 0);
+                upLine = Instantiate(upLine);
+                upLine.transform.parent = parent.transform;
+            }          
+            if (downLine == null)
+            {
+                UnityEngine.Debug.Log(1232);
+                downLine = GameObject.CreatePrimitive(PrimitiveType.Cube);
+                downLine.name = "M200SpreadDownLine";
+                downLine.transform.localScale = new Vector3(0.25f, 0.5f, 0.25f);
+                downLine.transform.position = new Vector3(0.45f, 0, 0);
+                downLine = Instantiate(downLine);
+                downLine.transform.parent = parent.transform;
+            }           
         }
 
         public override void OnShoot(GameObject projectile) => player.data.weaponHandler.gun.spread = _max_spread;
@@ -151,15 +184,15 @@ namespace BrutalGun.Cards
         {
             UnityEngine.Debug.Log(player.data.weaponHandler.gun.spread);
 
-            upLine.transform.rotation = Quaternion.Euler(0, 0, player.data.weaponHandler.gun.spread * 360);
-            downLine.transform.rotation = Quaternion.Euler(0, 0, -player.data.weaponHandler.gun.spread * 360);
+            if (upLine != null)
+            {
+                upLine.transform.rotation = Quaternion.Euler(0, 0, player.data.weaponHandler.gun.spread * 360);
+            }
+            if (downLine != null)
+            {
+                downLine.transform.rotation = Quaternion.Euler(0, 0, -player.data.weaponHandler.gun.spread * 360);
+            }
         }
 
-        protected override void OnDestroy()
-        {
-            base.OnDestroy();
-            Destroy(upLine.gameObject);
-            Destroy(downLine.gameObject);
-        }
     }   
 }
