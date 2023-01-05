@@ -48,7 +48,7 @@ namespace BrutalGun.Cards
         GrenadeHundler()
         {
             _countGrenade = 1;
-            (_addToProjectile, _effect, _explosion) = BrutalTools.LoadExplosionElements();          
+            (_addToProjectile, _effect, _explosion) = BrutalTools.LoadExplosionElements("Grenade");          
         }
 
         public override void OnBlock(BlockTrigger.BlockTriggerType trigger)
@@ -60,6 +60,8 @@ namespace BrutalGun.Cards
 
             UnityEngine.Debug.Log((gun.damage * 1.5f) * 55 + " " + _explosion.damage);
             UnityEngine.Debug.Log((gun.damage * 15) + " " + _explosion.range);
+
+          
 
             ObjectsToSpawn[] obj = { new ObjectsToSpawn
             {
@@ -83,10 +85,7 @@ namespace BrutalGun.Cards
                 player.gameObject.AddComponent<GrenadeEffect>().Init(obj.ToList(), 1, _countGrenade);
         }
 
-        public override void OnUpgradeCard()
-        {
-            _countGrenade += 1;
-        }
+        public override void OnUpgradeCard() => _countGrenade += 1;       
     }
 
     public class GrenadeEffect : ReversibleEffect
@@ -113,7 +112,7 @@ namespace BrutalGun.Cards
             gunStatModifier.bursts_add = 1 - gun.bursts;
 
             gunStatModifier.bulletDamageMultiplier_mult = 0.5f;
-            gunStatModifier.projectileSpeed_mult = 0.5f;
+            gunStatModifier.projectileSpeed_add = Mathf.Clamp(gun.projectileSpeed * 0.25f, 0.5f, 1f);
             gunStatModifier.gravity_add = -(gun.gravity - _gravityValue);
             gunStatModifier.spread_add = -gun.spread;
             gunStatModifier.destroyBulletAfter_mult *= 0;
