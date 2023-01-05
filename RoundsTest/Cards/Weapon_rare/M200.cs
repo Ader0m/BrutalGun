@@ -1,6 +1,5 @@
 ﻿using ModsPlus;
 using System.Collections;
-using UnboundLib.GameModes;
 using UnityEngine;
 using Vector3 = UnityEngine.Vector3;
 
@@ -107,30 +106,23 @@ namespace BrutalGun.Cards
 
         private void InitAndInstantiate()
         {
-            //spawnSpreadLine
-            GameObject SpreadObject = new GameObject();
-            GameObject upLine = GameObject.CreatePrimitive(PrimitiveType.Cube);
-            GameObject downLine = GameObject.CreatePrimitive(PrimitiveType.Cube);
             Transform transform = player.gameObject.transform.Find("PlayerSkin").Find("Skin_PlayerOne(Clone)");
-            Vector3[] vector = { Vector3.zero, (player.data.weaponHandler.gun.shootPosition.position - transform.position).normalized };
 
-            upLine.transform.localScale = new Vector3(1, 2, 1);
-            downLine.transform.localScale = new Vector3(1, 2, 1);
+            upLine = GameObject.CreatePrimitive(PrimitiveType.Cube);
+            upLine.name = "M200SpreadUpLine";            
+            downLine = GameObject.CreatePrimitive(PrimitiveType.Cube);
+            downLine.name = "M200SpreadDownLine";
 
-            GameObject Obj = Instantiate(SpreadObject, transform);
-            Instantiate(upLine, Obj.transform);
-            Instantiate(downLine, Obj.transform);
+            upLine.transform.localScale = new Vector3(0.25f, 0.5f, 0.25f);
+            downLine.transform.localScale = new Vector3(0.25f, 0.5f, 0.25f);
+
+            Instantiate(upLine, transform);
+            Instantiate(downLine, transform);
         }
 
-        public override void OnShoot(GameObject projectile)
-        {
-            player.data.weaponHandler.gun.spread = _max_spread;
-        }
+        public override void OnShoot(GameObject projectile) => player.data.weaponHandler.gun.spread = _max_spread;
 
-        public override void OnJump()
-        {
-            player.data.weaponHandler.gun.spread = _max_spread;
-        }
+        public override void OnJump() => player.data.weaponHandler.gun.spread = _max_spread;
 
         public IEnumerator SpreadCoroutine()
         {
@@ -158,11 +150,16 @@ namespace BrutalGun.Cards
         public void drawSpreadLine()
         {
             UnityEngine.Debug.Log(player.data.weaponHandler.gun.spread);
-            Vector3 vector = (player.data.weaponHandler.gun.shootPosition.position - transform.position).normalized;
-            upLine.transform.rotation = Quaternion.Euler(vector);
-            downLine.transform.rotation = Quaternion.Euler(-vector);
+
+            upLine.transform.rotation = Quaternion.Euler(0, 0, player.data.weaponHandler.gun.spread * 360);
+            downLine.transform.rotation = Quaternion.Euler(0, 0, -player.data.weaponHandler.gun.spread * 360);
         }
-    }
 
-
+        protected override void OnDestroy()
+        {
+            base.OnDestroy();
+            Destroy(upLine.gameObject);
+            Destroy(downLine.gameObject);
+        }
+    }   
 }

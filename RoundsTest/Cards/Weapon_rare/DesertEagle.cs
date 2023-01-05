@@ -1,5 +1,7 @@
 ﻿using BrutalGun;
 using ModsPlus;
+using System;
+using System.Linq;
 using UnityEngine;
 
 namespace BrutalGun.Cards
@@ -107,7 +109,29 @@ namespace BrutalGun.Cards
 
         public override void OnShoot(GameObject projectile)
         {
-            player.data.block.DoBlockAtPosition(true);
+            try
+            {
+                UnityEngine.Debug.Log(1);
+                ProjectileHit projHit = projectile.GetComponent<ProjectileHit>();
+
+                if (projHit.objectsToSpawn.Count() > 0)
+                {
+                    foreach (ObjectsToSpawn obj in projHit.objectsToSpawn)
+                    {
+                        if (obj.effect.name == "Grenade")
+                        {
+                            UnityEngine.Debug.Log(2);
+                            return;
+                        }
+                    }
+                }
+
+                player.data.block.DoBlockAtPosition(true);
+            }
+            catch (Exception ex)
+            {
+                UnityEngine.Debug.Log(ex);
+            }           
         }
     }
 }

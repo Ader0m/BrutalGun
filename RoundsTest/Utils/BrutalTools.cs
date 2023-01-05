@@ -8,7 +8,7 @@ namespace BrutalGun.Utils
 {
     public static class BrutalTools
     {
-        public static (GameObject AddToProjectile, GameObject effect, Explosion explosion) LoadExplosionElements()
+        public static (GameObject AddToProjectile, GameObject effect, Explosion explosion) LoadExplosionElements(string name)
         {
             GameObject explosiveBullet = (GameObject)Resources.Load("0 cards/Explosive bullet");
             Gun explosiveGun = explosiveBullet.GetComponent<Gun>();
@@ -17,7 +17,7 @@ namespace BrutalGun.Utils
             GameObject explosionCustom = Object.Instantiate(explosiveGun.objectsToSpawn[0].effect);
             explosionCustom.transform.position = new Vector3(1000, 0, 0);
             explosionCustom.hideFlags = HideFlags.HideAndDontSave;
-            explosionCustom.name = "customExpl";
+            explosionCustom.name = name;
 
             Object.DestroyImmediate(explosionCustom.GetComponent<RemoveAfterSeconds>());
 
