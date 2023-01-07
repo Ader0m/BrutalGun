@@ -110,6 +110,7 @@ namespace BrutalGun.Cards
             gunStatModifier.damage_add = 0.55f - gun.damage;
             gunStatModifier.numberOfProjectiles_add = 1 - gun.numberOfProjectiles;
             gunStatModifier.bursts_add = 1 - gun.bursts;
+            gunStatModifier.destroyBulletAfter_add -= gun.destroyBulletAfter;
 
             gunStatModifier.bulletDamageMultiplier_mult = 0.5f;
             gunStatModifier.projectileSpeed_add = Mathf.Clamp(gun.projectileSpeed * 0.25f, 0.5f, 1f);
