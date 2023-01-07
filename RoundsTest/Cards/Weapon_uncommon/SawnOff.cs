@@ -19,7 +19,7 @@ namespace BrutalGun.Cards
                 {
                     positive = true,
                     stat = "DMG",
-                    amount = "55x3",
+                    amount = "50x3",
                     simepleAmount = CardInfoStat.SimpleAmount.notAssigned
                 },
 
@@ -43,7 +43,7 @@ namespace BrutalGun.Cards
                 {
                     positive = true,
                     stat = "Reload Time",
-                    amount = "0.9s",
+                    amount = "1.2s",
                     simepleAmount = CardInfoStat.SimpleAmount.notAssigned
                 }
             }
@@ -61,6 +61,7 @@ namespace BrutalGun.Cards
             gun.damage = 1f;
             gun.attackSpeed = 0.05f;
             gunAmmo.maxAmmo = 6;
+            gun.reloadTime = 1.2f;
 
             // hide stats
             gun.dontAllowAutoFire = true;
@@ -72,7 +73,7 @@ namespace BrutalGun.Cards
             gun.bursts = 1;
             gun.numberOfProjectiles = 3;
             gun.destroyBulletAfter = 0.25f;
-            gun.damageAfterDistanceMultiplier = 0.45f;
+            gun.damageAfterDistanceMultiplier = 0.4f;
         }
 
         protected override void Removed(Player player, Gun gun, GunAmmo gunAmmo, CharacterData data, HealthHandler health, Gravity gravity, Block block, CharacterStatModifiers characterStats)
@@ -81,6 +82,7 @@ namespace BrutalGun.Cards
             gun.damage = 1f;
             gun.attackSpeed = 1f;
             gunAmmo.maxAmmo = 3;
+            gun.reloadTime = 1f;
 
             // hide stats
             gun.dontAllowAutoFire = true;
