@@ -86,6 +86,11 @@ namespace BrutalGun.Cards
             gun.spread = 0f;
 
             gun.destroyBulletAfter = 0.035f;
+            gun.projectileSize = 1.25f;
+
+            // graphics 
+            Transform transformParent = player.gameObject.transform.Find("PlayerSkin").Find("Skin_PlayerOne(Clone)");
+            transformParent.gameObject.SetActive(false);
         }
 
         protected override void Removed(Player player, Gun gun, GunAmmo gunAmmo, CharacterData data, HealthHandler health, Gravity gravity, Block block, CharacterStatModifiers characterStats)
@@ -103,6 +108,11 @@ namespace BrutalGun.Cards
             gun.spread = 0f;
 
             gun.destroyBulletAfter = 0f;
+            gun.projectileSize = 0f;
+
+            // graphics 
+            Transform transformParent = player.gameObject.transform.Find("PlayerSkin").Find("Skin_PlayerOne(Clone)");
+            transformParent.gameObject.SetActive(true);
         }
     }
 
