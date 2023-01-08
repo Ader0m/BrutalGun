@@ -97,8 +97,7 @@ namespace BrutalGun.Cards
         protected override void Start()
         {
             base.Start();
-
-            //InitAndInstantiate();
+            InitAndInstantiateSpreadLine();
 
             player.data.weaponHandler.gun.spread = 0;
             StartCoroutine(SpreadCoroutine());
@@ -109,27 +108,24 @@ namespace BrutalGun.Cards
             base.OnDestroy();
             if (upLine != null)
             {
-                Destroy(upLine.gameObject);
+                Destroy(upLine);
             }
             if (downLine != null)
             {
-                Destroy(downLine.gameObject);
+                Destroy(downLine);
             }
         }
 
-        private void InitAndInstantiate()
-        {
-            Transform transformParent = player.gameObject.transform.Find("PlayerSkin").Find("Skin_PlayerOne(Clone)");
-            if (transformParent == null)
-            {
-                return;
-            }
+        private void InitAndInstantiateSpreadLine()
+        {           
             GameObject parent = new GameObject("SpreadLineParent");
+            Transform transformParent = player.gameObject.transform.Find("PlayerSkin").Find("Skin_PlayerOne(Clone)");
+                    
+            if (transformParent == null)
+                throw new System.Exception("No find spread parent");
+
             parent = Instantiate(parent);
             parent.transform.parent = transformParent;
-
-            UnityEngine.Debug.Log(transformParent);
-            UnityEngine.Debug.Log(123);
 
             if (upLine == null)
             {
@@ -138,8 +134,7 @@ namespace BrutalGun.Cards
                 upLine.name = "M200SpreadUpLine";
                 upLine.transform.localScale = new Vector3(0.25f, 0.5f, 0.25f);
                 upLine.transform.position = new Vector3(0.45f, 0, 0);
-                upLine = Instantiate(upLine);
-                upLine.transform.parent = parent.transform;
+                upLine = Instantiate(upLine, parent.transform);
             }          
             if (downLine == null)
             {
@@ -148,8 +143,7 @@ namespace BrutalGun.Cards
                 downLine.name = "M200SpreadDownLine";
                 downLine.transform.localScale = new Vector3(0.25f, 0.5f, 0.25f);
                 downLine.transform.position = new Vector3(0.45f, 0, 0);
-                downLine = Instantiate(downLine);
-                downLine.transform.parent = parent.transform;
+                downLine = Instantiate(downLine, parent.transform);
             }           
         }
 

@@ -111,13 +111,11 @@ namespace BrutalGun.Cards
             gunStatModifier.numberOfProjectiles_add = 1 - gun.numberOfProjectiles;
             gunStatModifier.bursts_add = 1 - gun.bursts;
             gunStatModifier.destroyBulletAfter_add -= gun.destroyBulletAfter;
+            gunStatModifier.gravity_add = _gravityValue - gun.gravity;
+            gunStatModifier.spread_add -= gun.spread;
 
             gunStatModifier.bulletDamageMultiplier_mult = 0.5f;
             gunStatModifier.projectileSpeed_add = Mathf.Clamp(gun.projectileSpeed * 0.25f, 0.5f, 1f);
-            gunStatModifier.gravity_add = -(gun.gravity - _gravityValue);
-            gunStatModifier.spread_add = -gun.spread;
-            gunStatModifier.destroyBulletAfter_mult *= 0;
-
             gunStatModifier.objectsToSpawn_add = _objectsToSpawn;
 
             StartCoroutine(Shoot());            
@@ -134,7 +132,7 @@ namespace BrutalGun.Cards
             {                              
                 gun.Attack(0, true, 1, 1, false);
 
-                yield return new WaitForSeconds(0.15f);
+                yield return new WaitForSeconds(0.15f); //сделать адаптивной
             }
 
             gun.enabled = true;
