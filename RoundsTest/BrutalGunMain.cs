@@ -137,6 +137,7 @@ namespace BrutalGun
             CardContainer.RegisterCard<RocketJump>();
             CardContainer.RegisterCard<StrangePill>();
             CardContainer.RegisterCard<TitaniumParts>();
+            CardContainer.RegisterCard<WeaknessPoint>();
             //Modules_uncommon
             CardContainer.RegisterCard<AmmoXL>();
             CardContainer.RegisterCard<BigBullet>();
