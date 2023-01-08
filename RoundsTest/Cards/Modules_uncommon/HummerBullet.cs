@@ -27,7 +27,7 @@ namespace BrutalGun.Cards
                 {
                     positive = false,
                     stat = "DMG",
-                    amount = "-20%",
+                    amount = "-10%",
                     simepleAmount = CardInfoStat.SimpleAmount.notAssigned
                 }
             }
