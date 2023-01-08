@@ -77,15 +77,15 @@ namespace BrutalGun.Cards
             gun.damage = 0.82f;
             gun.attackSpeed = 1f;
             gunAmmo.maxAmmo = 1;
-            gunAmmo.reloadTimeMultiplier = 0.01f;
+            gunAmmo.reloadTime = 0.01f;
 
             // hide stats
             gun.dontAllowAutoFire = true;
-            gun.projectileSpeed = 1f;
+            gun.projectileSpeed = 1.3f;
             gun.gravity = 1f;
             gun.spread = 0f;
 
-            gun.destroyBulletAfter = 0.05f;
+            gun.destroyBulletAfter = 0.035f;
         }
 
         protected override void Removed(Player player, Gun gun, GunAmmo gunAmmo, CharacterData data, HealthHandler health, Gravity gravity, Block block, CharacterStatModifiers characterStats)
