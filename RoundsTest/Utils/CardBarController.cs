@@ -90,6 +90,12 @@ namespace BrutalGun.Utils
 
                             break;
                         }
+                    case "Weakness Point":
+                        {
+                            yield return BrutalTools.ReplaseCard(player, CommonCardNameObj.GetRandom<CardInfo>(), i);
+
+                            break;
+                        }
                     case "Armor-piercing bullet":
                         {
                             yield return BrutalTools.ReplaseCard(player, CardContainer.GetCard<SteelClaws>(), i);

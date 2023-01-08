@@ -39,7 +39,7 @@ namespace BrutalGun
 
         private const string _MOD_ID = "com.aderom.rounds.RoundsTest";
         private const string _MOD_NAME = "BrutalGun";
-        public const string VERSION = "0.5.2"; // What version are we on (major.minor.patch)?
+        public const string VERSION = "0.5.4"; // What version are we on (major.minor.patch)?
         public const string MOD_INITIALS = "BGun";
 
         #endregion
