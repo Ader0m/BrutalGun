@@ -19,7 +19,7 @@ namespace BrutalGun.Cards
                 {
                     positive = true,
                     stat = "DMG",
-                    amount = "15%",
+                    amount = "+15%",
                     simepleAmount = CardInfoStat.SimpleAmount.notAssigned
                 },
 
@@ -27,7 +27,7 @@ namespace BrutalGun.Cards
                 {
                     positive = true,
                     stat = "Bullet Size",
-                    amount = "+50%",
+                    amount = "+25%",
                     simepleAmount = CardInfoStat.SimpleAmount.notAssigned
                 },
 
