@@ -27,7 +27,7 @@ namespace BrutalGun.Cards
                 {
                     positive = true,
                     stat = "Ammo",
-                    amount = "+5",
+                    amount = "+4",
                     simepleAmount = CardInfoStat.SimpleAmount.notAssigned
                 },
 
@@ -43,7 +43,7 @@ namespace BrutalGun.Cards
                 {
                     positive = false,
                     stat = "Accuracy",
-                    amount = "-5%",
+                    amount = "-10%",
                     simepleAmount = CardInfoStat.SimpleAmount.notAssigned
                 }
             }
@@ -57,7 +57,7 @@ namespace BrutalGun.Cards
             statModifiers.health = 1.6f;
             statModifiers.movementSpeed = 0.8f;
             gun.ammo = 4;
-            gun.multiplySpread = 0.95f;
+            gun.multiplySpread = 0.9f;
         }
     }
 }

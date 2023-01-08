@@ -109,29 +109,29 @@ namespace BrutalGun.Cards
 
         public override void OnShoot(GameObject projectile)
         {
-            //try
-            //{
-            //    UnityEngine.Debug.Log(1);
-            //    ProjectileHit projHit = projectile.GetComponent<ProjectileHit>();
+            try
+            {
+                UnityEngine.Debug.Log(1);
+                ProjectileHit projHit = projectile.GetComponent<ProjectileHit>();
 
-            //    if (projHit.objectsToSpawn.Count() > 0)
-            //    {
-            //        foreach (ObjectsToSpawn obj in projHit.objectsToSpawn)
-            //        {
-            //            if (obj.effect.name == "Grenade")
-            //            {
-            //                UnityEngine.Debug.Log(2);
-            //                return;
-            //            }
-            //        }
-            //    }
+                if (projHit.objectsToSpawn.Count() > 0)
+                {
+                    foreach (ObjectsToSpawn obj in projHit.objectsToSpawn)
+                    {
+                        if (obj.effect.name == "Grenade")
+                        {
+                            UnityEngine.Debug.Log(2);
+                            return;
+                        }
+                    }
+                }
 
-            //    player.data.block.DoBlockAtPosition(true);
-            //}
-            //catch (Exception ex)
-            //{
-            //    UnityEngine.Debug.Log(ex);
-            //}
+                player.data.block.DoBlockAtPosition(true);
+            }
+            catch (Exception ex)
+            {
+                UnityEngine.Debug.Log(ex);
+            }
 
             player.data.block.DoBlockAtPosition(true);
         }

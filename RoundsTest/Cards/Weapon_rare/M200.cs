@@ -97,7 +97,7 @@ namespace BrutalGun.Cards
         protected override void Start()
         {
             base.Start();
-            InitAndInstantiateSpreadLine();
+            //InitAndInstantiateSpreadLine();
 
             player.data.weaponHandler.gun.spread = 0;
             StartCoroutine(SpreadCoroutine());
