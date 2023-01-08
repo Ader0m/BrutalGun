@@ -58,7 +58,7 @@ namespace BrutalGun.Cards
         protected override void Added(Player player, Gun gun, GunAmmo gunAmmo, CharacterData data, HealthHandler health, Gravity gravity, Block block, CharacterStatModifiers characterStats)
         {
             //show stats
-            gun.damage = 1f;
+            gun.damage = 0.91f;
             gun.attackSpeed = 0.05f;
             gunAmmo.maxAmmo = 6;
             gun.reloadTime = 1.2f;
