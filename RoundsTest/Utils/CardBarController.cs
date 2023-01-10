@@ -32,21 +32,23 @@ namespace BrutalGun.Utils
 
             InProcess = true;
 
-            CardInfo[] CommonCardNameObj = {CardContainer.GetCard<BodyReinforcement>(),
-                                            CardContainer.GetCard<ArmsReinforcement>(),
-                                            CardContainer.GetCard<LegsReinforcement>()
+            CardInfo[] CommonCardNameObj =  {   CardContainer.GetCard<ArmsReinforcement>(),
+                                                CardContainer.GetCard<BatWatching>(),
+                                                CardContainer.GetCard<BodyReinforcement>(),                                                                                      
+                                                CardContainer.GetCard<LegsReinforcement>(),
+                                                CardContainer.GetCard<TasteBlood>(),
                                             };
 
-            CardInfo[] UncommonCardNameObj = {  CardContainer.GetCard<AuraGreat>(),
+            CardInfo[] UncommonCardNameObj ={   CardContainer.GetCard<AuraGreat>(),
                                                 CardContainer.GetCard<HeavyPunch>(),
                                                 CardContainer.GetCard<LongPunch>(),
                                                 CardContainer.GetCard<Lacerations>()
                                             };
 
-            CardInfo[] RareCardNameObj = {    CardContainer.GetCard<Dash>()
-
-
-                                       };
+            CardInfo[] RareCardNameObj =    {   CardContainer.GetCard<Dash>(),
+                                                CardContainer.GetCard<DevilMantle>(),
+                                                CardContainer.GetCard<SteelClaws>()                                               
+                                            };
 
             for (int i = 0; i < player.data.currentCards.Count; i++)
             {
@@ -62,37 +64,7 @@ namespace BrutalGun.Utils
                         }
                     case "IFAK":
                         {
-                            yield return BrutalTools.ReplaseCard(player, CardContainer.GetCard<BatWatching>(), i);
-
-                            break;
-                        }
-                    case "Extended Magazin":
-                        {
-                            yield return BrutalTools.ReplaseCard(player, CommonCardNameObj.GetRandom<CardInfo>(), i);
-
-                            break;
-                        }
-                    case "Laser":
-                        {
-                            yield return BrutalTools.ReplaseCard(player, CommonCardNameObj.GetRandom<CardInfo>(), i);
-
-                            break;
-                        }
-                    case "Quick Drop":
-                        {
-                            yield return BrutalTools.ReplaseCard(player, CommonCardNameObj.GetRandom<CardInfo>(), i);
-
-                            break;
-                        }
-                    case "Titanium Parts":
-                        {
-                            yield return BrutalTools.ReplaseCard(player, CommonCardNameObj.GetRandom<CardInfo>(), i);
-
-                            break;
-                        }
-                    case "Weakness Point":
-                        {
-                            yield return BrutalTools.ReplaseCard(player, CommonCardNameObj.GetRandom<CardInfo>(), i);
+                            yield return BrutalTools.ReplaseCard(player, CardContainer.GetCard<TasteBlood>(), i);
 
                             break;
                         }
@@ -108,33 +80,9 @@ namespace BrutalGun.Utils
 
                             break;
                         }
-                    case "Scope X8":
-                        {
-                            yield return BrutalTools.ReplaseCard(player, RareCardNameObj.GetRandom<CardInfo>(), i);
-
-                            break;
-                        }
-                    case "AmmoXL":
-                        {
-                            yield return BrutalTools.ReplaseCard(player, UncommonCardNameObj.GetRandom<CardInfo>(), i);
-
-                            break;
-                        }
                     case "Hummer Bullet":
                         {
                             yield return BrutalTools.ReplaseCard(player, CardContainer.GetCard<HeavyPunch>(), i);
-
-                            break;
-                        }
-                    case "Big Bullet":
-                        {
-                            yield return BrutalTools.ReplaseCard(player, UncommonCardNameObj.GetRandom<CardInfo>(), i);
-
-                            break;
-                        }
-                    case "Light Bolt":
-                        {
-                            yield return BrutalTools.ReplaseCard(player, UncommonCardNameObj.GetRandom<CardInfo>(), i);
 
                             break;
                         }
@@ -144,21 +92,34 @@ namespace BrutalGun.Utils
 
                             break;
                         }
-                    case "Scope X2":
-                        {
-                            yield return BrutalTools.ReplaseCard(player, UncommonCardNameObj.GetRandom<CardInfo>(), i);
-
-                            break;
-                        }
-                    case "Light Armor":
-                        {
-                            yield return BrutalTools.ReplaseCard(player, UncommonCardNameObj.GetRandom<CardInfo>(), i);
-
-                            break;
-                        }
                     default:
                         {
-                            //UnityEngine.Debug.Log($"Pass {player.data.currentCards[i].cardName} card"); 
+                            if (player.data.currentCards[i].categories.Contains(MyCategories.Human))
+                            {
+                                switch (player.data.currentCards[i].rarity)
+                                {
+                                    case CardInfo.Rarity.Common:
+                                        {
+                                            yield return BrutalTools.ReplaseCard(player, CommonCardNameObj.GetRandom<CardInfo>(), i);
+                                            break;
+                                        }
+                                    case CardInfo.Rarity.Uncommon:
+                                        {
+                                            yield return BrutalTools.ReplaseCard(player, UncommonCardNameObj.GetRandom<CardInfo>(), i);
+                                            break;
+                                        }
+                                    case CardInfo.Rarity.Rare:
+                                        {
+                                            yield return BrutalTools.ReplaseCard(player, RareCardNameObj.GetRandom<CardInfo>(), i);
+                                            break;
+                                        }
+                                    default:
+                                        {
+                                            yield return BrutalTools.ReplaseCard(player, RareCardNameObj.GetRandom<CardInfo>(), i);
+                                            break;
+                                        }
+                                }
+                            }
                             break;
                         }
                 }
