@@ -1,5 +1,6 @@
 ﻿using BrutalGun;
 using ModsPlus;
+using Photon.Pun;
 using System;
 using System.Linq;
 using UnityEngine;
@@ -111,7 +112,6 @@ namespace BrutalGun.Cards
         {
             try
             {
-                UnityEngine.Debug.Log(1);
                 ProjectileHit projHit = projectile.GetComponent<ProjectileHit>();
 
                 if (projHit.objectsToSpawn.Count() > 0)
@@ -119,21 +119,23 @@ namespace BrutalGun.Cards
                     foreach (ObjectsToSpawn obj in projHit.objectsToSpawn)
                     {
                         if (obj.effect.name == "Grenade")
-                        {
-                            UnityEngine.Debug.Log(2);
                             return;
-                        }
                     }
                 }
 
-                player.data.block.DoBlockAtPosition(true);
+                if (PhotonNetwork.OfflineMode)
+                {
+                    player.data.block.DoBlockAtPosition(true);
+                }
+                else
+                {
+                    player.data.block.CallDoBlock(true);
+                }              
             }
             catch (Exception ex)
             {
                 UnityEngine.Debug.Log(ex);
             }
-
-            player.data.block.DoBlockAtPosition(true);
         }
     }
 }
