@@ -57,7 +57,7 @@ namespace BrutalGun.Cards.VimpireCard.Rare
 
         public override void OnBlock(BlockTrigger.BlockTriggerType blockTriggerType)
         {       
-            StartCoroutine(Dash(player.data.stats.movementSpeed));
+            StartCoroutine(Dash(data.stats.movementSpeed));
         }
 
         public override void OnUpgradeCard()
@@ -68,19 +68,19 @@ namespace BrutalGun.Cards.VimpireCard.Rare
 
         private IEnumerator Dash(float resetSpeed)
         {           
-            player.data.stats.movementSpeed = DashSpeed;
-            player.data.input.direction = (player.data.weaponHandler.gun.shootPosition.position - transform.position).normalized;
+            data.stats.movementSpeed = DashSpeed;
+            data.input.direction = (gun.shootPosition.position - transform.position).normalized;
             
-            if (player.data.input.direction.y > 0)
+            if (data.input.direction.y > 0)
             {
-                player.data.isGrounded = true;
-                player.data.currentJumps++;
-                player.data.jump.Jump(false, player.data.input.direction.y * JumpM);             
+                data.isGrounded = true;
+                data.currentJumps++;
+                data.jump.Jump(false, data.input.direction.y * JumpM);             
             }
 
             yield return null;
 
-            player.data.stats.movementSpeed = resetSpeed;
+            data.stats.movementSpeed = resetSpeed;
 
             yield break;
         }
