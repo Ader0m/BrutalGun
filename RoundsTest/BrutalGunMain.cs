@@ -39,7 +39,7 @@ namespace BrutalGun
 
         private const string _MOD_ID = "com.aderom.rounds.RoundsTest";
         private const string _MOD_NAME = "BrutalGun";
-        public const string VERSION = "0.5.4"; // What version are we on (major.minor.patch)?
+        public const string VERSION = "0.5.6"; // What version are we on (major.minor.patch)?
         public const string MOD_INITIALS = "BGun";
 
         #endregion
@@ -70,7 +70,7 @@ namespace BrutalGun
             GameModeManager.AddHook(GameModeHooks.HookGameEnd, ResetData);
             GameModeManager.AddHook(GameModeHooks.HookInitStart, ResetData);
 
-            //StartCoroutine(debug());
+            StartCoroutine(debug());
         }       
 
         private void CreateManagers()
@@ -212,7 +212,7 @@ namespace BrutalGun
                 {
                     foreach (Player player in PlayersMass)
                     {
-                        UnityEngine.Debug.Log("player " + player.playerID + " " + player.data.health);
+                        UnityEngine.Debug.Log("player " + player.playerID + " " + player.data.weaponHandler.gun.spread);
                     }
                 }
                 catch
