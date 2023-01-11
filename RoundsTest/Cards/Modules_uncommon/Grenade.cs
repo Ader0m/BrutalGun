@@ -32,7 +32,7 @@ namespace BrutalGun.Cards
 
         public override void SetupCard(CardInfo cardInfo, Gun gun, ApplyCardStats cardStats, CharacterStatModifiers statModifiers, Block block)
         {
-            cardInfo.categories = new CardCategory[] { MyCategories.Module };
+            cardInfo.categories = new CardCategory[] { MyCategories.Module, MyCategories.Human };
             cardInfo.allowMultiple = true;
         }
     }

@@ -1,4 +1,5 @@
 ﻿using BrutalGun.Utils;
+using BrutalGun.BetterCardControl;
 using ModsPlus;
 
 namespace BrutalGun.Cards

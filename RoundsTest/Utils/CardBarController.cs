@@ -1,5 +1,6 @@
 ﻿using BrutalGun.Cards;
 using BrutalGun.Cards.VimpireCard.Rare;
+using BrutalGun.BetterCardControl;
 using System;
 using System.Collections;
 using System.Collections.Generic;
