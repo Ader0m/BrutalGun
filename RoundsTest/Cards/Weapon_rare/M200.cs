@@ -1,5 +1,6 @@
 ﻿using ModsPlus;
 using System.Collections;
+using UnboundLib.GameModes;
 using UnityEngine;
 using Vector3 = UnityEngine.Vector3;
 
@@ -69,7 +70,7 @@ namespace BrutalGun.Cards
             gun.dontAllowAutoFire = false;
             gun.projectileSpeed = 4f;
             gun.gravity = 0.65f;
-            gun.spread = 0.35f;          
+            gun.spread = 0.55f;          
         }
         protected override void Removed(Player player, Gun gun, GunAmmo gunAmmo, CharacterData data, HealthHandler health, Gravity gravity, Block block, CharacterStatModifiers characterStats)
         {
@@ -88,105 +89,126 @@ namespace BrutalGun.Cards
     }
 
     public class M200ViewSpreadHandler: CardEffect
-    {
-        private float _difirent = 0.20f;
-        private float _max_spread = 0.55f;
-        GameObject? upLine = null;
-        GameObject? downLine = null;
+    {       
+        private GameObject? _parent;
+        private GameObject? _upRotator;
+        private GameObject? _downRotator;
+        private float _difirent = 0.25f;
+        private float _maxSpread;
+        private float _spreadCandidat;
+        private bool _spreadLoop;
+        private bool _afterPick;
+
 
         protected override void Start()
         {
             base.Start();
-            //InitAndInstantiateSpreadLine();
+            _maxSpread = gun.spread;
+            _spreadLoop = true;
+            _afterPick = false;
+            InitSpreadLines();
+        }
 
-            player.data.weaponHandler.gun.spread = 0;
-            StartCoroutine(SpreadCoroutine());
+        public override IEnumerator OnBattleStart(IGameModeHandler gameModeHandler)
+        {
+            if (_afterPick)
+            {
+                _maxSpread = gun.spread * gun.multiplySpread;            
+                _afterPick = false;
+                _spreadLoop = true;               
+            }           
+
+            yield break;
+        }
+
+        public override IEnumerator OnPickPhaseStart(IGameModeHandler gameModeHandler)
+        {
+            _spreadLoop = false;
+            gun.spread = _maxSpread;
+            _afterPick = true;
+
+            yield return null;
+        }
+
+        private void Update()
+        {        
+            if (_spreadLoop)
+            {
+                drawSpread();
+                
+                if (gun.spread == _maxSpread)
+                {
+                    UnityEngine.Debug.Log(_maxSpread);
+                }
+                
+                if (player.data.input.direction.magnitude > 0f)
+                {
+                    _spreadCandidat = gun.spread + _difirent * TimeHandler.deltaTime;
+                    gun.spread = Mathf.Clamp(_spreadCandidat, 0f, _maxSpread);
+                }
+                else
+                {
+                    _spreadCandidat = gun.spread - _difirent * 1.25f * TimeHandler.deltaTime;
+                    gun.spread = Mathf.Clamp(_spreadCandidat, 0f, _maxSpread);
+                }
+            }
         }
 
         protected override void OnDestroy()
         {
             base.OnDestroy();
-            if (upLine != null)
-            {
-                Destroy(upLine);
-            }
-            if (downLine != null)
-            {
-                Destroy(downLine);
-            }
+            if (_parent != null) 
+                Destroy(_parent);          
         }
 
-        private void InitAndInstantiateSpreadLine()
-        {           
-            GameObject parent = new GameObject("SpreadLineParent");
-            Transform transformParent = player.gameObject.transform.Find("PlayerSkin").Find("Skin_PlayerOne(Clone)");
-                    
-            if (transformParent == null)
-                throw new System.Exception("No find spread parent");
-
-            parent = Instantiate(parent);
-            parent.transform.parent = transformParent;
-
-            if (upLine == null)
-            {
-                UnityEngine.Debug.Log(1231);
-                upLine = GameObject.CreatePrimitive(PrimitiveType.Cube);
-                upLine.name = "M200SpreadUpLine";
-                upLine.transform.localScale = new Vector3(0.25f, 0.5f, 0.25f);
-                upLine.transform.position = new Vector3(0.45f, 0, 0);
-                upLine = Instantiate(upLine, parent.transform);
-            }          
-            if (downLine == null)
-            {
-                UnityEngine.Debug.Log(1232);
-                downLine = GameObject.CreatePrimitive(PrimitiveType.Cube);
-                downLine.name = "M200SpreadDownLine";
-                downLine.transform.localScale = new Vector3(0.25f, 0.5f, 0.25f);
-                downLine.transform.position = new Vector3(0.45f, 0, 0);
-                downLine = Instantiate(downLine, parent.transform);
-            }           
-        }
-
-        public override void OnShoot(GameObject projectile) => player.data.weaponHandler.gun.spread = _max_spread;
-
-        public override void OnJump() => player.data.weaponHandler.gun.spread = _max_spread;
-
-        public IEnumerator SpreadCoroutine()
+        private void InitSpreadLines()
         {
-            float spreadCandidat = 0;
+            _parent = new GameObject("SpreadLineParent");
+            _upRotator = new GameObject("UpRotator");
+            _downRotator = new GameObject("DownRotator");
+            Transform transformParent = gun.gameObject.transform.Find("Spring/Barrel");
 
-            while(true)
-            {
-                yield return null;
+            _parent.transform.parent = transformParent;
+            _parent.transform.position = Vector3.zero;
+            _parent.transform.localPosition = Vector3.zero;
 
-                //drawSpreadLine();
+            _upRotator.transform.parent = _parent.transform;
+            _upRotator.transform.position = Vector3.zero;
+            _upRotator.transform.localPosition = new Vector3(0.4f, 0, 0);
 
-                if (player.data.input.direction.magnitude > 0f)
-                {
-                    spreadCandidat = player.data.weaponHandler.gun.spread + _difirent * TimeHandler.deltaTime;
-                    player.data.weaponHandler.gun.spread = Mathf.Clamp(spreadCandidat, 0f, _max_spread);
-                }
-                else
-                {
-                    spreadCandidat = player.data.weaponHandler.gun.spread - _difirent * 1.25f * TimeHandler.deltaTime;
-                    player.data.weaponHandler.gun.spread = Mathf.Clamp(spreadCandidat, 0f, _max_spread);
-                }
-            }
+            _downRotator.transform.parent = _parent.transform;
+            _downRotator.transform.position = Vector3.zero;
+            _downRotator.transform.localPosition = new Vector3(0.3f, 0, 0);
+
+            GameObject upLine = GameObject.CreatePrimitive(PrimitiveType.Cube);
+            upLine.name = "M200UpSpreadLine";
+            upLine.transform.parent = _upRotator.transform;
+            upLine.transform.localScale = new Vector3(0.1f, 0.8f, 0.1f);
+            upLine.transform.position = Vector3.zero;
+            upLine.transform.localPosition = new Vector3(0, -0.3f, 0);
+
+            GameObject downLine = GameObject.CreatePrimitive(PrimitiveType.Cube);
+            downLine.name = "M200DownSpreadLine";
+            downLine.transform.parent = _downRotator.transform;
+            downLine.transform.localScale = new Vector3(0.1f, 0.8f, 0.1f);
+            downLine.transform.position = Vector3.zero;
+            downLine.transform.localPosition = new Vector3(0, -0.3f, 0);
         }
-        
-        public void drawSpreadLine()
+
+        public override void OnShoot(GameObject projectile) => gun.spread = _maxSpread;
+
+        public override void OnJump() => gun.spread = _maxSpread;       
+
+        public void drawSpread()
         {
-            UnityEngine.Debug.Log(player.data.weaponHandler.gun.spread);
+            float spreadCandidat = (gun.spread / ((1f + gun.projectileSpeed * 0.5f) * 0.5f)) * 0.85f;
 
-            if (upLine != null)
+            if (_parent != null && _upRotator != null && _downRotator != null)
             {
-                upLine.transform.rotation = Quaternion.Euler(0, 0, player.data.weaponHandler.gun.spread * 360);
-            }
-            if (downLine != null)
-            {
-                downLine.transform.rotation = Quaternion.Euler(0, 0, -player.data.weaponHandler.gun.spread * 360);
-            }
+                _parent.transform.position = gun.transform.Find("Spring/Barrel").position;
+                _upRotator.transform.localRotation = Quaternion.Euler(0, 0, 90 + spreadCandidat * 360);
+                _downRotator.transform.localRotation = Quaternion.Euler(0, 0, 90 - spreadCandidat * 360);
+            }                 
         }
-
     }   
 }
