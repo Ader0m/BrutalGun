@@ -3,10 +3,9 @@ using BrutalGun.Cards;
 using BrutalGun.Cards.Modules_rare;
 using BrutalGun.Cards.VimpireCard.Rare;
 using BrutalGun.Utils;
+using BrutalGun.BetterCardControl;
 using HarmonyLib;
-using ModsPlus;
 using Photon.Pun;
-using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
@@ -39,13 +38,14 @@ namespace BrutalGun
 
         private const string _MOD_ID = "com.aderom.rounds.RoundsTest";
         private const string _MOD_NAME = "BrutalGun";
-        public const string VERSION = "0.5.6"; // What version are we on (major.minor.patch)?
+        public const string VERSION = "0.5.7"; // What version are we on (major.minor.patch)?
         public const string MOD_INITIALS = "BGun";
 
         #endregion
 
-        public Player[] PlayersMass;    
+        public List<Player> PlayersMass = new List<Player>();    
         public CardBarController CardBarController;
+        private DynamicCardStatsManager _dynCardStMan;
         private List<CardInfo> _startCardList;
         private bool _firstPick;
 
@@ -69,13 +69,15 @@ namespace BrutalGun
             GameModeManager.AddHook(GameModeHooks.HookPickStart, FirstPickStart);
             GameModeManager.AddHook(GameModeHooks.HookGameEnd, ResetData);
             GameModeManager.AddHook(GameModeHooks.HookInitStart, ResetData);
-
-            StartCoroutine(debug());
-        }       
+            GameModeManager.AddHook(GameModeHooks.HookInitStart, DynamicCardStats);
+            
+            //StartCoroutine(debug());
+        }
 
         private void CreateManagers()
         {
             CardBarController = new CardBarController();
+            _dynCardStMan = new DynamicCardStatsManager();
         }
 
         IEnumerator FirstPickStart(IGameModeHandler arg)
@@ -83,8 +85,9 @@ namespace BrutalGun
             if (_firstPick)
             {
                 _firstPick = false;
-                PlayersMass = PlayerManager.instance.players.Where((person) => !ModdingUtils.AIMinion.Extensions.CharacterDataExtension.GetAdditionalData(person.data).isAIMinion).ToArray();
+                PlayersMass = PlayerManager.instance.players.Where((person) => !ModdingUtils.AIMinion.Extensions.CharacterDataExtension.GetAdditionalData(person.data).isAIMinion).ToList();
                 PlayerSettings.SetStartStats(_startCardList);
+
                 foreach (Player player in PlayersMass)
                 {                  
                     PickCardController.InitPlayer(player);
@@ -122,6 +125,13 @@ namespace BrutalGun
                 VampireManager.Restore();
 
             _firstPick = true;
+
+            yield break;
+        }
+
+        IEnumerator DynamicCardStats(IGameModeHandler arg)
+        {
+            _dynCardStMan.AddDynamicCard<Berserker>(DynamicCardStatsManager.DynamicType.OnGameStart);
 
             yield break;
         }
