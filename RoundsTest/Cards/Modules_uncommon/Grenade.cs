@@ -50,7 +50,6 @@ namespace BrutalGun.Cards
             _countGrenade = 1;
             (_addToProjectile, _effect, _explosion) = BrutalTools.LoadExplosionElements("Grenade");          
         }
-
         public override void OnBlock(BlockTrigger.BlockTriggerType trigger)
         {
             //setExplosionStats
