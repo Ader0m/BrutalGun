@@ -3,10 +3,11 @@ using ModsPlus;
 using System.Collections;
 using UnboundLib.GameModes;
 using UnityEngine;
+using BrutalGun.BetterCardControl;
 
 namespace BrutalGun.Cards.Modules_rare
 {
-    public class Berserker : CustomEffectCard<BerserkerHandler>
+    public class Berserker : CustomEffectCard<BerserkerHandler>, IDynamicCardStats
     {
         public override CardDetails Details => new CardDetails
         {
@@ -45,7 +46,7 @@ namespace BrutalGun.Cards.Modules_rare
                 new CardInfoStat()
                 {
                     positive = true,
-                    stat = "After 10 sec",
+                    stat = $"After 10 sec",
                     amount = "",
                     simepleAmount = CardInfoStat.SimpleAmount.notAssigned
                 },
@@ -76,6 +77,18 @@ namespace BrutalGun.Cards.Modules_rare
             }
         };
 
+        public void ChangeCardStats(DynamicCardStatsManager.DynamicType type)
+        {
+            cardInfo.cardStats[3] =
+                new CardInfoStat()
+                {
+                    positive = true,
+                    stat = $"After {(BrutalGunMain.Instance.PlayersMass.Count > 1 ? 15 : 10)} sec",
+                    amount = "",
+                    simepleAmount = CardInfoStat.SimpleAmount.notAssigned
+                };                         
+        }
+
         public override void SetupCard(CardInfo cardInfo, Gun gun, ApplyCardStats cardStats, CharacterStatModifiers statModifiers, Block block)
         {
             cardInfo.categories = new CardCategory[] { MyCategories.Module };
@@ -87,12 +100,21 @@ namespace BrutalGun.Cards.Modules_rare
     {
         private float _regenDuration = 10;
 
+        protected override void Start()
+        {
+            base.Start();
+            if (BrutalGunMain.Instance.PlayersMass.Count > 2)
+            {
+                _regenDuration += 5;
+            }
+        }
+
         /// <summary>
         /// Set a BerserkerUpEffect effect. Then the BerserkerUpEffect effect class will set the negative effect on its own
         /// </summary>
         /// <param name="gameModeHandler"></param>
-        /// <returns></returns>
-        public override IEnumerator OnPointStart(IGameModeHandler gameModeHandler)
+        /// <returns></returns>        
+        public override IEnumerator OnBattleStart(IGameModeHandler gameModeHandler)
         {
             player.gameObject.AddComponent<BerserkerUpEffect>().Initialize(_regenDuration, 10, 1000, 10000);
 
@@ -122,7 +144,7 @@ namespace BrutalGun.Cards.Modules_rare
         
         public override void OnStart()
         {
-            player.data.healthHandler.regeneration += _regen;
+            data.healthHandler.regeneration += _regen;
             gunStatModifier.spread_mult = 0.8f;
             characterStatModifiersModifier.movementSpeed_mult = 1.2f;
 
@@ -131,7 +153,7 @@ namespace BrutalGun.Cards.Modules_rare
 
         public override void OnOnDestroy()
         {
-            player.data.healthHandler.regeneration -= _regen;
+            data.healthHandler.regeneration -= _regen;
             player.gameObject.AddComponent<BerserkerDownEffect>().Initialize(_damageDuration, _sumDamage);         
         }
     }
