@@ -6,7 +6,7 @@ namespace BrutalGun.Utils
     {
         public static void SetStartStats(List<CardInfo> startCardList)
         {
-            foreach (Player player in BrutalGunMain.Instance.PlayersMass)
+            foreach (Player player in BrutalGunMain.PlayersMass)
             {
                 ModdingUtils.Utils.Cards.instance.AddCardsToPlayer(player, startCardList.ToArray(), false, null, null, null);
             }

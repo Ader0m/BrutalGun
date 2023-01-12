@@ -83,7 +83,7 @@ namespace BrutalGun.Cards.Modules_rare
                 new CardInfoStat()
                 {
                     positive = true,
-                    stat = $"After {(BrutalGunMain.Instance.PlayersMass.Count > 1 ? 15 : 10)} sec",
+                    stat = $"After {(BrutalGunMain.PlayersMass.Count > 1 ? 15 : 10)} sec",
                     amount = "",
                     simepleAmount = CardInfoStat.SimpleAmount.notAssigned
                 };                         
@@ -103,7 +103,7 @@ namespace BrutalGun.Cards.Modules_rare
         protected override void Start()
         {
             base.Start();
-            if (BrutalGunMain.Instance.PlayersMass.Count > 2)
+            if (BrutalGunMain.PlayersMass.Count > 2)
             {
                 _regenDuration += 5;
             }
