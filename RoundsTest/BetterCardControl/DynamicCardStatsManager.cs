@@ -21,9 +21,9 @@ namespace BrutalGun.BetterCardControl
 
         public DynamicCardStatsManager()
         {
-            GameModeManager.AddHook(GameModeHooks.HookPlayerPickEnd, OnPickPhaseEnd);
-            GameModeManager.AddHook(GameModeHooks.HookPlayerPickStart, OnPickPhaseStart);
-            GameModeManager.AddHook(GameModeHooks.HookGameStart, OnGameStart);           
+            GameModeManager.AddHook(GameModeHooks.HookPickEnd, OnPickPhaseEnd);
+            GameModeManager.AddHook(GameModeHooks.HookPickStart, OnPickPhaseStart);
+            GameModeManager.AddHook(GameModeHooks.HookGameStart, OnGameStart, 99);           
         }
 
         public void AddDynamicCard<T>(DynamicType type) where T : CustomCard
@@ -43,6 +43,7 @@ namespace BrutalGun.BetterCardControl
                     {
                         if (CardContainer.GetCard<T>().GetComponent<T>() is IDynamicCardStats temp)
                         {
+                            
                             OnPickPhaseStartEvent += temp.ChangeCardStats;
                         }
 
@@ -62,21 +63,24 @@ namespace BrutalGun.BetterCardControl
 
         private IEnumerator OnGameStart(IGameModeHandler arg)
         {
-            OnGameStartEvent.Invoke(DynamicType.OnGameStart);
+            if (OnGameStartEvent != null)
+                OnGameStartEvent.Invoke(DynamicType.OnGameStart);        
 
             yield break;
         }
 
         private IEnumerator OnPickPhaseStart(IGameModeHandler arg)
         {
-            OnPickPhaseStartEvent.Invoke(DynamicType.OnPickPhaseStart);
+            if (OnPickPhaseStartEvent != null)
+                OnPickPhaseStartEvent.Invoke(DynamicType.OnPickPhaseStart);  
 
             yield break;
         }
 
         private IEnumerator OnPickPhaseEnd(IGameModeHandler arg)
         {
-            OnPickPhaseEndEvent.Invoke(DynamicType.OnPickPhaseEnd);
+            if (OnPickPhaseEndEvent != null)
+                OnPickPhaseEndEvent.Invoke(DynamicType.OnPickPhaseEnd);
 
             yield break;
         }
