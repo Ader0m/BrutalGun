@@ -136,11 +136,6 @@ namespace BrutalGun.Cards
             {
                 drawSpread();
                 
-                if (gun.spread == _maxSpread)
-                {
-                    UnityEngine.Debug.Log(_maxSpread);
-                }
-                
                 if (player.data.input.direction.magnitude > 0f)
                 {
                     _spreadCandidat = gun.spread + _difirent * TimeHandler.deltaTime;
@@ -174,7 +169,7 @@ namespace BrutalGun.Cards
 
             _upRotator.transform.parent = _parent.transform;
             _upRotator.transform.position = Vector3.zero;
-            _upRotator.transform.localPosition = new Vector3(0.4f, 0, 0);
+            _upRotator.transform.localPosition = new Vector3(0.3f, 0, 0);
 
             _downRotator.transform.parent = _parent.transform;
             _downRotator.transform.position = Vector3.zero;
