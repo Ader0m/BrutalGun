@@ -38,7 +38,7 @@ namespace BrutalGun
 
         private const string _MOD_ID = "com.aderom.rounds.RoundsTest";
         private const string _MOD_NAME = "BrutalGun";
-        public const string VERSION = "0.5.7"; // What version are we on (major.minor.patch)?
+        public const string VERSION = "0.6.0"; // What version are we on (major.minor.patch)?
         public const string MOD_INITIALS = "BGun";
 
         #endregion
@@ -48,7 +48,6 @@ namespace BrutalGun
         public CardBarController CardBarController;
         private DynamicCardStatsManager _dynCardStMan;
         private List<CardInfo> _startCardList;
-        private bool _firstPick;
         
 
         void Awake()
@@ -62,7 +61,6 @@ namespace BrutalGun
         void Start()
         {
             Instance = this;
-            _firstPick = true;
             _startCardList = new List<CardInfo>();
             BuildCards();
                               
@@ -133,8 +131,6 @@ namespace BrutalGun
                     CardBarController.Restore();           
             if (VampireManager.PlayerStatsDict != null)
                 VampireManager.Restore();
-
-            _firstPick = true;
 
             yield break;
         }
