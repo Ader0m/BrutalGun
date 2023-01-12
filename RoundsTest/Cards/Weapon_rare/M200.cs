@@ -11,7 +11,7 @@ namespace BrutalGun.Cards
         public override CardDetails Details => new CardDetails
         {
             Title = "M200",
-            Description = "Description",
+            Description = "A sniper rifle that is too heavy to shoot accurately on the run",
             ModName = BrutalGunMain.MOD_INITIALS,
             OwnerOnly = false,
             Rarity = CardInfo.Rarity.Rare,
@@ -179,9 +179,10 @@ namespace BrutalGun.Cards
             _downRotator.transform.parent = _parent.transform;
             _downRotator.transform.position = Vector3.zero;
             _downRotator.transform.localPosition = new Vector3(0.3f, 0, 0);
-
+           
             GameObject upLine = GameObject.CreatePrimitive(PrimitiveType.Cube);
             upLine.name = "M200UpSpreadLine";
+            upLine.GetComponent<MeshRenderer>().material = BrutalGunMain.Instance.Assets.LoadAsset<Material>("SpreadLine");                       
             upLine.transform.parent = _upRotator.transform;
             upLine.transform.localScale = new Vector3(0.1f, 0.8f, 0.1f);
             upLine.transform.position = Vector3.zero;
@@ -189,6 +190,7 @@ namespace BrutalGun.Cards
 
             GameObject downLine = GameObject.CreatePrimitive(PrimitiveType.Cube);
             downLine.name = "M200DownSpreadLine";
+            downLine.GetComponent<MeshRenderer>().material = BrutalGunMain.Instance.Assets.LoadAsset<Material>("SpreadLine");
             downLine.transform.parent = _downRotator.transform;
             downLine.transform.localScale = new Vector3(0.1f, 0.8f, 0.1f);
             downLine.transform.position = Vector3.zero;
