@@ -43,17 +43,20 @@ namespace BrutalGun
 
         #endregion
 
-        public List<Player> PlayersMass = new List<Player>();    
+        public AssetBundle Assets;
+        public static List<Player> PlayersMass = new List<Player>();    
         public CardBarController CardBarController;
         private DynamicCardStatsManager _dynCardStMan;
         private List<CardInfo> _startCardList;
         private bool _firstPick;
+        
 
         void Awake()
         {
             // Use this to call any harmony patch files your mod may have
             var harmony = new Harmony(_MOD_ID);
             harmony.PatchAll();
+            LoadAsset();
         }
 
         void Start()
@@ -62,16 +65,21 @@ namespace BrutalGun
             _firstPick = true;
             _startCardList = new List<CardInfo>();
             BuildCards();
-            CreateManagers();
-            
-            
+                              
             GameModeManager.AddHook(GameModeHooks.HookPickEnd, PickEnd);
-            GameModeManager.AddHook(GameModeHooks.HookPickStart, FirstPickStart);
+            GameModeManager.AddHook(GameModeHooks.HookInitStart, InitStart);
             GameModeManager.AddHook(GameModeHooks.HookGameEnd, ResetData);
-            GameModeManager.AddHook(GameModeHooks.HookInitStart, ResetData);
-            GameModeManager.AddHook(GameModeHooks.HookInitStart, DynamicCardStats);
-            
+            GameModeManager.AddHook(GameModeHooks.HookGameStart, InitPlayers, 100);
+
+            CreateManagers();
             //StartCoroutine(debug());
+        }
+
+        private void LoadAsset()
+        {
+            //Assets = AssetBundle.LoadFromFile("Resources/assets");
+            Assets = Jotunn.Utils.AssetUtils.LoadAssetBundleFromResources("assets", typeof(BrutalGunMain).Assembly);
+            
         }
 
         private void CreateManagers()
@@ -80,19 +88,21 @@ namespace BrutalGun
             _dynCardStMan = new DynamicCardStatsManager();
         }
 
-        IEnumerator FirstPickStart(IGameModeHandler arg)
+        IEnumerator InitStart(IGameModeHandler arg)
         {
-            if (_firstPick)
-            {
-                _firstPick = false;
-                PlayersMass = PlayerManager.instance.players.Where((person) => !ModdingUtils.AIMinion.Extensions.CharacterDataExtension.GetAdditionalData(person.data).isAIMinion).ToList();
-                PlayerSettings.SetStartStats(_startCardList);
+            yield return ResetData(arg);
+            yield return DynamicCardStats(arg);
+        }
 
-                foreach (Player player in PlayersMass)
-                {                  
-                    PickCardController.InitPlayer(player);
-                }
-            }         
+        IEnumerator InitPlayers(IGameModeHandler arg)
+        {
+            PlayersMass = PlayerManager.instance.players.Where((person) => !ModdingUtils.AIMinion.Extensions.CharacterDataExtension.GetAdditionalData(person.data).isAIMinion).ToList();
+            PlayerSettings.SetStartStats(_startCardList);
+
+            foreach (Player player in PlayersMass)
+            {                  
+                PickCardController.InitPlayer(player);
+            }
 
             yield break; 
         }
