@@ -55,7 +55,7 @@ namespace BrutalGun.Cards
             //setExplosionStats
             _explosion.damage = Mathf.Clamp((gun.damage * 1.5f) * 55, 45, 75);
             _explosion.range = Mathf.Clamp((gun.damage * 15), 12, 20);
-            _explosion.force = 2000;
+            _explosion.force = 1500;
 
             UnityEngine.Debug.Log((gun.damage * 1.5f) * 55 + " " + _explosion.damage);
             UnityEngine.Debug.Log((gun.damage * 15) + " " + _explosion.range);
@@ -105,7 +105,10 @@ namespace BrutalGun.Cards
         }
 
         public override void OnStart()
-        {           
+        {
+            float timeBetweenGrenade = 0;
+
+            timeBetweenGrenade = Mathf.Clamp(gun.attackSpeed * gun.attackSpeedMultiplier * 1.5f, 0.1f, 0.2f);
             gunStatModifier.damage_add = 0.55f - gun.damage;
             gunStatModifier.numberOfProjectiles_add = 1 - gun.numberOfProjectiles;
             gunStatModifier.bursts_add = 1 - gun.bursts;
@@ -117,10 +120,10 @@ namespace BrutalGun.Cards
             gunStatModifier.projectileSpeed_add = Mathf.Clamp(gun.projectileSpeed * 0.3f, 0.5f, 1f) - gun.projectileSpeed;
             gunStatModifier.objectsToSpawn_add = _objectsToSpawn;
 
-            StartCoroutine(Shoot());            
+            StartCoroutine(Shoot(timeBetweenGrenade));            
         }
 
-        private IEnumerator Shoot()
+        private IEnumerator Shoot(float timeBetweenGrenade)
         {
             //wait apply modificators
             yield return null;
@@ -135,7 +138,7 @@ namespace BrutalGun.Cards
                 {
                     break;
                 }
-                yield return new WaitForSeconds(0.15f); //сделать адаптивной
+                yield return new WaitForSeconds(timeBetweenGrenade);
             }
 
             gun.enabled = true;
