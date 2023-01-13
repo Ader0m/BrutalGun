@@ -12,6 +12,7 @@ using System.Linq;
 using UnboundLib.Cards;
 using UnboundLib.GameModes;
 using UnityEngine;
+using System;
 
 namespace BrutalGun
 {
@@ -38,13 +39,13 @@ namespace BrutalGun
 
         private const string _MOD_ID = "com.aderom.rounds.RoundsTest";
         private const string _MOD_NAME = "BrutalGun";
-        public const string VERSION = "0.6.0"; // What version are we on (major.minor.patch)?
+        public const string VERSION = "0.7.0"; // What version are we on (major.minor.patch)?
         public const string MOD_INITIALS = "BGun";
 
         #endregion
 
         public AssetBundle Assets;
-        public static List<Player> PlayersMass = new List<Player>();    
+        public static List<Player> PlayersMass;    
         public CardBarController CardBarController;
         private DynamicCardStatsManager _dynCardStMan;
         private List<CardInfo> _startCardList;
@@ -52,18 +53,22 @@ namespace BrutalGun
 
         void Awake()
         {
-            // Use this to call any harmony patch files your mod may have
             var harmony = new Harmony(_MOD_ID);
             harmony.PatchAll();
-            LoadAsset();
+
+            PlayersMass = new List<Player>();
+            _startCardList = new List<CardInfo>();
+
+            LoadAsset();           
         }
 
         void Start()
         {
             Instance = this;
-            _startCardList = new List<CardInfo>();
+
             BuildCards();
-                              
+            PickPhaseCardController.SetValidation();
+
             GameModeManager.AddHook(GameModeHooks.HookPickEnd, PickEnd);
             GameModeManager.AddHook(GameModeHooks.HookInitStart, InitStart);
             GameModeManager.AddHook(GameModeHooks.HookGameEnd, ResetData);
@@ -72,12 +77,10 @@ namespace BrutalGun
             CreateManagers();
             //StartCoroutine(debug());
         }
-
+       
         private void LoadAsset()
         {
-            //Assets = AssetBundle.LoadFromFile("Resources/assets");
-            Assets = Jotunn.Utils.AssetUtils.LoadAssetBundleFromResources("assets", typeof(BrutalGunMain).Assembly);
-            
+            Assets = Jotunn.Utils.AssetUtils.LoadAssetBundleFromResources("assets", typeof(BrutalGunMain).Assembly);           
         }
 
         private void CreateManagers()
@@ -99,7 +102,7 @@ namespace BrutalGun
 
             foreach (Player player in PlayersMass)
             {                  
-                PickCardController.InitPlayer(player);
+                PickPhaseCardController.DefaultPlayer(player);
             }
 
             yield break; 
