@@ -123,7 +123,7 @@ namespace BrutalGun.Cards
         protected override void Start()
         {
             base.Start();
-            PickCardController.SetVampirePick(player);
+            PickPhaseCardController.SetVampirePick(player);
             VampireManager.PlayerStatsDict.TryAdd(player.playerID, new VampireManager.Stats());
             BrutalGunMain.Instance.StartVampireCoroutineRedirect(player);          
         }
